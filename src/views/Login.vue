@@ -31,11 +31,6 @@
                                         <v-btn v-if="isSubmit" @click="login" rounded block  dark>登录</v-btn>
                                         <v-btn v-else   rounded block disabled>登录</v-btn>
                                     </div>
-
-
-
-
-
                                     <v-divider></v-divider>
 
                                     <div style="text-align: center">
