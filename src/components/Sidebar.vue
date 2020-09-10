@@ -1,8 +1,6 @@
 <template>
 <div id="sidebar">
-    <v-card height="100%" width="100%" class="mx-auto">
-
-        <div id="sidebar-inner">
+    <div id="sidebar-inner">
             <div id="sidebar-text">
                 <p>分类列表</p>
             </div>
@@ -15,14 +13,20 @@
 
             <v-divider></v-divider>
 
-            <v-treeview :active.sync="selection" item-disabled="lock" :items="items" :hoverable="true" :activatable="true" :search="search">
-
-            </v-treeview>
+            <div class="classification-list">
+                <v-treeview class="classification-items"
+                            :active.sync="selection"
+                            item-disabled="lock"
+                            :items="items"
+                            :hoverable="true"
+                            :activatable="true"
+                            :search="search"
+                >
+                </v-treeview>
+            </div>
 
         </div>
-        <p>{{selection + "has selected"}}</p>
 
-    </v-card>
 
 </div>
 </template>
@@ -33,30 +37,81 @@ export default {
     data() {
         return {
             items: [{
-                    id: 7,
-                    name: 'Applications :'
+                    id: 1,
+                    name: '北洋园',
+                    children: [
+                        {
+                            id: 3,
+                            name: '宿舍'
+                        },
+                        {
+                            id:5,
+                            name: '生活'
+                        },
+                        {
+                            id:7,
+                            name: '学习',
+                            children: [
+                                {
+                                    id:9,
+                                    name: '高等数学'
+                                },
+
+                                {
+                                    id:10,
+                                    name: '大学物理'
+                                },
+
+                                {
+                                    id:11,
+                                    name: '数学分析'
+                                },
+
+                                {
+                                    id: 12,
+                                    name: '复变函数'
+                                },
+
+                                {
+                                    id: 13,
+                                    name: '泛函分析'
+                                },
+
+                                {
+                                    id: 14,
+                                    name: '概率论'
+                                },
+
+                                {
+                                    id: 15,
+                                    name: '随机过程'
+                                },
+
+                                {
+                                    id: 16,
+                                    name: '抽象代数'
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    id: 5,
-                    name: "example2 :",
+                    id: 2,
+                    name: "卫津路",
                     children: [{
-                            id: 2,
-                            name: 'Calendar : app',
+                            id: 4,
+                            name: '宿舍',
                             lock: true
                         },
                         {
-                            id: 3,
-                            name: '中文 : app'
+                            id: 6,
+                            name: '吃饭'
                         },
                         {
-                            id: 4,
-                            name: '英文 : app'
+                            id: 8,
+                            name: '学习'
                         },
                     ],
-                },
-                {
-                    id: 6,
-                    name: "example2 :"
                 }
             ],
             search: null,
@@ -76,8 +131,10 @@ export default {
     position: fixed;
     left: 0%;
     top: 5%;
-    width: 13%;
+    width: 25%;
     height: 100%;
+    overflow-y: scroll;
+
 }
 
 #sidebar-inner {
@@ -85,7 +142,6 @@ export default {
 }
 
 #sidebar-text {
-    background-color: rbga(255, 251, 240, 0.8);
     position: relative;
     width: 100%;
     height: 100px;
@@ -99,4 +155,29 @@ export default {
     font-weight: bold;
     line-height: 100px;
 }
+
+    .classification-items{
+        font-size: 1em;
+        font-weight: 400;
+        display: inline-block;
+        color: #2c3e50;
+        border-left: .25rem solid transparent;
+        padding: .35rem 1rem .35rem 1.25rem;
+        line-height: 1.4;
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    .classification-list{
+        width: 100%;
+        height: 100%;
+    }
+
+    .classification-list >>> .v-treeview-node{
+        height: 700px;
+        overflow-y: scroll;
+    }
+
+
 </style>
