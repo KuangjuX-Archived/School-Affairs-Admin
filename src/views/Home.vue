@@ -1,17 +1,20 @@
 <template>
-    <div>
-        <my-header></my-header>
-    </div>
+<div>
+    <my-header></my-header>
+    <my-sidebar></my-sidebar>
+</div>
 </template>
 
 <script>
-    import MyHeader from '../components/Header'
-    export default {
-        name: "Home",
-        components: {
-            MyHeader,
-        }
+import MyHeader from '../components/Header'
+import MySidebar from "../components/Sidebar"
+export default {
+    name: "Home",
+    components: {
+        MyHeader,
+        MySidebar
     }
+}
 </script>
 
 <style scoped>
