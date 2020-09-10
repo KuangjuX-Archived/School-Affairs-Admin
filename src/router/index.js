@@ -14,6 +14,12 @@ Vue.use(VueRouter)
       path: '/login',
       component: Login,
       name: 'Login',
+    },
+
+    {
+      path: '/home',
+      component: ()=>import("../views/Home"),
+      name: 'Home'
     }
     ]
 
