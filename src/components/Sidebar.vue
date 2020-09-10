@@ -1,32 +1,24 @@
 <template>
 <div id="sidebar">
     <div id="sidebar-inner">
-            <div id="sidebar-text">
-                <p>分类列表</p>
-            </div>
-            <v-divider></v-divider>
-            <v-sheet class="pa-4 primary lighten-2">
+        <div id="sidebar-text">
+            <p>分类列表</p>
+        </div>
+        <v-divider></v-divider>
+        <v-sheet class="pa-4 primary lighten-2">
 
-                <v-text-field v-model="search" label="选择标签" light flat hide-details clearable clear-icon="mdi-close-circle-outline"></v-text-field>
+            <v-text-field v-model="search" label="选择标签" light flat hide-details clearable clear-icon="mdi-close-circle-outline"></v-text-field>
 
-            </v-sheet>
+        </v-sheet>
 
-            <v-divider></v-divider>
+        <v-divider></v-divider>
 
-            <div class="classification-list">
-                <v-treeview class="classification-items"
-                            :active.sync="selection"
-                            item-disabled="lock"
-                            :items="items"
-                            :hoverable="true"
-                            :activatable="true"
-                            :search="search"
-                >
-                </v-treeview>
-            </div>
-
+        <div class="classification-list">
+            <v-treeview class="classification-items" @update:active="onSelect" item-disabled="lock" :items="items" :hoverable="true" :activatable="true" :search="search">
+            </v-treeview>
         </div>
 
+    </div>
 
 </div>
 </template>
@@ -39,31 +31,29 @@ export default {
             items: [{
                     id: 1,
                     name: '北洋园',
-                    children: [
-                        {
+                    children: [{
                             id: 3,
                             name: '宿舍'
                         },
                         {
-                            id:5,
+                            id: 5,
                             name: '生活'
                         },
                         {
-                            id:7,
+                            id: 7,
                             name: '学习',
-                            children: [
-                                {
-                                    id:9,
+                            children: [{
+                                    id: 9,
                                     name: '高等数学'
                                 },
 
                                 {
-                                    id:10,
+                                    id: 10,
                                     name: '大学物理'
                                 },
 
                                 {
-                                    id:11,
+                                    id: 11,
                                     name: '数学分析'
                                 },
 
@@ -115,13 +105,14 @@ export default {
                 }
             ],
             search: null,
-            caseSensitive: false,
-            selection: []
+            caseSensitive: false
         }
     },
     // props: [items, selection],
     methods: {
-
+        "onSelect": function (id) {
+            this.$emit('onChangeTag', id);
+        }
     }
 }
 </script>
@@ -156,28 +147,26 @@ export default {
     line-height: 100px;
 }
 
-    .classification-items{
-        font-size: 1em;
-        font-weight: 400;
-        display: inline-block;
-        color: #2c3e50;
-        border-left: .25rem solid transparent;
-        padding: .35rem 1rem .35rem 1.25rem;
-        line-height: 1.4;
-        width: 100%;
-        box-sizing: border-box;
+.classification-items {
+    font-size: 1em;
+    font-weight: 400;
+    display: inline-block;
+    color: #2c3e50;
+    border-left: .25rem solid transparent;
+    padding: .35rem 1rem .35rem 1.25rem;
+    line-height: 1.4;
+    width: 100%;
+    box-sizing: border-box;
 
-    }
+}
 
-    .classification-list{
-        width: 100%;
-        height: 100%;
-    }
+.classification-list {
+    width: 100%;
+    height: 100%;
+}
 
-    .classification-list >>> .v-treeview-node{
-        height: 700px;
-        overflow-y: scroll;
-    }
-
-
+.classification-list>>>.v-treeview-node {
+    height: 700px;
+    overflow-y: scroll;
+}
 </style>

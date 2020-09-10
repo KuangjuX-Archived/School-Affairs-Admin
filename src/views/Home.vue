@@ -1,12 +1,12 @@
 <template>
 <div>
     <my-header></my-header>
-    <my-sidebar></my-sidebar>
+    <my-sidebar @onChangeTag="onChangeTag"></my-sidebar>
     <div class="content">
         <v-container>
             <v-row>
                 <v-col cols="12">
-                    <v-card>
+                    <v-card v-if="ifUsageShowed">
                         <v-card-title>
                             <div class="content-title">
                                 说明
@@ -62,6 +62,22 @@ import MyHeader from '../components/Header'
 import MySidebar from "../components/Sidebar"
 export default {
     name: "Home",
+    data: function () {
+        return {
+            currentTagId: 0,
+            ifUsageShowed: true
+        }
+    },
+    methods: {
+        "onChangeTag": function (tagId) {
+            if (tagId.length == 0 || tagId[0] === 0) {
+                this.ifUsageShowed = true;
+            } else {
+                this.ifUsageShowed = false;
+                alert("TODO: 获取标签id为" + tagId[0] + "的组件");
+            }
+        }
+    },
     components: {
         MyHeader,
         MySidebar
@@ -70,26 +86,26 @@ export default {
 </script>
 
 <style scoped>
-    .content{
-        margin-top: 50px;
-        margin-left: 25%;
-    }
+.content {
+    margin-top: 50px;
+    margin-left: 25%;
+}
 
-    .content-title{
-        width: 100%;
-        text-align: center;
-        color: #1E88E5;
-        font-size: 24px;
-        font-weight: 900;
-    }
+.content-title {
+    width: 100%;
+    text-align: center;
+    color: #1E88E5;
+    font-size: 24px;
+    font-weight: 900;
+}
 
-    .content-text{
-        font-size: 18px;
-        font-weight: 500;
-    }
+.content-text {
+    font-size: 18px;
+    font-weight: 500;
+}
 
-   p{
-       text-indent: 20px;
-       line-height: 180%;
-   }
+p {
+    text-indent: 20px;
+    line-height: 180%;
+}
 </style>
