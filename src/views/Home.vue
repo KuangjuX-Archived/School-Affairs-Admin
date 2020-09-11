@@ -51,6 +51,10 @@
                             </p>
                         </v-card-text>
                     </v-card>
+
+                    <div v-else>
+
+                    </div>
                 </v-col>
             </v-row>
         </v-container>
@@ -62,12 +66,16 @@
 import MyHeader from '../components/Header'
 import MySidebar from "../components/Sidebar"
 import ProfileCard from "../components/ProfileCard";
+import {getQuestionsByTag} from "../api/admin";
+import {getUser} from "../utils/cookie";
+
 export default {
     name: "Home",
     data: function () {
         return {
             currentTagId: 0,
-            ifUsageShowed: true
+            ifUsageShowed: true,
+            currentQuestions: []
         }
     },
     methods: {
@@ -78,8 +86,27 @@ export default {
                 this.ifUsageShowed = false;
                 alert("TODO: 获取标签id为" + tagId[0] + "的组件");
             }
-        }
+        },
+
+
     },
+
+    created() {
+        const data = {
+                id: getUser().id,
+                token: getUser().token,
+                tag_id: this.currentTagId
+            }
+            getQuestionsByTag(data).then(res => {
+                if(res.data.ErrorCode ===1){
+                    alert("拉取问题失败")
+                }else if(res.data.ErrorCode === 0){
+                    this.currentQuestions = res.data.data
+                    console.log(this.currentQuestions);
+                }
+            })
+    },
+
     components: {
         MyHeader,
         MySidebar,

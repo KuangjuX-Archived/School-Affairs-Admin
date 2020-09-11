@@ -39,3 +39,11 @@ export function getTags(data) {
         params: data
     })
 }
+
+export function getQuestionsByTag(data) {
+    return request({
+        url: "/admin/tag/question",
+        method: "GET",
+        params: data
+    })
+}

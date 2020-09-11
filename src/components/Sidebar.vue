@@ -124,9 +124,9 @@
         //     }
         //     // this.findNode()
         // },
-        // "onSelect": function (id) {
-        //     if(!this.sonHasLocked(id)) this.$emit('onChangeTag', id);
-        // }
+        "onSelect": function (id) {
+            this.$emit('onChangeTag', id);
+        }
     },
 
     created() {
@@ -138,9 +138,8 @@
             if(res.data.ErrorCode ===1){
                 alert("获取标签失败")
             }else if(res.data.ErrorCode === 0){
-                let tags = res.data.data
-                console.log(tags)
-                this.items = tags
+                // console.log(tags)
+                this.items = res.data.data
 
             }
         })
