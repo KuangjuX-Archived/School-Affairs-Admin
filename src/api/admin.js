@@ -31,3 +31,11 @@ export function changePassword(data) {
         data
     })
 }
+
+export function getTags(data) {
+    return request({
+        url: "/admin/tag/mission",
+        method: "GET",
+        params: data
+    })
+}

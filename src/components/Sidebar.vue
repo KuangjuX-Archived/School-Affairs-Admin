@@ -24,7 +24,10 @@
 </template>
 
 <script>
-export default {
+    import {getTags} from "../api/admin";
+    import {getUser} from "../utils/cookie";
+
+    export default {
     name: "Sidebar",
     data() {
         return {
@@ -110,9 +113,37 @@ export default {
     },
     // props: [items, selection],
     methods: {
-        "onSelect": function (id) {
-            this.$emit('onChangeTag', id);
+        // "sonHasLocked": function (id) {
+        //
+        // },
+        // "findNode":function(id, nowTree) {
+        //     for(var obj in nowTree) {
+        //         if(obj.hasOwnProperty("children"))
+        //         if(obj.id === id) return obj;
+        //         else return this.findNode(id, obj.children);
+        //     }
+        //     // this.findNode()
+        // },
+        // "onSelect": function (id) {
+        //     if(!this.sonHasLocked(id)) this.$emit('onChangeTag', id);
+        // }
+    },
+
+    created() {
+        const data = {
+            id: getUser().id,
+            token: getUser().token
         }
+        getTags(data).then(res => {
+            if(res.data.ErrorCode ===1){
+                alert("获取标签失败")
+            }else if(res.data.ErrorCode === 0){
+                let tags = res.data.data
+                console.log(tags)
+                this.items = tags
+
+            }
+        })
     }
 }
 </script>
