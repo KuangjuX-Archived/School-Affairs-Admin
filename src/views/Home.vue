@@ -6,7 +6,8 @@
         <v-container>
             <v-row>
                 <v-col cols="12">
-                    <v-card v-if="ifUsageShowed">
+                    <profile-card></profile-card>
+                    <v-card v-if="ifUsageShowed" style="margin-top: 10px">
                         <v-card-title>
                             <div class="content-title">
                                 说明
@@ -60,6 +61,7 @@
 <script>
 import MyHeader from '../components/Header'
 import MySidebar from "../components/Sidebar"
+import ProfileCard from "../components/ProfileCard";
 export default {
     name: "Home",
     data: function () {
@@ -80,7 +82,8 @@ export default {
     },
     components: {
         MyHeader,
-        MySidebar
+        MySidebar,
+        ProfileCard
     }
 }
 </script>

@@ -54,10 +54,11 @@ export default {
         login() {
             login(this.form).then(res => {
                 if (res.data.ErrorCode === 2) {
-                    //TODO: 弹窗 - eror
+                    //TODO: 弹窗 - error
                     alert("密码或账号错误");
                 } else {
-                    setUserInfo(res.data.data.token, res.data.data.id);
+                    let info= res.data.data
+                    setUserInfo(info.token, info.id, info.PhoneNumber);
                     this.$router.push('/home');
                 }
             })
