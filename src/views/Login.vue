@@ -33,12 +33,8 @@
 </template>
 
 <script>
-import {
-    login
-} from "../api/admin.js";
-import {
-    setUserInfo
-} from "../utils/cookie.js";
+import {login} from "../api/admin.js";
+import {setUserInfo,getUser} from "../utils/cookie.js";
 export default {
     name: "Login",
     data() {
@@ -53,12 +49,13 @@ export default {
     methods: {
         login() {
             login(this.form).then(res => {
-                if (res.data.ErrorCode === 2) {
+                if (res.data.ErrorCode === 1) {
                     //TODO: 弹窗 - error
                     alert("密码或账号错误");
                 } else {
                     let info= res.data.data
                     setUserInfo(info.token, info.id, info.PhoneNumber);
+                    console.log(getUser().token);
                     this.$router.push('/home');
                 }
             })

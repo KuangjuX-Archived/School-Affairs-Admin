@@ -1,7 +1,7 @@
 import {request} from "../network/request";
 
 export function login(data) {
-    
+
     return request({
         url: "/admin/login",
         method: "GET",
@@ -13,5 +13,21 @@ export function logout(data) {
         url: "/admin/logout",
         method: "get",
         params: data
+    })
+}
+
+export function changePhoneNumber(data) {
+    return request({
+        url: "/admin/setPhoneNumber",
+        method: "POST",
+        data
+    })
+}
+
+export function changePassword(data) {
+    return request({
+        url: "/admin/setPassword",
+        method: "POST",
+        data
     })
 }
