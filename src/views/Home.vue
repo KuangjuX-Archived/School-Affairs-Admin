@@ -62,18 +62,44 @@
                                     {{item.description}}
                                 </div>
 
-                                <div class="question-admin-commit">
-                                    <v-alert
-                                            type="success"
-                                            color="#4CAF50"
-                                            outlined
-                                    >
-                                        <div>{{item.admin_commit}}</div>
-                                    </v-alert>
+
+
+                                <!--删除标签，增添标签 -->
+                                <div class="question-tag-button-group">
+                                    <div class="question-tag-item" @click="popCommit(item.admin_commit)">
+                                        <svg t="1599913305188" class="icon" viewBox="0 0 1178 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4909" width="32" height="32"><path d="M1177.6 0 1177.6 787.692314 420.571418 787.692314 168.228582 1024 168.228582 787.692314 0 787.692314 0 0 1177.6 0 1177.6 0ZM925.257142 472.615373C971.688228 472.615373 1009.371428 437.405542 1009.371428 393.846144 1009.371428 350.286771 971.688228 315.076915 925.257142 315.076915 878.741942 315.076915 841.142858 350.286771 841.142858 393.846144 841.142858 437.405542 878.741942 472.615373 925.257142 472.615373L925.257142 472.615373ZM588.8 472.615373C635.231086 472.615373 672.914286 437.405542 672.914286 393.846144 672.914286 350.286771 635.231086 315.076915 588.8 315.076915 542.368914 315.076915 504.685722 350.286771 504.685722 393.846144 504.685722 437.405542 542.368914 472.615373 588.8 472.615373L588.8 472.615373ZM252.342861 472.615373C298.858061 472.615373 336.457139 437.405542 336.457139 393.846144 336.457139 350.286771 298.858061 315.076915 252.342861 315.076915 205.827661 315.076915 168.228582 350.286771 168.228582 393.846144 168.228582 437.405542 205.827661 472.615373 252.342861 472.615373L252.342861 472.615373Z" p-id="4910"></path></svg>
+                                        <span class="question-tag-font">评论</span>
+                                    </div>
+                                    <div class="question-tag-item">
+                                        <svg t="1599912808587" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2749" width="32" height="32"><path d="M511.43519704 1026.5354601c-280.14224905 0-510.58184012-230.43959107-510.58184012-510.58184012s230.43959107-510.58184012 510.58184012-510.58184012 510.58184012 230.43959107 510.58184012 510.58184012-225.92116813 506.06341718-510.58184012 510.58184012zM511.43519704 86.70340124C276.47718233 86.70340053 86.70340053 276.47718233 86.70340124 511.43519704s189.77378109 424.73179651 424.7317958 424.73179581 424.73179651-189.77378109 424.73179581-424.73179581-189.77378109-424.73179651-424.73179581-424.7317958z" fill="#1afa29" p-id="2750"></path><path d="M768.98532857 470.76938636L556.61943067 466.25096342l0-216.88432084c0-27.11054046-18.07369317-45.18423363-45.18423363-45.18423363-27.11054046 0-45.18423363 18.07369317-45.18423362 45.18423363L466.25096342 466.25096342 253.88506551 470.76938636c-27.11054046 0-45.18423363 18.07369317-45.18423362 45.18423362 0 27.11054046 18.07369317 45.18423363 45.18423362 45.18423363L466.25096342 556.61943067l0 216.88432084c0 27.11054046 18.07369317 45.18423363 45.18423362 45.18423363 27.11054046 0 45.18423363-18.07369317 45.18423363-45.18423363L556.61943067 556.61943067l216.88432084 0c27.11054046 0 45.18423363-18.07369317 45.18423363-45.18423363-9.03684658-27.11053975-27.11054046-45.18423363-49.70265657-40.66581068z" fill="#1afa29" p-id="2751"></path></svg>
+                                        <span class="question-tag-font" style="color: green">增加标签</span>
+                                    </div>
+                                    <div class="question-tag-item">
+                                        <svg t="1599912939162" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4057" width="32" height="32"><path d="M512 1024C229.233778 1024 0 794.766222 0 512S229.233778 0 512 0s512 229.233778 512 512-229.233778 512-512 512z m0-938.666667C276.366222 85.333333 85.333333 276.366222 85.333333 512c0 235.633778 191.032889 426.666667 426.666667 426.666667 235.633778 0 426.666667-191.032889 426.666667-426.666667A426.666667 426.666667 0 0 0 512 85.333333z m213.333333 462.933334h-426.666666a42.666667 42.666667 0 0 1 0-85.333334h426.666666a42.666667 42.666667 0 0 1 0 85.333334z" fill="#d81e06" p-id="4058"></path></svg>
+                                        <span class="question-tag-font" style="color: red">减少标签</span>
+                                    </div>
+
+
+                                    <!-- 设置遮罩层 -->
+                                    <v-overlay :value="isOverlay">
+                                        <v-btn
+                                                icon
+                                                @click="isOverlay = false"
+                                        >
+                                            <v-icon>mdi-close</v-icon>
+                                        </v-btn>
+                                        <v-card width="600" height="600" color="#42A5F5">
+                                            <v-card-title>{{overlayCard.title}}</v-card-title>
+                                            <v-card-text>{{overlayCard.content}}</v-card-text>
+                                        </v-card>
+                                    </v-overlay>
+
+
                                 </div>
                             </v-card-text>
                         </v-card>
                     </div>
+
                 </v-col>
             </v-row>
         </v-container>
@@ -94,11 +120,16 @@ export default {
         return {
             currentTagId: 0,
             ifUsageShowed: true,
-            currentQuestions: []
+            currentQuestions: [],
+            isOverlay: false,
+            overlayCard: {
+                title: "",
+                content: ""
+            }
         }
     },
     methods: {
-        "onChangeTag": function (tagId) {
+        onChangeTag: function (tagId) {
             if (tagId.length === 0 || tagId[0] === 0) {
                 this.ifUsageShowed = true;
             } else {
@@ -110,6 +141,7 @@ export default {
                     token: getUser().token,
                     tag_id: tagId[0]
                 }
+
                 getQuestionsByTag(data).then(res => {
                     if(res.data.ErrorCode === 1){
                         alert("拉取问题失败:"+res.data.msg)
@@ -122,6 +154,13 @@ export default {
                 })
             }
         },
+
+
+        popCommit(commit){
+            this.isOverlay=true
+            this.overlayCard.title="评论"
+            this.overlayCard.content=commit
+        }
 
 
     },
@@ -184,5 +223,26 @@ p {
 
 .question-admin-commit{
     margin-top: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+
+}
+
+.question-tag-button-group{
+    display: flex;
+}
+
+.question-tag-font{
+    position: relative;
+    bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.question-tag-item{
+    margin-right: 25px;
+}
+.question-tag-item:hover{
+    cursor: pointer;
 }
 </style>
