@@ -52,8 +52,27 @@
                         </v-card-text>
                     </v-card>
 
-                    <div v-else>
+                    <div v-else class="question-field">
+                        <v-card v-for="(item,index) in currentQuestions" :key="index">
+                            <v-card-title>
+                                <div class="question-title">{{item.name}}</div>
+                            </v-card-title>
+                            <v-card-text>
+                                <div class="question-description">
+                                    {{item.description}}
+                                </div>
 
+                                <div class="question-admin-commit">
+                                    <v-alert
+                                            type="success"
+                                            color="#4CAF50"
+                                            outlined
+                                    >
+                                        <div>{{item.admin_commit}}</div>
+                                    </v-alert>
+                                </div>
+                            </v-card-text>
+                        </v-card>
                     </div>
                 </v-col>
             </v-row>
@@ -80,11 +99,27 @@ export default {
     },
     methods: {
         "onChangeTag": function (tagId) {
-            if (tagId.length == 0 || tagId[0] === 0) {
+            if (tagId.length === 0 || tagId[0] === 0) {
                 this.ifUsageShowed = true;
             } else {
                 this.ifUsageShowed = false;
-                alert("TODO: 获取标签id为" + tagId[0] + "的组件");
+                this.currentTagId = tagId;
+
+                const data = {
+                    id: getUser().id,
+                    token: getUser().token,
+                    tag_id: tagId[0]
+                }
+                getQuestionsByTag(data).then(res => {
+                    if(res.data.ErrorCode === 1){
+                        alert("拉取问题失败:"+res.data.msg)
+                    }else if(res.data.ErrorCode === 0){
+                        this.currentQuestions = res.data.data
+                        // console.log(this.currentQuestions);
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
             }
         },
 
@@ -92,19 +127,7 @@ export default {
     },
 
     created() {
-        const data = {
-                id: getUser().id,
-                token: getUser().token,
-                tag_id: this.currentTagId
-            }
-            getQuestionsByTag(data).then(res => {
-                if(res.data.ErrorCode ===1){
-                    alert("拉取问题失败")
-                }else if(res.data.ErrorCode === 0){
-                    this.currentQuestions = res.data.data
-                    console.log(this.currentQuestions);
-                }
-            })
+
     },
 
     components: {
@@ -137,5 +160,29 @@ export default {
 p {
     text-indent: 20px;
     line-height: 180%;
+}
+
+.question-field{
+    margin-top: 25px;
+}
+
+.question-title{
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    font-size: 22px;
+    font-weight: 600;
+    font-synthesis: style;
+    line-height: 32px;
+    color: #121212;
+}
+
+.question-description{
+    font-size: 16px;
+}
+
+.question-admin-commit{
+    margin-top: 25px;
 }
 </style>

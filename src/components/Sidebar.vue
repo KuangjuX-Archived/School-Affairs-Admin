@@ -113,17 +113,6 @@
     },
     // props: [items, selection],
     methods: {
-        // "sonHasLocked": function (id) {
-        //
-        // },
-        // "findNode":function(id, nowTree) {
-        //     for(var obj in nowTree) {
-        //         if(obj.hasOwnProperty("children"))
-        //         if(obj.id === id) return obj;
-        //         else return this.findNode(id, obj.children);
-        //     }
-        //     // this.findNode()
-        // },
         "onSelect": function (id) {
             this.$emit('onChangeTag', id);
         }
@@ -138,7 +127,6 @@
             if(res.data.ErrorCode ===1){
                 alert("获取标签失败")
             }else if(res.data.ErrorCode === 0){
-                // console.log(tags)
                 this.items = res.data.data
 
             }

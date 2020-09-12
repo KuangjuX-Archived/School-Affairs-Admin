@@ -11,7 +11,7 @@ export function login(data) {
 export function logout(data) {
     return request({
         url: "/admin/logout",
-        method: "get",
+        method: "GET",
         params: data
     })
 }

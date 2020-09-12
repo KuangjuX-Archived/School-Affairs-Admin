@@ -34,7 +34,7 @@
 
 <script>
 import {login} from "../api/admin.js";
-import {setUserInfo,getUser} from "../utils/cookie.js";
+import {setUserInfo} from "../utils/cookie.js";
 export default {
     name: "Login",
     data() {
@@ -55,7 +55,6 @@ export default {
                 } else {
                     let info= res.data.data
                     setUserInfo(info.token, info.id, info.PhoneNumber);
-                    console.log(getUser().token);
                     this.$router.push('/home');
                 }
             })
