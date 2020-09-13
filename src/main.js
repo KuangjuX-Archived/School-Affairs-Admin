@@ -6,13 +6,20 @@ import vuetify from './plugins/vuetify';
 import axios from 'axios';
 import VueAxios from "vue-axios";
 
-Vue.use(VueAxios,axios)
+//富文本编辑器
+import QuillEditor from 'vue-quill-editor';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.bubble.css';
+import 'quill/dist/quill.snow.css';
+Vue.use(QuillEditor);
 
-Vue.config.productionTip = false
+Vue.use(VueAxios,axios);
+
+Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
   vuetify,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
