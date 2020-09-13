@@ -134,7 +134,7 @@ export default {
                 this.ifUsageShowed = true;
             } else {
                 this.ifUsageShowed = false;
-                this.currentTagId = tagId;
+                this.currentTagId = tagId[0];
 
                 const data = {
                     id: getUser().id,
@@ -147,7 +147,6 @@ export default {
                         alert("拉取问题失败:"+res.data.msg)
                     }else if(res.data.ErrorCode === 0){
                         this.currentQuestions = res.data.data
-                        // console.log(this.currentQuestions);
                     }
                 }).catch(error => {
                     console.log(error);
@@ -244,5 +243,7 @@ p {
 }
 .question-tag-item:hover{
     cursor: pointer;
+    background-color: #E3F2FD;
+    opacity: 0.7;
 }
 </style>
