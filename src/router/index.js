@@ -36,11 +36,12 @@ router.beforeEach((to, from, next) => {
   if (!getUser().token) {
     next({ path: '/login' })
   } else {
-    if (to.path === '/home') {
-      next();
-    }
-    else {
-      next({ path: '/home' });
+    if(to.path ==="/home"|| to.path === "/message"){
+      next()
+    }else {
+      next({
+        path: '/home'
+      })
     }
   }
 })
