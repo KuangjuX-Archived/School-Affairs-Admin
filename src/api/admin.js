@@ -47,3 +47,47 @@ export function getQuestionsByTag(data) {
         params: data
     })
 }
+
+export function addTag(data) {
+    return request({
+        url: "/admin/tag/add",
+        method: "POST",
+        data
+    })
+}
+
+export function removeTag(data) {
+    return request({
+        url: "/admin/tag/delete",
+        method: "POST",
+        data
+    })
+}
+
+
+export function removeTagByQuestion(data) {
+    return request({
+        url: "/admin/question/delete/tag",
+        method: "POST",
+        data
+    })
+}
+
+export function removeQuestion(data) {
+    return request({
+        url: "/admin/question/delete/question",
+        method: "POST",
+        data
+    })
+}
+
+
+export function addComment(data) {
+    return request({
+        url : "/admin/answer/add",
+        method: "POST",
+        data
+    })
+}
+
+

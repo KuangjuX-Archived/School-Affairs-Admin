@@ -10,7 +10,10 @@
       <v-container>
         <v-row>
           <v-col cols="12">
+            <!--这里显示管理员个人卡片-->
             <profile-card></profile-card>
+
+            <!--这里显示管理员说明文档-->
             <v-card v-if="ifUsageShowed" style="margin-top: 10px">
               <v-card-title>
                 <div class="content-title">
@@ -51,7 +54,10 @@
                 </p>
               </v-card-text>
             </v-card>
-            <div v-else class="question-field">
+
+
+            <!--这里显示问题-->
+            <div v-else-if="permission" class="question-field">
               <v-expansion-panels>
                 <v-expansion-panel
                   v-for="(item, i) in currentQuestions"
@@ -59,7 +65,7 @@
                 >
                   <div>
                     <v-expansion-panel-header>
-                      <p>{{ item.name }}</p>
+                      <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       {{ item.description }}
@@ -74,8 +80,9 @@
                       <v-tabs-items v-model="controlTab">
                         <v-tab-item key="updateTag">
                           <v-card flat>
-                            <v-chip>流转原因: {{ item.admin_commit }}</v-chip>
-                            <v-divider></v-divider>
+                            <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
+
+                            <v-divider style="margin-top: 15px"></v-divider>
                             <v-list two-line>
                               <v-list-item
                                 v-for="tag in item.tags"
@@ -101,7 +108,111 @@
                             </v-list>
                             <v-divider></v-divider>
 
-                            <!-- 添加标签 -->
+
+                          <div style="margin-top: 15px">
+                            <v-btn width="300px" color="#E53935" style="margin-left: 33%">
+                              <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack()">
+                                退回
+                              </span>
+                            </v-btn>
+                          </div>
+                          </v-card>
+                        </v-tab-item>
+
+
+                        <v-tab-item key="addComment">
+                          <v-card flat v-if="!item.solved">
+                            <quill-editor
+                              v-model="item.comment"
+                              ref="myQuillEditor"
+                              :options="editorOption"
+                            >
+                            </quill-editor>
+                            <div
+                              style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
+                            >
+                              <v-btn
+                                block
+                                center-active
+                                large
+                                @click="postCommit(item.id, item.comment)"
+                                >提交</v-btn
+                              >
+                            </div>
+                          </v-card>
+                          <v-card flat v-else>
+                            <!-- TODO 这里的显示方法 -->
+                            <p>已经解决了</p>
+                          </v-card>
+                        </v-tab-item>
+                      </v-tabs-items>
+                    </v-expansion-panel-content>
+                  </div>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </div>
+
+
+
+
+
+
+
+
+            <!--这里是两办管理员-->
+            <div v-else style="margin-top: 15px">
+              <v-expansion-panels>
+                <v-expansion-panel
+                        v-for="(item, i) in currentQuestions"
+                        :key="i"
+                >
+                  <div>
+                    <v-expansion-panel-header>
+                      <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      {{ item.description }}
+                      <v-divider></v-divider>
+                      <v-tabs center-active grow v-model="controlTab">
+                        <v-tab
+                                v-for="item in controlTabItems"
+                                :key="item.tab"
+                        >{{ item.title }}</v-tab
+                        >
+                      </v-tabs>
+                      <v-tabs-items v-model="controlTab">
+                        <v-tab-item key="updateTag">
+                          <v-card flat>
+                            <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
+
+                            <v-divider style="margin-top: 15px"></v-divider>
+                            <v-list two-line>
+                              <v-list-item
+                                      v-for="tag in item.tags"
+                                      :key="tag.id"
+                              >
+                                <v-list-item-content>
+                                  <v-list-item-title
+                                          v-text="tag.name"
+                                  ></v-list-item-title>
+                                </v-list-item-content>
+
+                                <v-list-item-action>
+                                  <v-btn
+                                          icon
+                                          @click="deleteTag(item.id, tag.id)"
+                                  >
+                                    <v-icon color="grey lighten-1"
+                                    >mdi-delete</v-icon
+                                    >
+                                  </v-btn>
+                                </v-list-item-action>
+                              </v-list-item>
+                            </v-list>
+                            <v-divider></v-divider>
+
+
+
                             <v-card>
                               <v-container fluid>
                                 <v-row align="center">
@@ -141,26 +252,33 @@
                                 >
                               </div>
                             </v-card>
+
                           </v-card>
                         </v-tab-item>
+
+
                         <v-tab-item key="addComment">
                           <v-card flat v-if="!item.solved">
                             <quill-editor
-                              v-model="item.comment"
-                              ref="myQuillEditor"
-                              :options="editorOption"
+                                    v-model="item.comment"
+                                    ref="myQuillEditor"
+                                    :options="editorOption"
                             >
                             </quill-editor>
-                            <div
-                              style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
-                            >
+
+                            <div style="margin-top: 15px">
                               <v-btn
-                                block
-                                center-active
-                                large
-                                @click="postCommit(item.id, item.comment)"
-                                >提交</v-btn
+                                      block
+                                      center-active
+                                      @click="postCommit(item.id, item.comment)"
+                                      width="300px"
+                                      color="#43A047"
                               >
+                                <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack()">
+                                提交
+                              </span>
+                              </v-btn>
+
                             </div>
                           </v-card>
                           <v-card flat v-else>
@@ -174,6 +292,9 @@
                 </v-expansion-panel>
               </v-expansion-panels>
             </div>
+
+
+
           </v-col>
         </v-row>
       </v-container>
@@ -185,7 +306,7 @@
 import MyHeader from "../components/Header";
 import MySidebar from "../components/Sidebar";
 import ProfileCard from "../components/ProfileCard";
-import { getQuestionsByTag } from "../api/admin";
+import { getQuestionsByTag ,addComment,removeTagByQuestion} from "../api/admin";
 import { getUser } from "../utils/cookie";
 const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -203,6 +324,7 @@ export default {
   name: "Home",
   data: function() {
     return {
+      permission:getUser().isLB,
       tagsList: [],
       currentTagId: 0,
       ifUsageShowed: true,
@@ -254,7 +376,6 @@ export default {
                 });
               });
               this.currentQuestions = res.data.data;
-              this.curremm;
             }
           })
           .catch((error) => {
@@ -262,23 +383,47 @@ export default {
           });
       }
     },
+
+    //删除问题标签
     deleteTag(questionId, tagId) {
-      console.log(
-        "TODO: axios请求 => /question/delete/tag tagId: " +
-          tagId +
-          " questionId:" +
-          questionId
-      );
-      //TODO: axios请求 => /tag/delete
+
+      const data = {
+        id : getUser().id,
+        token : getUser().token,
+        question_id: questionId,
+        tagList: [tagId]
+      }
+      removeTagByQuestion(data).then(res => {
+        const response = res.data
+        if(response.ErrorCode === 1){
+          alert("删除失败"+response.msg)
+          console.log(data);
+        }else {
+          alert("删除成功")
+        }
+      })
     },
+
+    //提交评论
     postCommit(questionId, comment) {
-      console.log(
-        "TODO: axios请求 => /answer/add comment: " +
-          comment +
-          " questionId:" +
-          questionId
-      );
-      //TODO: axios请求 => /answer/add
+
+      const data = {
+        id : getUser().id,
+        token : getUser().token,
+        question_id: questionId,
+        answer_contain: comment
+      }
+
+      addComment(data).then(res => {
+        const response = res.data
+        if(response.ErrorCode === 1){
+          alert("回复失败")
+        }else {
+          alert("回复成功")
+        }
+      })
+
+
     },
     onAddTag(questionId, select, reason) {
       if (typeof select === "undefined") {
@@ -330,6 +475,12 @@ export default {
         return a.id - b.id;
       });
     },
+
+    //退回
+
+    /*returnBack(questionId,tagList){
+
+    }*/
   },
 
   created() {},

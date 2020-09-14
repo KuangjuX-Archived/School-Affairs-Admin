@@ -54,12 +54,9 @@ export default {
                     alert("密码或账号错误");
                 } else {
                     let info= res.data.data
-                    setUserInfo(info.token, info.id, info.PhoneNumber);
+                    setUserInfo(info.token, info.id, info.PhoneNumber,info.is_lb);
                     this.$router.push({
                         name: "Home",
-                        params: {
-                            isReLogin: false,
-                        }
                     });
                 }
             })
