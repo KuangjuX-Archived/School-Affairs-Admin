@@ -55,7 +55,12 @@ export default {
                 } else {
                     let info= res.data.data
                     setUserInfo(info.token, info.id, info.PhoneNumber);
-                    this.$router.push('/home');
+                    this.$router.push({
+                        name: "Home",
+                        params: {
+                            isReLogin: false,
+                        }
+                    });
                 }
             })
         }

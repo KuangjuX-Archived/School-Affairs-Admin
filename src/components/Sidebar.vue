@@ -25,7 +25,7 @@
 
 <script>
     import {getTags} from "../api/admin";
-    import {getUser} from "../utils/cookie";
+    import {getUser, deleteToken} from "../utils/cookie";
 
     export default {
     name: "Sidebar",
@@ -50,10 +50,11 @@
         }
         getTags(data).then(res => {
             if(res.data.ErrorCode ===1){
-                alert("获取标签失败")
+                deleteToken();
+                this.$router.push('/login');
             }else if(res.data.ErrorCode === 0){
                 this.items = res.data.data
-
+                this.$emit('onTagsLoaded', this.items);
             }
         })
     }

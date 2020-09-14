@@ -17,6 +17,7 @@ export function setUserInfo(token, id, phoneNumber) {
     Cookies.set('userId',id)
     Cookies.set('phoneNumber',phoneNumber)
 }
+
 export function deleteToken() {
     Cookies.remove('userToken');
     Cookies.remove('userId');

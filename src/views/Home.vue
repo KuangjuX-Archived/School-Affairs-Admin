@@ -1,7 +1,11 @@
 <template>
   <div>
     <my-header></my-header>
-    <my-sidebar @onChangeTag="onChangeTag"></my-sidebar>
+    <my-sidebar
+      @onChangeTag="onChangeTag"
+      @onTagsLoaded="onTagsInit"
+    ></my-sidebar>
+
     <div class="content">
       <v-container>
         <v-row>
@@ -70,60 +74,24 @@
                       <v-tabs-items v-model="controlTab">
                         <v-tab-item key="updateTag">
                           <v-card flat>
+                            <v-chip>流转原因: {{ item.admin_commit }}</v-chip>
+                            <v-divider></v-divider>
                             <v-list two-line>
-                              <!-- 等待后端完善接口，标签相关的一系列这里暂时做不了 -->
-                              <!-- <v-list-item
-                                v-for="tag in currentQuestions[i].tagsList"
-                                :key="item.title"
-                              > -->
-                              <v-list-item>
+                              <v-list-item
+                                v-for="tag in item.tags"
+                                :key="tag.id"
+                              >
                                 <v-list-item-content>
                                   <v-list-item-title
-                                    v-text="'标题'"
+                                    v-text="tag.name"
                                   ></v-list-item-title>
-                                  <v-list-item-subtitle
-                                    v-text="'修改原因 / 未修改则为空'"
-                                  ></v-list-item-subtitle>
                                 </v-list-item-content>
 
                                 <v-list-item-action>
-                                  <v-btn icon>
-                                    <v-icon color="grey lighten-1"
-                                      >mdi-delete</v-icon
-                                    >
-                                  </v-btn>
-                                </v-list-item-action>
-                              </v-list-item>
-                                                            <v-list-item>
-                                <v-list-item-content>
-                                  <v-list-item-title
-                                    v-text="'标题'"
-                                  ></v-list-item-title>
-                                  <v-list-item-subtitle
-                                    v-text="'修改原因 / 未修改则为空'"
-                                  ></v-list-item-subtitle>
-                                </v-list-item-content>
-
-                                <v-list-item-action>
-                                  <v-btn icon>
-                                    <v-icon color="grey lighten-1"
-                                      >mdi-delete</v-icon
-                                    >
-                                  </v-btn>
-                                </v-list-item-action>
-                              </v-list-item>
-                                                            <v-list-item>
-                                <v-list-item-content>
-                                  <v-list-item-title
-                                    v-text="'标题'"
-                                  ></v-list-item-title>
-                                  <v-list-item-subtitle
-                                    v-text="'修改原因 / 未修改则为空'"
-                                  ></v-list-item-subtitle>
-                                </v-list-item-content>
-
-                                <v-list-item-action>
-                                  <v-btn icon>
+                                  <v-btn
+                                    icon
+                                    @click="deleteTag(item.id, tag.id)"
+                                  >
                                     <v-icon color="grey lighten-1"
                                       >mdi-delete</v-icon
                                     >
@@ -138,17 +106,20 @@
                               <v-container fluid>
                                 <v-row align="center">
                                   <v-col cols="6">
-                                    <v-select
-                                      v-model="e1Fake"
-                                      :items="statesFake"
-                                      menu-props="auto"
-                                      label="选择添加标签"
-                                      hide-details
-                                      dense
-                                    ></v-select>
+                                    <div data-app="true" class="select-control">
+                                      <v-select
+                                        @focus="item = showSelectTags(item)"
+                                        v-model="item.select"
+                                        :items="item.tagsListForShow"
+                                        menu-props="auto"
+                                        label="选择添加标签"
+                                        hide-details
+                                      ></v-select>
+                                    </div>
                                   </v-col>
                                 </v-row>
                                 <v-text-field
+                                  v-model="item.reason"
                                   label="添加原因"
                                   dense
                                   light
@@ -159,15 +130,23 @@
                               <div
                                 style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
                               >
-                                <v-btn block center-active large>提交</v-btn>
+                                <v-btn
+                                  block
+                                  center-active
+                                  large
+                                  @click="
+                                    onAddTag(item.id, item.select, item.reason)
+                                  "
+                                  >提交</v-btn
+                                >
                               </div>
                             </v-card>
                           </v-card>
                         </v-tab-item>
                         <v-tab-item key="addComment">
-                          <v-card flat v-if="currentQuestions[i].solved">
+                          <v-card flat v-if="!item.solved">
                             <quill-editor
-                              v-model="comment"
+                              v-model="item.comment"
                               ref="myQuillEditor"
                               :options="editorOption"
                             >
@@ -175,11 +154,17 @@
                             <div
                               style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
                             >
-                              <v-btn block center-active large>提交</v-btn>
+                              <v-btn
+                                block
+                                center-active
+                                large
+                                @click="postCommit(item.id, item.comment)"
+                                >提交</v-btn
+                              >
                             </div>
                           </v-card>
                           <v-card flat v-else>
-                            <!-- TODO 这里该怎么显示 -->
+                            <!-- TODO 这里的显示方法 -->
                             <p>已经解决了</p>
                           </v-card>
                         </v-tab-item>
@@ -218,6 +203,7 @@ export default {
   name: "Home",
   data: function() {
     return {
+      tagsList: [],
       currentTagId: 0,
       ifUsageShowed: true,
       currentQuestions: [],
@@ -226,7 +212,6 @@ export default {
         title: "",
         content: "",
       },
-      comment: "",
       editorOption: {
         placeholder: "请输入评论",
         theme: "snow",
@@ -241,8 +226,6 @@ export default {
         { tab: "updateTag", title: "修改标签" },
         { tab: "addComment", title: "添加评论" },
       ],
-      e1Fake: null,
-      statesFake: ["awaa", "qwqq", "awa", "awawa"],
     };
   },
   methods: {
@@ -264,7 +247,14 @@ export default {
             if (res.data.ErrorCode === 1) {
               alert("拉取问题失败:" + res.data.msg);
             } else if (res.data.ErrorCode === 0) {
+              //对tags排序
+              res.data.data.forEach((quesItem) => {
+                quesItem.tags.sort((a, b) => {
+                  return a.id - b.id;
+                });
+              });
               this.currentQuestions = res.data.data;
+              this.curremm;
             }
           })
           .catch((error) => {
@@ -272,11 +262,73 @@ export default {
           });
       }
     },
-
-    popCommit(commit) {
-      this.isOverlay = true;
-      this.overlayCard.title = "评论";
-      this.overlayCard.content = commit;
+    deleteTag(questionId, tagId) {
+      console.log(
+        "TODO: axios请求 => /question/delete/tag tagId: " +
+          tagId +
+          " questionId:" +
+          questionId
+      );
+      //TODO: axios请求 => /tag/delete
+    },
+    postCommit(questionId, comment) {
+      console.log(
+        "TODO: axios请求 => /answer/add comment: " +
+          comment +
+          " questionId:" +
+          questionId
+      );
+      //TODO: axios请求 => /answer/add
+    },
+    onAddTag(questionId, select, reason) {
+      if (typeof select === "undefined") {
+        //TODO: 报错提示框
+      } else {
+        console.log(
+          "select: " +
+            select +
+            " reason: " +
+            reason +
+            " questionId: " +
+            questionId
+        );
+        //TODO: axios请求 => /question/add/tag
+      }
+    },
+    showSelectTags(question) {
+      question.tagsListForShow = [];
+      question.tags.sort((a, b) => {
+        return a.id - b.id;
+      });
+      var idx = 0;
+      this.tagsList.forEach(function(item) {
+        if (idx < question.tags.length) {
+          if (question.tags[idx].id != item.id) {
+            question.tagsListForShow.push("id:" + item.id + "-" + item.name);
+          } else {
+            idx++;
+          }
+        } else {
+          question.tagsListForShow.push("id:" + item.id + "-" + item.name);
+        }
+      });
+      return question;
+    },
+    onTagsInit(tagsTree) {
+      //当标签获取完成时，向home组件发出事件，传递标签树，展平
+      var that = this;
+      var dfs = function(obj) {
+        obj.children.forEach((item) => {
+          dfs(item);
+        });
+        that.tagsList.push(obj);
+      };
+      tagsTree.forEach((item) => {
+        dfs(item);
+      });
+      that.tagsList.sort((a, b) => {
+        return a.id - b.id;
+      });
     },
   },
 
@@ -358,11 +410,17 @@ p {
 .question-tag-item:hover {
   background-color: #e3f2fd;
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .function-control {
   display: flex;
   justify-content: space-around;
+}
+
+.select-control >>> .v-menu__content {
+  /* transform: translateX(10%) translateY(-10%) !important; */
+  top: 70px !important;
+  left: 12px !important;
 }
 </style>
