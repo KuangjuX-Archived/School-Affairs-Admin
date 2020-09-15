@@ -14,6 +14,8 @@
             <profile-card></profile-card>
 
             <!--这里显示管理员说明文档-->
+
+
             <v-card v-if="ifUsageShowed" style="margin-top: 10px">
               <v-card-title>
                 <div class="content-title">
@@ -57,7 +59,8 @@
 
 
             <!--这里显示问题-->
-            <div v-else-if="permission" class="question-field">
+            <!--这里渲染有问题啊啊啊啊-->
+            <div v-else-if="permission===false" class="question-field">
               <v-expansion-panels>
                 <v-expansion-panel
                   v-for="(item, i) in currentQuestions"
@@ -111,7 +114,7 @@
 
                           <div style="margin-top: 15px">
                             <v-btn width="300px" color="#E53935" style="margin-left: 33%">
-                              <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack()">
+                              <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
                                 退回
                               </span>
                             </v-btn>
@@ -160,7 +163,7 @@
 
 
             <!--这里是两办管理员-->
-            <div v-else style="margin-top: 15px">
+            <div v-else-if="permission===true" style="margin-top: 15px">
               <v-expansion-panels>
                 <v-expansion-panel
                         v-for="(item, i) in currentQuestions"
@@ -274,7 +277,7 @@
                                       width="300px"
                                       color="#43A047"
                               >
-                                <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack()">
+                                <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
                                 提交
                               </span>
                               </v-btn>
@@ -306,7 +309,9 @@
 import MyHeader from "../components/Header";
 import MySidebar from "../components/Sidebar";
 import ProfileCard from "../components/ProfileCard";
-import { getQuestionsByTag ,addComment,removeTagByQuestion} from "../api/admin";
+import { getQuestionsByTag ,addComment,
+  removeTagByQuestion,getTagByQuestion,
+  addQuestionTag} from "../api/admin";
 import { getUser } from "../utils/cookie";
 const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -329,7 +334,6 @@ export default {
       currentTagId: 0,
       ifUsageShowed: true,
       currentQuestions: [],
-      isOverlay: false,
       overlayCard: {
         title: "",
         content: "",
@@ -385,14 +389,17 @@ export default {
     },
 
     //删除问题标签
+    //这个请求一直不成功
     deleteTag(questionId, tagId) {
 
       const data = {
-        id : getUser().id,
+        id : Number(getUser().id),
         token : getUser().token,
         question_id: questionId,
-        tagList: [tagId]
+        tagList: JSON.stringify([tagId])
       }
+
+      console.log(data);
       removeTagByQuestion(data).then(res => {
         const response = res.data
         if(response.ErrorCode === 1){
@@ -428,18 +435,28 @@ export default {
     onAddTag(questionId, select, reason) {
       if (typeof select === "undefined") {
         //TODO: 报错提示框
+        alert("未选择所要添加的标签")
       } else {
-        console.log(
-          "select: " +
-            select +
-            " reason: " +
-            reason +
-            " questionId: " +
-            questionId
-        );
+        const data={
+          id: getUser().id,
+          token: getUser().token,
+          question_id: questionId,
+          tagList: JSON.stringify(select),//这里或许要转换一下格式,
+          reason: reason
+        }
+        addQuestionTag(data).then(res => {
+          const response = res.data
+          if(response.ErrorCode === 1){
+            alert("添加标签失败")
+          }else {
+            alert("添加标签成功")
+          }
+        })
         //TODO: axios请求 => /question/add/tag
       }
     },
+
+
     showSelectTags(question) {
       question.tagsListForShow = [];
       question.tags.sort((a, b) => {
@@ -476,11 +493,47 @@ export default {
       });
     },
 
+
+
     //退回
+    //还没写完
+    returnBack(questionId){
+      const data = {
+        id: getUser().id,
+        token: getUser().token,
+        question_id: questionId
+      }
+      let tagList=[]
+      getTagByQuestion(data).then(res => {
+        const response = res.data
+        if(response.ErrorCode === 1){
+          alert("获取问题所属标签失败")
+        }else {
+          const tagData = response.data
+          for(let i=0;i<tagData.length;i++){
+            tagList.push(tagData[i].id)
+          }
 
-    /*returnBack(questionId,tagList){
 
-    }*/
+          tagList=JSON.stringify(tagList)
+
+          data.tagList=tagList
+
+          //删除该所属问题下所有标签
+          removeTagByQuestion(data).then(res => {
+            const removeResponse = res.data
+            if(removeResponse.ErrorCode === 1){
+              alert("删除问题标签失败")
+            }else {
+              //这里增加"其他"标签
+              //然后还要写退回原因
+            }
+          })
+        }
+      })
+
+
+    }
   },
 
   created() {},
@@ -570,7 +623,6 @@ p {
 }
 
 .select-control >>> .v-menu__content {
-  /* transform: translateX(10%) translateY(-10%) !important; */
   top: 70px !important;
   left: 12px !important;
 }

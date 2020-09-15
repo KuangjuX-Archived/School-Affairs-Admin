@@ -6,8 +6,8 @@
                 <v-row>
                     <v-col cols="12">
                         <v-card>
-                            <v-card-title style="margin-bottom: 15px">
-                                <v-btn-toggle>
+                            <v-card-title style="margin-bottom: 15px; background-color: #f5f5f5">
+                                <v-btn-toggle >
                                     <v-btn height="60" width="125">新消息</v-btn>
                                     <v-btn height="60" width="125">待处理</v-btn>
                                     <v-btn height="60" width="125">已回复</v-btn>

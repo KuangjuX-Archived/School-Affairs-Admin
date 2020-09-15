@@ -82,11 +82,29 @@ export function removeQuestion(data) {
 }
 
 
+export function addQuestionTag(data) {
+    return request({
+        url: "/admin/question/add/tag",
+        method: "POST",
+        data
+    })
+}
+
+
 export function addComment(data) {
     return request({
         url : "/admin/answer/add",
         method: "POST",
         data
+    })
+}
+
+
+export function getTagByQuestion(data) {
+    return request({
+        url: "/admin/question/tagByQuestion",
+        method: "POST",
+        params: data
     })
 }
 
