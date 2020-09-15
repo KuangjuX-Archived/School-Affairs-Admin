@@ -103,7 +103,7 @@ export function addComment(data) {
 export function getTagByQuestion(data) {
     return request({
         url: "/admin/question/tagByQuestion",
-        method: "POST",
+        method: "GET",
         params: data
     })
 }

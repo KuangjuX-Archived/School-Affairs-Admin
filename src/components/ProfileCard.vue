@@ -47,8 +47,7 @@
             return{
                 phoneNumber: getUser().phoneNumber,
                 password: "",
-                permission: (getUser().isLB===true) ? "子管理员" : "两办管理员"
-
+                permission: (getUser().isLB === "true") ? "两办管理员" : "子管理员",
             }
         },
 
@@ -87,6 +86,7 @@
                 })
             }
         }
+
     }
 </script>
 

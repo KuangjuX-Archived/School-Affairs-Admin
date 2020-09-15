@@ -16,55 +16,57 @@
             <!--这里显示管理员说明文档-->
 
 
-            <v-card v-if="ifUsageShowed" style="margin-top: 10px">
-              <v-card-title>
-                <div class="content-title">
-                  说明
-                </div>
-              </v-card-title>
+            <div v-if="ifUsageShowed">
+              <v-card style="margin-top: 10px">
+                <v-card-title>
+                  <div class="content-title">
+                    说明
+                  </div>
+                </v-card-title>
 
-              <v-card-text class="content-text">
-                <p>
-                  本后台系统使用了bootstrap插件,所以强烈推荐使用
-                  chrome,firefox,搜狗浏览器 等现代浏览器.请不要使用ie浏览器.
-                  同时:希望老师能推荐学生使用以上三个浏览器进行党校系统的学习,这样浏览效果会更好!
-                </p>
-                <v-divider></v-divider>
-                <p>
-                  后台共有15个部分模块组成,分别是 通知公告 栏目管理 党建专项
-                  学习小组 党校培训 重要文件 理论学习 消息管理 申请人培训
-                  院级积极分子培训 预备党员培训 支部管理 学生信息管理 管理员控制
-                  系统功能锁这些部分组成.
-                  其中前7个部分都是对前台页面新闻的管理和党校相关信息的发表.
-                  后面的几个模块是对党校课程的控制盒学生状态的控制.
-                </p>
-                <v-divider></v-divider>
-                <p>
-                  后台共分3种权限:超级管理员院级管理员栏目管理员.超级管理员可以管理所有后台的所有权限,包括超级管理员,院级管理员,栏目管理员的添加,删除等操作.但是不包括院级培训的添加和学生成绩的录入
-                  院级管理员可以进行消息的处理操作以及院级积极分子培训的考试.学生信息管理的操作.但是请广大院级管理员注意:不得操作其他学院的相关数据,如果发现,将会封号处理.
-                  栏目管理员是由超级管理员下放的权限:它以单个的模块为单位,只显示其拥有的权限.但是栏目管理员无法查看管理员控制盒系统锁模块.
-                </p>
-                <v-divider></v-divider>
-                <p>
-                  请超级管理员注意:在给栏目管理员分配权限的时候,是不能分配管理员控制系统功能锁
-                  这两个模块的. 以免栏目管理员对其权限进行修改.
-                </p>
-                <v-divider></v-divider>
-                <p>
-                  栏目管理:主要管理的是前台党建专项的下拉菜单,在后台添加二级栏目,并且二级栏目未被删除,则在前台菜单栏内即可显示
-                  同时请注意:栏目名称不可太长,否则影响前台效果的显示.
-                </p>
-              </v-card-text>
-            </v-card>
+                <v-card-text class="content-text">
+                  <p>
+                    本后台系统使用了bootstrap插件,所以强烈推荐使用
+                    chrome,firefox,搜狗浏览器 等现代浏览器.请不要使用ie浏览器.
+                    同时:希望老师能推荐学生使用以上三个浏览器进行党校系统的学习,这样浏览效果会更好!
+                  </p>
+                  <v-divider></v-divider>
+                  <p>
+                    后台共有15个部分模块组成,分别是 通知公告 栏目管理 党建专项
+                    学习小组 党校培训 重要文件 理论学习 消息管理 申请人培训
+                    院级积极分子培训 预备党员培训 支部管理 学生信息管理 管理员控制
+                    系统功能锁这些部分组成.
+                    其中前7个部分都是对前台页面新闻的管理和党校相关信息的发表.
+                    后面的几个模块是对党校课程的控制盒学生状态的控制.
+                  </p>
+                  <v-divider></v-divider>
+                  <p>
+                    后台共分3种权限:超级管理员院级管理员栏目管理员.超级管理员可以管理所有后台的所有权限,包括超级管理员,院级管理员,栏目管理员的添加,删除等操作.但是不包括院级培训的添加和学生成绩的录入
+                    院级管理员可以进行消息的处理操作以及院级积极分子培训的考试.学生信息管理的操作.但是请广大院级管理员注意:不得操作其他学院的相关数据,如果发现,将会封号处理.
+                    栏目管理员是由超级管理员下放的权限:它以单个的模块为单位,只显示其拥有的权限.但是栏目管理员无法查看管理员控制盒系统锁模块.
+                  </p>
+                  <v-divider></v-divider>
+                  <p>
+                    请超级管理员注意:在给栏目管理员分配权限的时候,是不能分配管理员控制系统功能锁
+                    这两个模块的. 以免栏目管理员对其权限进行修改.
+                  </p>
+                  <v-divider></v-divider>
+                  <p>
+                    栏目管理:主要管理的是前台党建专项的下拉菜单,在后台添加二级栏目,并且二级栏目未被删除,则在前台菜单栏内即可显示
+                    同时请注意:栏目名称不可太长,否则影响前台效果的显示.
+                  </p>
+                </v-card-text>
+              </v-card>
+            </div>
 
 
             <!--这里显示问题-->
-            <!--这里渲染有问题啊啊啊啊-->
-            <div v-else-if="permission===false" class="question-field">
+            <div v-else-if="permission==='false'" class="question-field">
               <v-expansion-panels>
                 <v-expansion-panel
                   v-for="(item, i) in currentQuestions"
                   :key="i"
+                  style="margin-top: 15px"
                 >
                   <div>
                     <v-expansion-panel-header>
@@ -163,11 +165,12 @@
 
 
             <!--这里是两办管理员-->
-            <div v-else-if="permission===true" style="margin-top: 15px">
+            <div v-else-if="permission==='true'" style="margin-top: 15px">
               <v-expansion-panels>
                 <v-expansion-panel
                         v-for="(item, i) in currentQuestions"
                         :key="i"
+                        style="margin-top: 15px"
                 >
                   <div>
                     <v-expansion-panel-header>
@@ -334,10 +337,6 @@ export default {
       currentTagId: 0,
       ifUsageShowed: true,
       currentQuestions: [],
-      overlayCard: {
-        title: "",
-        content: "",
-      },
       editorOption: {
         placeholder: "请输入评论",
         theme: "snow",
@@ -389,7 +388,6 @@ export default {
     },
 
     //删除问题标签
-    //这个请求一直不成功
     deleteTag(questionId, tagId) {
 
       const data = {
@@ -432,27 +430,50 @@ export default {
 
 
     },
+
+
     onAddTag(questionId, select, reason) {
       if (typeof select === "undefined") {
         //TODO: 报错提示框
         alert("未选择所要添加的标签")
-      } else {
+      } else if(reason === "undefined"){
+        alert("未填写流转原因")
+      }else {
         const data={
           id: getUser().id,
           token: getUser().token,
           question_id: questionId,
-          tagList: JSON.stringify(select),//这里或许要转换一下格式,
+          tagList: JSON.stringify([select[3]]),//这里或许要转换一下格式,
           reason: reason
         }
+
+        //增加标签
         addQuestionTag(data).then(res => {
           const response = res.data
           if(response.ErrorCode === 1){
             alert("添加标签失败")
           }else {
-            alert("添加标签成功")
+            const otherTag = this.searchTagId("其他")
+            const removeData = {
+              id: getUser().id,
+              token: getUser().token,
+              question_id: questionId,
+              tagList: JSON.stringify([otherTag])
+            }
+            //删除“其他”标签
+            removeTagByQuestion(removeData).then(res => {
+              let removeResponse = res.data
+              if(removeResponse.ErrorCode === 1){
+                alert("删除'其他标签'失败")
+              }else {
+                  alert("流转成功")
+                  location.reload()
+              }
+            })
           }
         })
-        //TODO: axios请求 => /question/add/tag
+
+
       }
     },
 
@@ -476,6 +497,8 @@ export default {
       });
       return question;
     },
+
+
     onTagsInit(tagsTree) {
       //当标签获取完成时，向home组件发出事件，传递标签树，展平
       var that = this;
@@ -498,6 +521,7 @@ export default {
     //退回
     //还没写完
     returnBack(questionId){
+      let reason = prompt("请输入退回原因")
       const data = {
         id: getUser().id,
         token: getUser().token,
@@ -517,22 +541,54 @@ export default {
 
           tagList=JSON.stringify(tagList)
 
-          data.tagList=tagList
+          // data.tagList=tagList
+          const removeData = {
+            id: getUser().id,
+            token: getUser().token,
+            question: questionId,
+            tagList: tagList
+          }
 
           //删除该所属问题下所有标签
-          removeTagByQuestion(data).then(res => {
+          removeTagByQuestion(removeData).then(res => {
             const removeResponse = res.data
             if(removeResponse.ErrorCode === 1){
               alert("删除问题标签失败")
             }else {
               //这里增加"其他"标签
               //然后还要写退回原因
+              const addData = {
+                id: getUser().id,
+                token: getUser().token,
+                question_id: questionId,
+                tagList: JSON.stringify([this.searchTagId("其他")]),
+                reason: reason
+              }
+
+              addQuestionTag(addData).then(res => {
+                const addResponse = res.data
+                if(addResponse.ErrorCode === 1){
+                  alert("退回失败")
+                }else {
+                  alert("退回成功")
+                  location.reload()
+                }
+              })
             }
           })
         }
       })
+    },
 
-
+    //通过标签名找标签ID
+    searchTagId(tag_name){
+      const tagsList = this.tagsList
+      for(let i=0;i<tagsList.length;i++){
+        if(tagsList[i].name === tag_name){
+          return tagsList[i].id
+        }
+      }
+      return -1
     }
   },
 
