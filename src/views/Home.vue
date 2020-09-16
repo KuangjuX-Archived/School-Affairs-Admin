@@ -97,18 +97,8 @@
                                   <v-list-item-title
                                     v-text="tag.name"
                                   ></v-list-item-title>
-                                </v-list-item-content>
 
-                                <v-list-item-action>
-                                  <v-btn
-                                    icon
-                                    @click="deleteTag(item.id, tag.id)"
-                                  >
-                                    <v-icon color="grey lighten-1"
-                                      >mdi-delete</v-icon
-                                    >
-                                  </v-btn>
-                                </v-list-item-action>
+                                </v-list-item-content>
                               </v-list-item>
                             </v-list>
                             <v-divider></v-divider>
@@ -125,8 +115,27 @@
                         </v-tab-item>
 
 
+                        <!--这里要加上其他管理员的评论-->
                         <v-tab-item key="addComment">
-                          <v-card flat v-if="!item.solved">
+                          <v-card flat >
+
+                            <div v-if="!item.solved" class="status-answer-box">
+                              <v-btn color="#E53935" width="300px">
+                                <span class="btn-font-style">
+                                  未解决
+                                </span>
+                              </v-btn>
+                            </div>
+
+                            <div v-else class="status-answer-box">
+                              <v-btn color="#66BB6A" width="300px" >
+                                <span class="btn-font-style">
+                                  已解决
+                                </span>
+                              </v-btn>
+                            </div>
+
+
                             <quill-editor
                               v-model="item.comment"
                               ref="myQuillEditor"
@@ -151,17 +160,6 @@
                               </v-btn
                               >
                             </div>
-                          </v-card>
-                          <v-card flat v-else>
-
-                            <div>
-                              <v-btn color="#66BB6A" width="300px">
-                                <span style="font-weight: 600; font-size: 16px; color: #ffffff">
-                                  已解决
-                                </span>
-                              </v-btn>
-                            </div>
-
                           </v-card>
                         </v-tab-item>
                       </v-tabs-items>
@@ -282,7 +280,25 @@
 
 
                         <v-tab-item key="addComment">
-                          <v-card flat v-if="!item.solved">
+                          <v-card flat>
+
+                            <div v-if="!item.solved" class="status-answer-box">
+                              <v-btn color="#E53935" width="300px">
+                                <span class="btn-font-style">
+                                  未解决
+                                </span>
+                              </v-btn>
+                            </div>
+
+                            <div v-else class="status-answer-box">
+                              <v-btn color="#66BB6A" width="300px" >
+                                <span class="btn-font-style">
+                                  已解决
+                                </span>
+                              </v-btn>
+                            </div>
+
+
                             <quill-editor
                                     v-model="item.comment"
                                     ref="myQuillEditor"
@@ -305,19 +321,10 @@
 
                             </div>
                           </v-card>
-                          <v-card flat v-else>
 
-                            <div>
-                              <v-btn color="#66BB6A" width="300px">
-                                <span class="btn-font-style">
-                                  已解决
-                                </span>
-                              </v-btn>
-                            </div>
-
-                          </v-card>
                         </v-tab-item>
                       </v-tabs-items>
+
                     </v-expansion-panel-content>
                   </div>
                 </v-expansion-panel>
@@ -374,7 +381,7 @@ export default {
       controlTab: null,
       controlTabItems: [
         { tab: "updateTag", title: "修改标签" },
-        { tab: "addComment", title: "添加评论" },
+        { tab: "addComment", title: "添加回复" },
       ],
     };
   },
@@ -682,5 +689,10 @@ p {
   color: #ffffff;
   font-size: 16px;
   font-weight: 700;
+}
+
+.status-answer-box{
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 </style>
