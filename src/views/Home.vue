@@ -62,6 +62,7 @@
 
             <!--这里显示问题-->
             <div v-else-if="permission==='false'" class="question-field">
+              <!--扩展面板-->
               <v-expansion-panels>
                 <v-expansion-panel
                   v-for="(item, i) in currentQuestions"
@@ -79,8 +80,7 @@
                         <v-tab
                           v-for="item in controlTabItems"
                           :key="item.tab"
-                          >{{ item.title }}</v-tab
-                        >
+                          >{{ item.title }}</v-tab>
                       </v-tabs>
                       <v-tabs-items v-model="controlTab">
                         <v-tab-item key="updateTag">
@@ -119,10 +119,12 @@
                         <v-tab-item key="addComment">
                           <v-card flat >
 
+
                             <div v-if="!item.solved" class="status-answer-box">
                               <v-btn color="#E53935" width="300px">
                                 <span class="btn-font-style">
                                   未解决
+                                    {{getAnswerByQuestion(item.id)}}
                                 </span>
                               </v-btn>
                             </div>
@@ -306,10 +308,8 @@
                             >
                             </quill-editor>
 
-                            <div style="margin-top: 15px;justify-content: center;">
+                            <div style="margin-top: 15px;justify-content: center; align-items: center; text-align: center;">
                               <v-btn
-                                      block
-                                      center-active
                                       @click="postCommit(item.id, item.comment)"
                                       width="300px"
                                       color="#66BB6A"
@@ -346,7 +346,7 @@ import MySidebar from "../components/Sidebar";
 import ProfileCard from "../components/ProfileCard";
 import { getQuestionsByTag ,addComment,
   removeTagByQuestion,getTagByQuestion,
-  addQuestionTag} from "../api/admin";
+  addQuestionTag,getAnswerByQuestion} from "../api/admin";
 import { getUser } from "../utils/cookie";
 const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -611,6 +611,25 @@ export default {
         }
       })
     },
+
+      getAnswerByQuestion(questionId){
+        let answer = null
+        const data={
+            question_id: questionId
+        }
+            getAnswerByQuestion(data).then(res => {
+                const response = res.data
+                if(response.ErrorCode === 1){
+                    alert("拉取数据失败")
+                }else {
+                    //alert("拉取数据成功")
+                    answer = response.data
+                    console.log(answer);
+                }
+            })
+
+          return answer
+      },
 
     //通过标签名找标签ID
     searchTagId(tag_name){

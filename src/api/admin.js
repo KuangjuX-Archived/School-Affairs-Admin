@@ -108,4 +108,20 @@ export function getTagByQuestion(data) {
     })
 }
 
+export function getAnswerByQuestion(data) {
+    return request({
+        url: "/user/question/get/answer",
+        method: "GET",
+        params: data
+    })
+}
+
+export function getCommitByQuestion(data) {
+    return request({
+        url: "/user/question/get/commit",
+        method: "GET",
+        params: data
+    })
+}
+
 
