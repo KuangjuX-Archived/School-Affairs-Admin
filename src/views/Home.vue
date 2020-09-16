@@ -114,8 +114,8 @@
                             <v-divider></v-divider>
 
 
-                          <div style="margin-top: 15px">
-                            <v-btn width="300px" color="#E53935" style="margin-left: 33%">
+                          <div style="margin-top: 15px;height: auto; justify-content: center; text-align: center">
+                            <v-btn width="300px" color="#E53935" >
                               <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
                                 退回
                               </span>
@@ -133,21 +133,35 @@
                               :options="editorOption"
                             >
                             </quill-editor>
+
                             <div
                               style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
+                              class="btn-box-style"
                             >
                               <v-btn
-                                block
                                 center-active
                                 large
                                 @click="postCommit(item.id, item.comment)"
-                                >提交</v-btn
+                                width="300px"
+                                color="#66BB6A"
+                                >
+                                <span class="btn-font-style">
+                                  提交
+                                </span>
+                              </v-btn
                               >
                             </div>
                           </v-card>
                           <v-card flat v-else>
-                            <!-- TODO 这里的显示方法 -->
-                            <p>已经解决了</p>
+
+                            <div>
+                              <v-btn color="#66BB6A" width="300px">
+                                <span style="font-weight: 600; font-size: 16px; color: #ffffff">
+                                  已解决
+                                </span>
+                              </v-btn>
+                            </div>
+
                           </v-card>
                         </v-tab-item>
                       </v-tabs-items>
@@ -244,17 +258,21 @@
                                   clear-icon="mdi-close-circle-outline"
                                 ></v-text-field>
                               </v-container>
+
                               <div
-                                style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
+                                style="height: auto; justify-content: center;text-align: center;padding: 15px"
                               >
                                 <v-btn
-                                  block
-                                  center-active
-                                  large
+                                  color="#66BB6A"
+                                  width="300px"
                                   @click="
                                     onAddTag(item.id, item.select, item.reason)
                                   "
-                                  >提交</v-btn
+                                  >
+                                  <span class="btn-font-style">
+                                    提交
+                                  </span>
+                                </v-btn
                                 >
                               </div>
                             </v-card>
@@ -272,15 +290,15 @@
                             >
                             </quill-editor>
 
-                            <div style="margin-top: 15px">
+                            <div style="margin-top: 15px;justify-content: center;">
                               <v-btn
                                       block
                                       center-active
                                       @click="postCommit(item.id, item.comment)"
                                       width="300px"
-                                      color="#43A047"
+                                      color="#66BB6A"
                               >
-                                <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
+                                <span class="btn-font-style"  @click="returnBack(item.id)">
                                 提交
                               </span>
                               </v-btn>
@@ -288,8 +306,15 @@
                             </div>
                           </v-card>
                           <v-card flat v-else>
-                            <!-- TODO 这里的显示方法 -->
-                            <p>已经解决了</p>
+
+                            <div>
+                              <v-btn color="#66BB6A" width="300px">
+                                <span class="btn-font-style">
+                                  已解决
+                                </span>
+                              </v-btn>
+                            </div>
+
                           </v-card>
                         </v-tab-item>
                       </v-tabs-items>
@@ -425,6 +450,7 @@ export default {
           alert("回复失败")
         }else {
           alert("回复成功")
+          location.reload()
         }
       })
 
@@ -518,8 +544,7 @@ export default {
 
 
 
-    //退回
-    //还没写完
+    //退回问题到两办
     returnBack(questionId){
       let reason = prompt("请输入退回原因")
       const data = {
@@ -545,7 +570,7 @@ export default {
           const removeData = {
             id: getUser().id,
             token: getUser().token,
-            question: questionId,
+            question_id: questionId,
             tagList: tagList
           }
 
@@ -642,44 +667,20 @@ p {
   font-synthesis: style;
 }
 
-.question-description {
-  font-size: 16px;
-}
 
-.question-admin-commit {
-  width: 100%;
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-.question-tag-button-group {
-  display: flex;
-}
-
-.question-tag-font {
-  position: relative;
-  bottom: 10px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.question-tag-item {
-  margin-right: 25px;
-}
-
-.question-tag-item:hover {
-  background-color: #e3f2fd;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.function-control {
-  display: flex;
-  justify-content: space-around;
-}
 
 .select-control >>> .v-menu__content {
   top: 70px !important;
   left: 12px !important;
+}
+
+.btn-box-style{
+  margin-top: 15px;
+}
+
+.btn-font-style{
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
 }
 </style>
