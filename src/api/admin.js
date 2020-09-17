@@ -125,3 +125,23 @@ export function getCommitByQuestion(data) {
 }
 
 
+//获得管理员已解决的问题
+export function getSolvedQuestions(data) {
+    return request({
+        url: "/admin/question/solved",
+        method: "GET",
+        params: data
+    })
+}
+
+
+//获得管理员未解决的问题
+export function getUnsolvedQuestions(data) {
+    return request({
+        url: "/admin/question/unsolved",
+        method: "GET",
+        params: data
+    })
+}
+
+
