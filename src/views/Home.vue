@@ -74,7 +74,11 @@
                       <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      {{ item.description }}
+                      <v-textarea
+                              auto-grow
+                              solo
+                              v-bind:value="item.description"
+                      ></v-textarea>
                       <v-divider></v-divider>
                       <v-tabs center-active grow v-model="controlTab">
                         <v-tab
@@ -119,17 +123,15 @@
                         <v-tab-item key="addComment">
                           <v-card flat >
 
-
                             <div v-if="!item.solved" class="status-answer-box">
                               <v-btn color="#E53935" width="300px">
                                 <span class="btn-font-style">
                                   未解决
-                                    {{getAnswerByQuestion(item.id)}}
                                 </span>
                               </v-btn>
                             </div>
 
-                            <div v-else class="status-answer-box">
+                            <div v-else class="status-answer-box" >
                               <v-btn color="#66BB6A" width="300px" >
                                 <span class="btn-font-style">
                                   已解决
@@ -137,31 +139,83 @@
                               </v-btn>
                             </div>
 
+                            <!-- 这里放管理员评论 -->
+                            <div style="margin-top: 25px; margin-bottom: 25px">
+                              <v-expansion-panels>
+                                <v-expansion-panel>
+                                  <v-expansion-panel-header>
+                                    <span class="comment-span" >点击此处查看管理员回复</span>
+                                  </v-expansion-panel-header>
+                                  <v-divider></v-divider>
+                                  <v-expansion-panel-content>
+                                    <div v-for="(answer,index) in item.answer" :key="index">
+                                      <v-textarea
+                                              solo
+                                              label="评论框"
+                                              v-bind:value="answer.contain"
+                                              readonly
+                                              append-icon="mdi-comment"
+                                      ></v-textarea>
+                                    </div>
+                                  </v-expansion-panel-content>
+                                </v-expansion-panel>
+                              </v-expansion-panels>
+                            </div>
 
+
+                            <!-- 这里查看学生对于这个问题的回复 -->
+
+                            <!--放学生评论-->
+                            <div style="margin-top: 25px; margin-bottom: 25px">
+                              <v-expansion-panels>
+                                <v-expansion-panel>
+                                  <v-expansion-panel-header>
+                                    <span class="comment-span" >点击此处查看学生评论</span>
+                                  </v-expansion-panel-header>
+                                  <v-divider></v-divider>
+                                  <v-expansion-panel-content>
+                                    <div v-for="(answer,index) in item.commit" :key="index">
+                                      <v-textarea
+                                              solo
+                                              label="评论框"
+                                              v-bind:value="answer.contain"
+                                              readonly
+                                              append-icon="mdi-comment"
+                                      ></v-textarea>
+                                    </div>
+                                  </v-expansion-panel-content>
+                                </v-expansion-panel>
+                              </v-expansion-panels>
+                            </div>
+
+                            <!--富文本编辑器-->
                             <quill-editor
-                              v-model="item.comment"
-                              ref="myQuillEditor"
-                              :options="editorOption"
+                                    v-model="item.comment"
+                                    ref="myQuillEditor"
+                                    :options="editorOption"
                             >
                             </quill-editor>
 
                             <div
-                              style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
-                              class="btn-box-style"
+                                    style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
+                                    class="btn-box-style"
                             >
                               <v-btn
-                                center-active
-                                large
-                                @click="postCommit(item.id, item.comment)"
-                                width="300px"
-                                color="#66BB6A"
-                                >
+                                      center-active
+                                      large
+                                      @click="postCommit(item.id, item.comment)"
+                                      width="300px"
+                                      color="#66BB6A"
+                              >
                                 <span class="btn-font-style">
                                   提交
                                 </span>
                               </v-btn
                               >
                             </div>
+
+
+
                           </v-card>
                         </v-tab-item>
                       </v-tabs-items>
@@ -191,7 +245,11 @@
                       <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      {{ item.description }}
+                      <v-textarea
+                              auto-grow
+                              solo
+                              v-bind:value="item.description"
+                      ></v-textarea>
                       <v-divider></v-divider>
                       <v-tabs center-active grow v-model="controlTab">
                         <v-tab
@@ -283,7 +341,6 @@
 
                         <v-tab-item key="addComment">
                           <v-card flat>
-
                             <div v-if="!item.solved" class="status-answer-box">
                               <v-btn color="#E53935" width="300px">
                                 <span class="btn-font-style">
@@ -301,25 +358,55 @@
                             </div>
 
 
-                            <quill-editor
-                                    v-model="item.comment"
-                                    ref="myQuillEditor"
-                                    :options="editorOption"
-                            >
-                            </quill-editor>
 
-                            <div style="margin-top: 15px;justify-content: center; align-items: center; text-align: center;">
-                              <v-btn
-                                      @click="postCommit(item.id, item.comment)"
-                                      width="300px"
-                                      color="#66BB6A"
-                              >
-                                <span class="btn-font-style"  @click="returnBack(item.id)">
-                                提交
-                              </span>
-                              </v-btn>
 
+                            <!-- 这里放管理员评论 -->
+                            <div style="margin-top: 25px; margin-bottom: 25px">
+                              <v-expansion-panels>
+                                <v-expansion-panel>
+                                  <v-expansion-panel-header>
+                                    <span class="comment-span" >点击此处查看管理员回复</span>
+                                  </v-expansion-panel-header>
+                                  <v-divider></v-divider>
+                                  <v-expansion-panel-content>
+                                    <div v-for="(answer,index) in item.answer" :key="index">
+                                      <v-textarea
+                                              solo
+                                              label="评论框"
+                                              v-bind:value="answer.contain"
+                                              readonly
+                                              append-icon="mdi-comment"
+                                      ></v-textarea>
+                                    </div>
+                                  </v-expansion-panel-content>
+                                </v-expansion-panel>
+                              </v-expansion-panels>
                             </div>
+
+                            <!--学生评论-->
+
+                            <div style="margin-top: 25px; margin-bottom: 25px">
+                              <v-expansion-panels>
+                                <v-expansion-panel>
+                                  <v-expansion-panel-header>
+                                    <span class="comment-span" >点击此处查看学生评论</span>
+                                  </v-expansion-panel-header>
+                                  <v-divider></v-divider>
+                                  <v-expansion-panel-content>
+                                    <div v-for="(answer,index) in item.commit" :key="index">
+                                      <v-textarea
+                                              solo
+                                              label="评论框"
+                                              v-bind:value="answer.contain"
+                                              readonly
+                                              append-icon="mdi-comment"
+                                      ></v-textarea>
+                                    </div>
+                                  </v-expansion-panel-content>
+                                </v-expansion-panel>
+                              </v-expansion-panels>
+                            </div>
+
                           </v-card>
 
                         </v-tab-item>
@@ -341,14 +428,21 @@
 </template>
 
 <script>
-import MyHeader from "../components/Header";
-import MySidebar from "../components/Sidebar";
-import ProfileCard from "../components/ProfileCard";
-import { getQuestionsByTag ,addComment,
-  removeTagByQuestion,getTagByQuestion,
-  addQuestionTag,getAnswerByQuestion} from "../api/admin";
-import { getUser } from "../utils/cookie";
-const toolbarOptions = [
+  import MyHeader from "../components/Header";
+  import MySidebar from "../components/Sidebar";
+  import ProfileCard from "../components/ProfileCard";
+  import {
+    addComment,
+    addQuestionTag,
+    getAnswerByQuestion,
+    getQuestionsByTag,
+    getTagByQuestion,
+    removeTagByQuestion,
+    getCommitByQuestion
+  } from "../api/admin";
+  import {getUser} from "../utils/cookie";
+
+  const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
 
   [{ header: 1 }, { header: 2 }], // custom button values
@@ -364,6 +458,7 @@ export default {
   name: "Home",
   data: function() {
     return {
+      isShowComment: false,
       permission:getUser().isLB,
       tagsList: [],
       currentTagId: 0,
@@ -399,6 +494,7 @@ export default {
           tag_id: tagId[0],
         };
 
+        //获取当前问题列表
         getQuestionsByTag(data)
           .then((res) => {
             if (res.data.ErrorCode === 1) {
@@ -411,12 +507,24 @@ export default {
                 });
               });
               this.currentQuestions = res.data.data;
+
+              //获取当前问题的管理员的回复
+              //获取当前问题学生的评论
+
+              for(let i=0;i<this.currentQuestions.length;i++){
+                const id= this.currentQuestions[i].id
+                this.getAnswerByQuestion(id,i)
+                this.getCommentByQuestion(id,i)
+              }
             }
           })
           .catch((error) => {
             console.log(error);
           });
       }
+
+
+
     },
 
     //删除问题标签
@@ -612,24 +720,43 @@ export default {
       })
     },
 
-      getAnswerByQuestion(questionId){
-        let answer = null
+      //通过问题获取答复
+      getAnswerByQuestion(questionId,i){
         const data={
             question_id: questionId
         }
-            getAnswerByQuestion(data).then(res => {
-                const response = res.data
-                if(response.ErrorCode === 1){
-                    alert("拉取数据失败")
-                }else {
-                    //alert("拉取数据成功")
-                    answer = response.data
-                    console.log(answer);
-                }
-            })
-
-          return answer
+          getAnswerByQuestion(data).then(res => {
+          const response = res.data
+          if (response.ErrorCode === 1) {
+            alert("拉取数据失败")
+          } else {
+            this.currentQuestions[i].answer = response.data
+          }
+        });
       },
+
+    //通过问题获取评论
+      getCommentByQuestion(questionId,i){
+        const data={
+          question_id: questionId
+        }
+        getCommitByQuestion(data).then(res => {
+          const response = res.data
+          if (response.ErrorCode === 1) {
+            alert("拉取数据失败")
+          } else {
+            this.currentQuestions[i].commit = response.data
+          }
+        });
+      },
+
+
+    //打开评论
+    openComment() {
+
+    },
+
+
 
     //通过标签名找标签ID
     searchTagId(tag_name){
@@ -643,7 +770,9 @@ export default {
     }
   },
 
-  created() {},
+  created() {
+
+  },
   components: {
     MyHeader,
     MySidebar,
@@ -714,4 +843,15 @@ p {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+.comment-span{
+  font-size: 18px;
+  color: #FFB74D;
+  font-weight: 600;
+}
+
+ .comment-span:hover{
+   opacity: 0.5;
+   cursor: pointer;
+ }
 </style>
