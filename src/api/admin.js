@@ -100,6 +100,7 @@ export function addComment(data) {
 }
 
 
+//通过问题获取标签
 export function getTagByQuestion(data) {
     return request({
         url: "/admin/question/tagByQuestion",
@@ -108,6 +109,7 @@ export function getTagByQuestion(data) {
     })
 }
 
+//通过问题获取管理员回复
 export function getAnswerByQuestion(data) {
     return request({
         url: "/user/question/get/answer",
@@ -116,6 +118,7 @@ export function getAnswerByQuestion(data) {
     })
 }
 
+//通过问题获取学生评价
 export function getCommitByQuestion(data) {
     return request({
         url: "/user/question/get/commit",
