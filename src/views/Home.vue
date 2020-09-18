@@ -575,7 +575,6 @@ export default {
 
     onAddTag(questionId, select, reason) {
       if (typeof select === "undefined") {
-        //TODO: 报错提示框
         alert("未选择所要添加的标签")
       } else if(reason === "undefined"){
         alert("未填写流转原因")
@@ -624,10 +623,10 @@ export default {
       question.tags.sort((a, b) => {
         return a.id - b.id;
       });
-      var idx = 0;
+      let idx = 0;
       this.tagsList.forEach(function(item) {
         if (idx < question.tags.length) {
-          if (question.tags[idx].id != item.id) {
+          if (question.tags[idx].id !== item.id) {
             question.tagsListForShow.push("id:" + item.id + "-" + item.name);
           } else {
             idx++;
@@ -642,8 +641,8 @@ export default {
 
     onTagsInit(tagsTree) {
       //当标签获取完成时，向home组件发出事件，传递标签树，展平
-      var that = this;
-      var dfs = function(obj) {
+      let that = this;
+      let dfs = function(obj) {
         obj.children.forEach((item) => {
           dfs(item);
         });
@@ -655,6 +654,9 @@ export default {
       that.tagsList.sort((a, b) => {
         return a.id - b.id;
       });
+
+      this.$store.commit("setTagsList",this.tagsList)
+
     },
 
 
