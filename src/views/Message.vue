@@ -192,8 +192,9 @@
 
                                             <!--这里放置增加标签的操作-->
                                             <!--focus时传递数据-->
+                                            <!--父传子-->
                                             <div>
-                                                <tag-search-column></tag-search-column>
+                                                <tag-search-column :currentQuestion="item"></tag-search-column>
                                             </div>
 
                                             <div style="width: 100%">
