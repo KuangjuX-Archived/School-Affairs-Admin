@@ -751,10 +751,6 @@ export default {
       },
 
 
-    //打开评论
-    openComment() {
-
-    },
 
 
 
