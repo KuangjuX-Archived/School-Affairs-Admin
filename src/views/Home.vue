@@ -327,51 +327,10 @@
                             </v-list>
                             <v-divider></v-divider>
 
-
-
-                            <v-card>
-                              <v-container fluid>
-                                <v-row align="center">
-                                  <v-col cols="6">
-                                    <div data-app="true" class="select-control">
-                                      <v-select
-                                        @focus="item = showSelectTags(item)"
-                                        v-model="item.select"
-                                        :items="item.tagsListForShow"
-                                        menu-props="auto"
-                                        label="选择添加标签"
-                                        hide-details
-                                      ></v-select>
-                                    </div>
-                                  </v-col>
-                                </v-row>
-                                <v-text-field
-                                  v-model="item.reason"
-                                  label="添加原因"
-                                  dense
-                                  light
-                                  clearable
-                                  clear-icon="mdi-close-circle-outline"
-                                ></v-text-field>
-                              </v-container>
-
-                              <div
-                                style="height: auto; justify-content: center;text-align: center;padding: 15px"
-                              >
-                                <v-btn
-                                  color="#66BB6A"
-                                  width="300px"
-                                  @click="
-                                    onAddTag(item.id, item.select, item.reason)
-                                  "
-                                  >
-                                  <span class="btn-font-style">
-                                    提交
-                                  </span>
-                                </v-btn
-                                >
-                              </div>
-                            </v-card>
+                            <!--流转原因封装成组件-->
+                            <div>
+                              <tag-search-column :current-question="item"></tag-search-column>
+                            </div>
 
                           </v-card>
                         </v-tab-item>
@@ -584,6 +543,7 @@
   import MyHeader from "../components/Header";
   import MySidebar from "../components/Sidebar";
   import ProfileCard from "../components/ProfileCard";
+  import TagSearchColumn from "../components/TagSearchColumn";
   import {
     addComment,
     addQuestionTag,
@@ -967,6 +927,7 @@ export default {
 
   },
   components: {
+    TagSearchColumn,
     MyHeader,
     MySidebar,
     ProfileCard,

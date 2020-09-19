@@ -6,9 +6,9 @@
                     <v-col cols="6">
                         <div data-app="true" class="select-control">
                             <v-select
-                                    @focus="currentQuestion = showSelectTags(currentQuestion)"
-                                    v-model="currentQuestion.select"
-                                    :items="currentQuestion.tagsListForShow"
+                                    @focus="showSelectTags(currentQuestion)"
+                                    v-model="currentQuestionData.select"
+                                    :items="currentQuestionData.tagsListForShow"
                                     menu-props="auto"
                                     label="选择添加标签"
                                     hide-details
@@ -22,11 +22,12 @@
                         light
                         clearable
                         clear-icon="mdi-close-circle-outline"
+                        v-model="currentQuestionData.reason"
                 ></v-text-field>
             </v-container>
             <div style="height: auto; justify-content: center;text-align: center;padding: 15px">
                 <v-btn color="#66BB6A" width="300px"
-                       @click="onAddTag(item.id, item.select, item.reason)"
+                       @click="onAddTag(currentQuestionData.id, currentQuestionData.select, currentQuestionData.reason)"
                 >
                       <span class="btn-font-style">
                         提交
@@ -40,12 +41,16 @@
 <script>
 
 
+    import {getUser} from "../utils/cookie";
+    import {addQuestionTag, removeTagByQuestion,} from "../api/admin";
+
     export default {
         name: "TagSearchColumn",
         data(){
             return {
                 tagsList: [],
                 currentQuestionId: null,
+                currentQuestionData: {}
             }
         },
 
@@ -71,7 +76,64 @@
                         question.tagsListForShow.push("id:" + item.id + "-" + item.name);
                     }
                 });
-                return question;
+                this.currentQuestionData = question
+            },
+
+
+            onAddTag(questionId, select, reason) {
+                if (typeof select === "undefined") {
+                    alert("未选择所要添加的标签")
+                } else if(reason === "undefined"){
+                    alert("未填写流转原因")
+                }else {
+                    const data={
+                        id: getUser().id,
+                        token: getUser().token,
+                        question_id: questionId,
+                        tagList: JSON.stringify([select[3]]),//这里或许要转换一下格式,
+                        reason: reason
+                    }
+                    console.log(data);
+
+                    //增加标签
+                    addQuestionTag(data).then(res => {
+                        const response = res.data
+                        if(response.ErrorCode === 1){
+                            alert("添加标签失败:"+response.msg)
+                        }else {
+                            const otherTag = this.searchTagId("其他")
+                            const removeData = {
+                                id: getUser().id,
+                                token: getUser().token,
+                                question_id: questionId,
+                                tagList: JSON.stringify([otherTag])
+                            }
+                            //删除“其他”标签
+                            removeTagByQuestion(removeData).then(res => {
+                                let removeResponse = res.data
+                                if(removeResponse.ErrorCode === 1){
+                                    alert("删除'其他标签'失败")
+                                }else {
+                                    alert("流转成功")
+                                    location.reload()
+                                }
+                            })
+                        }
+                    })
+
+
+                }
+            },
+
+            //通过标签名找标签ID
+            searchTagId(tag_name){
+                const tagsList = this.tagsList
+                for(let i=0;i<tagsList.length;i++){
+                    if(tagsList[i].name === tag_name){
+                        return tagsList[i].id
+                    }
+                }
+                return -1
             },
         },
 
