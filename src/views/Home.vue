@@ -715,10 +715,10 @@ p {
   margin-top: 15px;
   margin-bottom: 15px;
   width: 100%;
-  display: flex;
 }
 
   .admin-student-icon{
+    width: 100%;
     display: flex;
     margin-top: 15px;
     margin-bottom: 15px;
