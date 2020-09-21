@@ -29,6 +29,11 @@
                                                 </v-chip-group>
                                             </div>
 
+                                            <!--流转原因-->
+                                            <div>
+                                                <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
+                                            </div>
+
                                             <!--问题描述-->
                                             <div class="question-description-block">
                                                 <v-textarea
@@ -85,6 +90,12 @@
                                                     <v-chip v-bind:color="color[tagIndex%15]">{{tag.name}}</v-chip>
                                                 </v-chip-group>
                                             </div>
+
+                                            <!--流转原因-->
+                                            <div>
+                                                <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
+                                            </div>
+
 
                                             <!--问题描述-->
                                             <div class="question-description-block">
@@ -462,34 +473,6 @@
     .admin-student-icon{
         display: flex;
         margin-bottom: 20px;
-    }
-
-    .svg-position{
-        position: relative;
-        left: 95%;
-    }
-
-    div.comment-card-title{
-        width: 100%;
-        text-align: center;
-        font-weight: 900;
-        font-size: 26px;
-    }
-
-    .css-ydodb{
-        box-sizing: border-box;
-        margin: 0px;
-        min-width: 0px;
-        border: 2px solid rgb(255, 255, 255);
-        color: rgb(255, 255, 255);
-        background-color: rgb(241, 64, 60);
-        padding-left: 4px;
-        padding-right: 4px;
-        font-size: 11px;
-        border-radius: 20px;
-        position: relative;
-        bottom: 10px;
-        right: 10px;
     }
 
     .question-description-block{

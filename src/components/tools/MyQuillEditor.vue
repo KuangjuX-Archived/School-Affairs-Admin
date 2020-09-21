@@ -4,7 +4,7 @@
                 id="quill-upload"
                 class="avatar-uploader"
                 :action="actionUrl"
-                name="img"
+                name="newImg"
                 :data="data"
                 :show-file-list="false"
                 :on-success="uploadSuccess"
@@ -45,6 +45,8 @@
 
 <script>
 
+    import {getUser} from "../../utils/cookie";
+
     const toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
         ['blockquote', 'code-block'],
@@ -72,8 +74,11 @@
             return {
                 comment:null, //富文本内容
                 quillUpdateImg: false,
-                data:{},    //上传的时候的请求参数
-                actionUrl: '', //文件上传请求URL
+                data:{
+                    id: getUser().id,
+                    token: getUser().token
+                },    //上传的时候的请求参数
+                actionUrl: 'http://47.93.253.240:10805/api/admin/image/add', //文件上传请求URL
                 editorOption: {
                     placeholder: '',
                     theme: 'snow',  // or 'bubble'
@@ -120,7 +125,7 @@
                     // 获取光标所在位置
                     let length = quill.getSelection().index;
                     // 插入图片  res.data为服务器返回的数据
-                    quill.insertEmbed(length, 'image', res.data.imgURL)
+                    quill.insertEmbed(length, 'image', res.data.url)
                     // 调整光标到最后
                     quill.setSelection(length + 1)
                 } else {

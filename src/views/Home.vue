@@ -151,29 +151,11 @@
 
 
                             <!--富文本编辑器-->
-                            <quill-editor
-                                    v-model="item.comment"
-                                    ref="myQuillEditor"
-                                    :options="editorOption"
-                            >
-                            </quill-editor>
-
-                            <div
-                                    style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
-                                    class="btn-box-style"
-                            >
-                              <v-btn
-                                      center-active
-                                      large
-                                      @click="postCommit(item.id, item.comment)"
-                                      width="300px"
-                                      color="#66BB6A"
-                              >
-                                <span class="btn-font-style">
-                                  提交
-                                </span>
-                              </v-btn
-                              >
+                            <div style="margin-top: 25px">
+                              <my-quill-editor
+                                      :question-id="Number(item.id)"
+                                      v-on:getAnswerByChild="getAnswerByChild">
+                              </my-quill-editor>
                             </div>
 
 
@@ -321,6 +303,7 @@
   import TagSearchColumn from "../components/TagSearchColumn";
   import AdminAnswer from "../components/AdminAnswer";
   import StudentComment from "../components/StudentComment";
+  import MyQuillEditor from "../components/tools/MyQuillEditor";
   import {
     addComment,
     addQuestionTag,
@@ -370,6 +353,16 @@ export default {
         { tab: "addComment", title: "添加回复" },
       ],
     };
+  },
+
+  components: {
+    TagSearchColumn,
+    MyHeader,
+    MySidebar,
+    ProfileCard,
+    StudentComment,
+    AdminAnswer,
+    MyQuillEditor
   },
   methods: {
     onChangeTag: function(tagId) {
@@ -437,28 +430,6 @@ export default {
           alert("删除成功")
         }
       })
-    },
-
-    //提交评论
-    postCommit(questionId, comment) {
-
-      const data = {
-        id : getUser().id,
-        token : getUser().token,
-        question_id: questionId,
-        answer_contain: comment
-      }
-
-      addComment(data).then(res => {
-        const response = res.data
-        if(response.ErrorCode === 1){
-          alert("回复失败")
-        }else {
-          alert("回复成功")
-          location.reload()
-        }
-      })
-
     },
 
 
@@ -641,6 +612,28 @@ export default {
         });
       },
 
+
+    //子传父，获取管理员回复的内容
+    getAnswerByChild(comment,questionId){
+      const data = {
+        id : getUser().id,
+        token : getUser().token,
+        question_id: questionId,
+        answer_contain: comment
+      }
+
+      addComment(data).then(res => {
+        const response = res.data
+        if(response.ErrorCode === 1){
+          alert("回复失败")
+        }else {
+          alert("回复成功")
+          location.reload()
+        }
+      })
+    },
+
+
     //通过标签名找标签ID
     searchTagId(tag_name){
       const tagsList = this.tagsList
@@ -652,18 +645,10 @@ export default {
       return -1
     }
   },
-
   created() {
 
   },
-  components: {
-    TagSearchColumn,
-    MyHeader,
-    MySidebar,
-    ProfileCard,
-    StudentComment,
-    AdminAnswer
-  },
+
 };
 </script>
 
@@ -700,9 +685,6 @@ p {
   left: 12px !important;
 }
 
-.btn-box-style{
-  margin-top: 15px;
-}
 
 .btn-font-style{
   color: #ffffff;
