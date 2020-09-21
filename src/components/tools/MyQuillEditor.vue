@@ -156,12 +156,7 @@
                     // 获取光标所在位置
                     let length = quill.getSelection().index;
                     // 插入图片  res.data为服务器返回的数据
-                    quill.insertEmbed(length, 'image', {
-                        url: res.data.url,
-                        controls: "controls",
-                        width: "150px",
-                        height: "150px"
-                    })
+                    quill.insertEmbed(length, 'image', res.data.url)
 
                     // 调整光标到最后
                     quill.setSelection(length + 1)
