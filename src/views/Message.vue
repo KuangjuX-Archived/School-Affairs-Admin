@@ -137,6 +137,14 @@
                                                 </v-textarea>
                                             </div>
 
+
+                                            <!--学生评论-->
+                                            <div class="admin-student-icon">
+                                                <admin-answer :current-question="item"></admin-answer>
+                                                <student-comment :current-question="currentStudentComment"></student-comment>
+                                            </div>
+
+
                                             <!--这里放置增加标签的操作-->
                                             <!--focus时传递数据-->
                                             <!--父传子-->
@@ -144,11 +152,7 @@
                                                 <tag-search-column :currentQuestion="item"></tag-search-column>
                                             </div>
 
-                                            <!--学生评论-->
-                                            <div class="admin-student-icon">
-                                                <admin-answer :current-question="item"></admin-answer>
-                                                <student-comment :current-question="currentStudentComment"></student-comment>
-                                            </div>
+
 
 
                                         </div>
@@ -457,6 +461,7 @@
 
     .admin-student-icon{
         display: flex;
+        margin-bottom: 20px;
     }
 
     .svg-position{
