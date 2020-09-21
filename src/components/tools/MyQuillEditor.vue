@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="answer-editor">
         <el-upload
                 id="quill-upload"
                 class="avatar-uploader"

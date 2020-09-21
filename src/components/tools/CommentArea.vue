@@ -70,6 +70,11 @@
         font-size: 16px;
     }
 
+    .content-style img{
+        max-width: 300px;
+        max-height: 300px;
+    }
+
     .admin-answer-box{
         padding: 20px;
     }
