@@ -78,7 +78,7 @@
                     id: getUser().id,
                     token: getUser().token
                 },    //上传的时候的请求参数
-                actionUrl: 'http://47.93.253.240:10805/api/admin/image/add', //文件上传请求URL
+                actionUrl: process.env.VUE_APP_URL+'/admin/image/add', //文件上传请求URL
                 editorOption: {
                     placeholder: '',
                     theme: 'snow',  // or 'bubble'
