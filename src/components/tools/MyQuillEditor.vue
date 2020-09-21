@@ -5,7 +5,7 @@
                 class="avatar-uploader"
                 :action="actionUrl"
                 name="img"
-                :headers="headerToken"
+                :data="data"
                 :show-file-list="false"
                 :on-success="uploadSuccess"
                 :on-error="uploadError"
@@ -18,9 +18,28 @@
                     :options="editorOption"
                     @change="onEditorChange($event)"
                     @ready="onEditorReady($event)"
+                    class="my-quill-editor"
             >
             </quill-editor>
         </el-row>
+
+        <div
+                style="width: 100%; top: 0px; height: auto; justify-content: center;text-align: center;"
+                class="btn-box-style"
+        >
+            <v-btn
+                    center-active
+                    large
+                    @click="postParent"
+                    width="300px"
+                    color="#66BB6A"
+            >
+                <span class="btn-font-style">
+                    提交
+                </span>
+            </v-btn>
+        </div>
+
     </div>
 </template>
 
@@ -51,11 +70,10 @@
         name: "MyQuillEditor",
         data() {
             return {
-                comment:null,
+                comment:null, //富文本内容
                 quillUpdateImg: false,
-                headerToken: {'X-Auth-Token': localStorage.getItem('accessToken')},
-                actionUrl: process.env.VUE_APP_URL + '/api/upload',
-                detailContent: '', // 富文本内容
+                data:{},    //上传的时候的请求参数
+                actionUrl: '', //文件上传请求URL
                 editorOption: {
                     placeholder: '',
                     theme: 'snow',  // or 'bubble'
@@ -78,28 +96,31 @@
             }
         },
 
+        props:{
+          questionId:Number
+        },
+
         methods: {
             onEditorReady() {
             },
             onEditorChange() {
             },
             // 上传图片前
-            beforeUpload(res, file) {
+            beforeUpload() {
 
                 this.quillUpdateImg = true
             },
             // 上传图片成功
-            uploadSuccess(res, file) {
+            uploadSuccess(res) {
                 // res为图片服务器返回的数据
                 // 获取富文本组件实例
                 let quill = this.$refs.myQuillEditor.quill
                 // 如果上传成功
-                if (res.code === 1 && res.info !== null) {
+                if (res.ErrorCode === 0 && res.data !== null) {
                     // 获取光标所在位置
                     let length = quill.getSelection().index;
-                    // 插入图片  res.info为服务器返回的图片地址
-                    const img = "<img src='" + res.data.imageUrl + "'/>"
-                    quill.insertEmbed(length, 'image', res.data.imageUrl)
+                    // 插入图片  res.data为服务器返回的数据
+                    quill.insertEmbed(length, 'image', res.data.imgURL)
                     // 调整光标到最后
                     quill.setSelection(length + 1)
                 } else {
@@ -109,10 +130,15 @@
                 this.quillUpdateImg = false
             },
             // 上传图片失败
-            uploadError(res, file) {
+            uploadError() {
                 // loading动画消失
                 this.quillUpdateImg = false
                 this.$message.error('图片插入失败')
+            },
+
+            //向父组件传值
+            postParent(){
+                this.$emit('getAnswerByChild',this.comment,this.questionId)
             }
         }
 
@@ -121,25 +147,17 @@
 
 <style scoped>
 
-    .list-content {
-        margin: 30px 0;
+    .btn-box-style{
+        margin-top: 15px;
     }
 
-    .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
-        text-align: center;
-        border: 1px dashed #d9d9d9;
-
+    .btn-font-style{
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
     }
 
-    .avatar {
-        width: 138px;
-        height: 138px;
-        display: block;
+    .my-quill-editor >>> .ql-container{
+        height: 360px;
     }
-
 </style>

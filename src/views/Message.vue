@@ -48,6 +48,9 @@
                                             </div>
 
 
+
+
+
                                             <!--退回操作-->
                                             <div class="btn-block">
                                                 <v-btn width="300px" color="#E53935" >
@@ -56,6 +59,16 @@
                                                     </span>
                                                 </v-btn>
                                             </div>
+
+
+                                            <!--管理员回复-->
+                                            <div style="margin-top: 25px">
+                                                    <my-quill-editor
+                                                            :question-id="Number(item.id)"
+                                                            v-on:getAnswerByChild="getAnswerByChild">
+                                                    </my-quill-editor>
+                                            </div>
+
                                         </div>
                                         <v-divider></v-divider>
                                     </v-card-text>
@@ -195,6 +208,7 @@
     import TagSearchColumn from "../components/TagSearchColumn";
     import StudentComment from "../components/StudentComment";
     import AdminAnswer from "../components/AdminAnswer";
+    import MyQuillEditor from "../components/tools/MyQuillEditor";
     import {getUser} from "../utils/cookie";
     import {
         getSolvedQuestions,
@@ -202,7 +216,8 @@
         getTagByQuestion,
         removeTagByQuestion,
         addQuestionTag,
-        getCommitByQuestion
+        getCommitByQuestion,
+        addComment
     } from "../api/admin";
 
     export default {
@@ -211,7 +226,8 @@
             TagSearchColumn,
             MyHeader,
             StudentComment,
-            AdminAnswer
+            AdminAnswer,
+            MyQuillEditor
         },
         data(){
           return {
@@ -330,6 +346,26 @@
                         this.currentStudentComment = response.data
                         //打开遮罩
                         this.isOverlay =true
+                    }
+                })
+            },
+
+            //子传父，获取管理员回复的内容
+            getAnswerByChild(comment,questionId){
+                const data = {
+                    id : getUser().id,
+                    token : getUser().token,
+                    question_id: questionId,
+                    answer_contain: comment
+                }
+
+                addComment(data).then(res => {
+                    const response = res.data
+                    if(response.ErrorCode === 1){
+                        alert("回复失败")
+                    }else {
+                        alert("回复成功")
+                        location.reload()
                     }
                 })
             }

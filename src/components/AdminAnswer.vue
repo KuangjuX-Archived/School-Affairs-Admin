@@ -12,7 +12,7 @@
             <v-card width="600px" height="600px" style="overflow-y: scroll;overflow-x: hidden" color="#42A5F5">
                 <v-card-title>
                     <div class="comment-card-title">
-                        评论
+                        答复
                     </div>
                 </v-card-title>
                 <v-card-text v-for="(answer,answerIndex) in currentAnswer" :key="answerIndex">
