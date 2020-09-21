@@ -43,9 +43,26 @@
     </div>
 </template>
 
-<script>
 
+<script>
     import {getUser} from "../../utils/cookie";
+
+    /*import 'quill/dist/quill.core.css'
+    import 'quill/dist/quill.snow.css'
+    import 'quill/dist/quill.bubble.css'
+    import * as Quill from 'quill'
+    import { quillEditor } from 'vue-quill-editor'
+    // 拖拽上传
+    import { ImageDrop } from 'quill-image-drop-module'
+    // 调整上传图片大小
+    import ImageResize from 'quill-image-resize-module'
+    // 粘贴图片上传
+    import {ImageExtend} from 'quill-image-paste-module'
+    // 注册事件~~~~
+    Quill.register('modules/imageDrop', ImageDrop)
+    Quill.register('modules/imageResize', ImageResize)
+    Quill.register('modules/ImageExtend', ImageExtend)*/
+
 
     const toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -93,7 +110,17 @@
                                         this.quill.format('image', false);
                                     }
                                 }
-                            }
+                            },
+                            /*imageResize: {
+                                displayStyles: {
+                                    backgroundColor: 'black',
+                                    border: 'none',
+                                    color: 'white',
+                                    width: '300px',
+                                    height: '200px'
+                                },
+
+                                modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]*/
                         }
                     }
                 }
@@ -101,8 +128,12 @@
             }
         },
 
-        props:{
+        props: {
           questionId:Number
+        },
+
+        components: {
+          /*quillEditor*/
         },
 
         methods: {
@@ -125,7 +156,13 @@
                     // 获取光标所在位置
                     let length = quill.getSelection().index;
                     // 插入图片  res.data为服务器返回的数据
-                    quill.insertEmbed(length, 'image', res.data.url)
+                    quill.insertEmbed(length, 'image', {
+                        url: res.data.url,
+                        controls: "controls",
+                        width: "150px",
+                        height: "150px"
+                    })
+
                     // 调整光标到最后
                     quill.setSelection(length + 1)
                 } else {
@@ -165,4 +202,5 @@
     .my-quill-editor >>> .ql-container{
         height: 360px;
     }
+
 </style>
