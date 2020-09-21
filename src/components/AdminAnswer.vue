@@ -57,7 +57,7 @@
         },
 
         components: {
-          CommentArea
+            CommentArea,
         },
 
         methods:{
