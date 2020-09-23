@@ -5,8 +5,8 @@
             <div v-html="content" class="content-style"></div>
         </div>
         <div v-if="auth===1">
-            <div>
-                <v-card color="#42A5F5">
+            <div class="comment">
+                <v-card color="#42A5F5" style="padding:20px">
                     <v-card-title>学生评论</v-card-title>
                     <v-card-text>
                         <div v-html="commit"></div>
@@ -72,7 +72,6 @@
 
     .content-style img{
         max-width: 300px;
-        max-height: 300px;
     }
 
     .admin-answer-box{
@@ -81,5 +80,9 @@
 
     .admin-answer-box-inline{
         margin-bottom: 20px;
+    }
+
+    .comment >>> .v-card{
+        padding: 20px;
     }
 </style>

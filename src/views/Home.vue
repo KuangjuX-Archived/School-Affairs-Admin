@@ -74,12 +74,27 @@
                       <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <v-textarea
-                              auto-grow
-                              solo
-                              v-bind:value="item.description"
-                              readonly
-                      ></v-textarea>
+
+
+
+                      <!--问题描述-->
+                      <div>
+                        <v-card>
+                          <v-card-title>描述</v-card-title>
+                          <v-card-text>
+                            <div>
+                              {{item.description}}
+                            </div>
+                            <!--问题图片-->
+                            <div>
+                              <image-grid :question-id="item.id"></image-grid>
+                            </div>
+
+                          </v-card-text>
+                        </v-card>
+                      </div>
+
+
                       <v-divider></v-divider>
                       <v-tabs center-active grow v-model="controlTab">
                         <v-tab
@@ -93,6 +108,7 @@
                             <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
 
                             <v-divider style="margin-top: 15px"></v-divider>
+
                             <v-list two-line>
                               <v-list-item
                                 v-for="tag in item.tags"
@@ -184,12 +200,24 @@
                       <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <v-textarea
-                              auto-grow
-                              solo
-                              v-bind:value="item.description"
-                              readonly
-                      ></v-textarea>
+                      
+                       <div>
+                        <v-card>
+                          <v-card-title>描述</v-card-title>
+                          <v-card-text>
+                            <div>
+                              {{item.description}}
+                            </div>
+                            <!--问题图片-->
+                            <div>
+                              <image-grid :question-id="item.id"></image-grid>
+                            </div>
+
+                          </v-card-text>
+                        </v-card>
+                      </div>
+
+                      
                       <v-divider></v-divider>
                       <v-tabs center-active grow v-model="controlTab">
                         <v-tab
@@ -304,6 +332,7 @@
   import AdminAnswer from "../components/AdminAnswer";
   import StudentComment from "../components/StudentComment";
   import MyQuillEditor from "../components/tools/MyQuillEditor";
+  import ImageGrid from "../components/tools/ImageGrid";
   import {
     addComment,
     addQuestionTag,
@@ -362,7 +391,8 @@ export default {
     ProfileCard,
     StudentComment,
     AdminAnswer,
-    MyQuillEditor
+    MyQuillEditor,
+    ImageGrid
   },
   methods: {
     onChangeTag: function(tagId) {

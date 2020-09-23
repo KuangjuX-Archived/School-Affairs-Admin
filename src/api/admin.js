@@ -147,4 +147,14 @@ export function getUnsolvedQuestions(data) {
     })
 }
 
+//通过问题获取提问图片
+
+export function getImageByQuestion(data) {
+    return request({
+        url: "/user/image/byQuestion",
+        method: "GET",
+        params: data
+    })
+}
+
 

@@ -36,14 +36,21 @@
 
                                             <!--问题描述-->
                                             <div class="question-description-block">
-                                                <v-textarea
-                                                        label="问题描述"
-                                                        v-bind:value="item.description"
-                                                        solo
-                                                        auto-grow
-                                                        readonly
-                                                >
-                                                </v-textarea>
+                                                 <div>
+                                                    <v-card min-height="150px">
+                                                        <v-card-title>描述</v-card-title>
+                                                        <v-card-text>
+                                                            <div>
+                                                            {{item.description}}
+                                                            </div>
+                                                            <!--问题图片-->
+                                                            <div>
+                                                            <image-grid :question-id="item.id"></image-grid>
+                                                            </div>
+
+                                                        </v-card-text>
+                                                        </v-card>
+                                                    </div>
                                             </div>
 
                                             <!--学生评论-->
@@ -58,7 +65,7 @@
 
                                             <!--退回操作-->
                                             <div class="btn-block">
-                                                <v-btn width="300px" color="#E53935" >
+                                                <v-btn width="150px" color="#E53935" >
                                                     <span @click="returnBack(item.id)" class="btn-inline-font">
                                                         退回
                                                     </span>
@@ -99,14 +106,21 @@
 
                                             <!--问题描述-->
                                             <div class="question-description-block">
-                                                <v-textarea
-                                                        label="问题描述"
-                                                        v-bind:value="item.description"
-                                                        solo
-                                                        auto-grow
-                                                        readonly
-                                                >
-                                                </v-textarea>
+                                                <div>
+                                                    <v-card min-height="150px">
+                                                        <v-card-title>描述</v-card-title>
+                                                        <v-card-text>
+                                                            <div>
+                                                            {{item.description}}
+                                                            </div>
+                                                            <!--问题图片-->
+                                                            <div>
+                                                            <image-grid :question-id="item.id"></image-grid>
+                                                            </div>
+
+                                                        </v-card-text>
+                                                        </v-card>
+                                                    </div>
                                             </div>
 
                                             <!--评论图标-->
@@ -138,14 +152,21 @@
 
                                             <!--问题描述-->
                                             <div class="question-description-block">
-                                                <v-textarea
-                                                        label="问题描述"
-                                                        v-bind:value="item.description"
-                                                        solo
-                                                        readonly
-                                                        auto-grow
-                                                >
-                                                </v-textarea>
+                                                <div>
+                                                    <v-card min-height="150px">
+                                                        <v-card-title>描述</v-card-title>
+                                                        <v-card-text>
+                                                            <div>
+                                                            {{item.description}}
+                                                            </div>
+                                                            <!--问题图片-->
+                                                            <div>
+                                                            <image-grid :question-id="item.id"></image-grid>
+                                                            </div>
+
+                                                        </v-card-text>
+                                                        </v-card>
+                                                    </div>
                                             </div>
 
 
@@ -185,14 +206,21 @@
 
                                             <!--问题描述-->
                                             <div class="question-description-block">
-                                                <v-textarea
-                                                        label="问题描述"
-                                                        v-bind:value="item.description"
-                                                        readonly
-                                                        solo
-                                                        auto-grow
-                                                >
-                                                </v-textarea>
+                                               <div>
+                                                    <v-card min-height="300px">
+                                                        <v-card-title>描述</v-card-title>
+                                                        <v-card-text>
+                                                            <div>
+                                                            {{item.description}}
+                                                            </div>
+                                                            <!--问题图片-->
+                                                            <div>
+                                                            <image-grid :question-id="item.id"></image-grid>
+                                                            </div>
+
+                                                        </v-card-text>
+                                                        </v-card>
+                                                    </div>
                                             </div>
 
                                             <!--学生评论-->
@@ -477,5 +505,6 @@
 
     .question-description-block{
         margin-top: 15px;
+        margin-bottom: 15px;
     }
 </style>
