@@ -60,7 +60,8 @@
             //打开学生评论
             openComment(questionId){
                 const data = {
-                    question_id: questionId
+                    question_id: questionId,
+                    user_id: 0
                 }
 
                 getCommitByQuestion(data).then(res => {

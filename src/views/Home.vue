@@ -630,7 +630,8 @@ export default {
     //通过问题获取评论
       getCommentByQuestion(questionId,i){
         const data={
-          question_id: questionId
+          question_id: questionId,
+          user_id: 0
         }
         getCommitByQuestion(data).then(res => {
           const response = res.data

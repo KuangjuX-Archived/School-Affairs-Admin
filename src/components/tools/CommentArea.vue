@@ -2,7 +2,9 @@
     <div class="admin-answer-box">
         <div class="admin-answer-box-inline">
             <div class="author-style">{{author}}:</div>
-            <div v-html="content" class="content-style"></div>
+            <div>
+              <div v-html="content" class="content-style"></div>
+            </div>
         </div>
         <div v-if="auth===1">
             <div class="comment">
@@ -73,6 +75,7 @@
     .content-style img{
         max-width: 300px;
     }
+
 
     .admin-answer-box{
         padding: 20px;
