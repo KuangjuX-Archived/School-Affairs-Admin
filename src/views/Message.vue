@@ -36,11 +36,15 @@
 
                                             <!--问题描述-->
                                             <div class="question-description-block">
-                                                 <div>
-                                                    <v-card min-height="150px">
-                                                        <v-card-title>描述</v-card-title>
+                                               <div>
+                                                    <v-card min-height="300px">
+                                                        <v-card-title>
+                                                            <div class="question-title">
+                                                                描述
+                                                            </div>
+                                                        </v-card-title>
                                                         <v-card-text>
-                                                            <div>
+                                                            <div class="question-description">
                                                             {{item.description}}
                                                             </div>
                                                             <!--问题图片-->
@@ -106,11 +110,15 @@
 
                                             <!--问题描述-->
                                             <div class="question-description-block">
-                                                <div>
-                                                    <v-card min-height="150px">
-                                                        <v-card-title>描述</v-card-title>
+                                               <div>
+                                                    <v-card min-height="300px">
+                                                        <v-card-title>
+                                                            <div class="question-title">
+                                                                描述
+                                                            </div>
+                                                        </v-card-title>
                                                         <v-card-text>
-                                                            <div>
+                                                            <div class="question-description">
                                                             {{item.description}}
                                                             </div>
                                                             <!--问题图片-->
@@ -152,11 +160,15 @@
 
                                             <!--问题描述-->
                                             <div class="question-description-block">
-                                                <div>
-                                                    <v-card min-height="150px">
-                                                        <v-card-title>描述</v-card-title>
+                                               <div>
+                                                    <v-card min-height="300px">
+                                                        <v-card-title>
+                                                            <div class="question-title">
+                                                                描述
+                                                            </div>
+                                                        </v-card-title>
                                                         <v-card-text>
-                                                            <div>
+                                                            <div class="question-description">
                                                             {{item.description}}
                                                             </div>
                                                             <!--问题图片-->
@@ -208,9 +220,13 @@
                                             <div class="question-description-block">
                                                <div>
                                                     <v-card min-height="300px">
-                                                        <v-card-title>描述</v-card-title>
+                                                        <v-card-title>
+                                                            <div class="question-title">
+                                                                描述
+                                                            </div>
+                                                        </v-card-title>
                                                         <v-card-text>
-                                                            <div>
+                                                            <div class="question-description">
                                                             {{item.description}}
                                                             </div>
                                                             <!--问题图片-->
@@ -252,6 +268,7 @@
     import StudentComment from "../components/StudentComment";
     import AdminAnswer from "../components/AdminAnswer";
     import MyQuillEditor from "../components/tools/MyQuillEditor";
+    import ImageGrid from "../components/tools/ImageGrid";
     import {getUser} from "../utils/cookie";
     import {
         getSolvedQuestions,
@@ -270,7 +287,8 @@
             MyHeader,
             StudentComment,
             AdminAnswer,
-            MyQuillEditor
+            MyQuillEditor,
+            ImageGrid
         },
         data(){
           return {
@@ -506,5 +524,16 @@
     .question-description-block{
         margin-top: 15px;
         margin-bottom: 15px;
+    }
+
+    .question-title{
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .question-desciption{
+        padding: 20px;
+        font-size: 16px;
     }
 </style>

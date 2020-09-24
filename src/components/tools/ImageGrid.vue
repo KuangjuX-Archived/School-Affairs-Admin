@@ -1,13 +1,19 @@
 <template>
     <div>
-        <div class="image-box" v-for="n in 3" :key="n">
-        <div class="row-box" v-for="(item, index) in imageUrl.slice((n-1)*3,(n-1*3)+2)" :key="index">
-            <div class="block-row" >
-                <v-img :src="item"></v-img>
+        <div class="image-box" >
+            <div class="row-box" v-for="n in 3" :key="n">
+                <div class="block-row" v-for="(item, index) in imageUrl.slice((n-1)*3,(n-1)*3+3)" :key="index">
+                    <div class="image-frame">
+                        <v-img :src="item"  max-width="280px" height="300px"></v-img>
+                    </div>
+                </div>
             </div>
         </div>
 
-    </div>
+    
+
+
+
     </div>
 </template>
 
@@ -36,6 +42,9 @@
                         alert(response.msg)
                     }else {
                         this.imageUrl = response.data.url_list
+                        // while(this.imageUrl.length<9){
+                        //     this.imageUrl.push([])
+                        // }
                     }
                 })
             }
@@ -58,10 +67,17 @@
         flex: 1;
         display: flex;
         flex-direction: row;
-        height: 200px;
+    
     }
 
     .block-row{
         flex: 1;
+        margin: 10px;
+    
     }
+
+    .image-frame{
+        margin: 10px;
+    }
+
 </style>

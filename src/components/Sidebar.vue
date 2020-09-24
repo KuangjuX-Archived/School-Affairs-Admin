@@ -66,7 +66,7 @@
     position: fixed;
     left: 0%;
     top: 5%;
-    width: 25%;
+    width: 20%;
     height: 100%;
     overflow-y: scroll;
 
