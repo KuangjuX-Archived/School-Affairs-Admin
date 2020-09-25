@@ -1,9 +1,17 @@
 <template>
     <div>
         <v-card>
-            <v-card-title>
-                您好，管理员！
-            </v-card-title>
+            <div v-if="permission==='子管理员'">
+              <v-card-title>
+                您好，{{name}}
+              </v-card-title>
+            </div>
+
+            <div v-else>
+              <v-card-title>
+                您好，两办管理员
+              </v-card-title>
+            </div>
             <v-card-text>
                 <div class="profile-title">
                     <div class="profile-info">
@@ -48,6 +56,7 @@
                 phoneNumber: getUser().phoneNumber,
                 password: "",
                 permission: (getUser().isLB === "true") ? "两办管理员" : "子管理员",
+                name: getUser().name
             }
         },
 

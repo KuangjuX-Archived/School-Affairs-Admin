@@ -26,293 +26,272 @@
 
                 <v-card-text class="content-text">
                   <p>
-                    本后台系统使用了bootstrap插件,所以强烈推荐使用
-                    chrome,firefox,搜狗浏览器 等现代浏览器.请不要使用ie浏览器.
-                    同时:希望老师能推荐学生使用以上三个浏览器进行党校系统的学习,这样浏览效果会更好!
+                    本平台分为两办管理员和子管理员。两办管理员可以管理学生提出问题的“其他”标签和子管理员退回的标签。
+                    同时可以在问题下添加标签。子管理员可以管理自己标签下的问题并进行回复，如果觉得不属于本标签的问题，可以退回问题。
                   </p>
-                  <v-divider></v-divider>
-                  <p>
-                    后台共有15个部分模块组成,分别是 通知公告 栏目管理 党建专项
-                    学习小组 党校培训 重要文件 理论学习 消息管理 申请人培训
-                    院级积极分子培训 预备党员培训 支部管理 学生信息管理 管理员控制
-                    系统功能锁这些部分组成.
-                    其中前7个部分都是对前台页面新闻的管理和党校相关信息的发表.
-                    后面的几个模块是对党校课程的控制盒学生状态的控制.
-                  </p>
-                  <v-divider></v-divider>
-                  <p>
-                    后台共分3种权限:超级管理员院级管理员栏目管理员.超级管理员可以管理所有后台的所有权限,包括超级管理员,院级管理员,栏目管理员的添加,删除等操作.但是不包括院级培训的添加和学生成绩的录入
-                    院级管理员可以进行消息的处理操作以及院级积极分子培训的考试.学生信息管理的操作.但是请广大院级管理员注意:不得操作其他学院的相关数据,如果发现,将会封号处理.
-                    栏目管理员是由超级管理员下放的权限:它以单个的模块为单位,只显示其拥有的权限.但是栏目管理员无法查看管理员控制盒系统锁模块.
-                  </p>
-                  <v-divider></v-divider>
-                  <p>
-                    请超级管理员注意:在给栏目管理员分配权限的时候,是不能分配管理员控制系统功能锁
-                    这两个模块的. 以免栏目管理员对其权限进行修改.
-                  </p>
-                  <v-divider></v-divider>
-                  <p>
-                    栏目管理:主要管理的是前台党建专项的下拉菜单,在后台添加二级栏目,并且二级栏目未被删除,则在前台菜单栏内即可显示
-                    同时请注意:栏目名称不可太长,否则影响前台效果的显示.
-                  </p>
+
                 </v-card-text>
               </v-card>
             </div>
 
 
-            <!--这里显示问题-->
-            <div v-else-if="permission==='false'" class="question-field">
-              <!--扩展面板-->
-              <v-expansion-panels>
-                <v-expansion-panel
-                  v-for="(item, i) in currentQuestions"
-                  :key="i"
-                  style="margin-top: 15px"
-                >
-                  <div>
-                    <v-expansion-panel-header>
-                      <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-
-
-
-                      <!--问题描述-->
-                      <div>
-                        <v-card>
-                          <v-card-title>描述</v-card-title>
-                          <v-card-text>
-                            <div>
-                              {{item.description}}
-                            </div>
-                            <!--问题图片-->
-                            <div>
-                              <image-grid :question-id="item.id"></image-grid>
-                            </div>
-
-                          </v-card-text>
-                        </v-card>
-                      </div>
-
-
-                      <v-divider></v-divider>
-                      <v-tabs center-active grow v-model="controlTab">
-                        <v-tab
-                          v-for="item in controlTabItems"
-                          :key="item.tab"
-                          >{{ item.title }}</v-tab>
-                      </v-tabs>
-                      <v-tabs-items v-model="controlTab">
-                        <v-tab-item key="updateTag">
-                          <v-card flat>
-                            <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
-
-                            <v-divider style="margin-top: 15px"></v-divider>
-
-                            <v-list two-line>
-                              <v-list-item
-                                v-for="tag in item.tags"
-                                :key="tag.id"
-                              >
-                                <v-list-item-content>
-                                  <v-list-item-title
-                                    v-text="tag.name"
-                                  ></v-list-item-title>
-
-                                </v-list-item-content>
-                              </v-list-item>
-                            </v-list>
-                            <v-divider></v-divider>
-
-
-                          <div style="margin-top: 15px;height: auto; justify-content: center; text-align: center">
-                            <v-btn width="300px" color="#E53935" >
-                              <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
-                                退回
-                              </span>
-                            </v-btn>
-                          </div>
-                          </v-card>
-                        </v-tab-item>
-
-
-                        <!--这里要加上其他管理员的评论-->
-                        <v-tab-item key="addComment">
-                          <v-card flat >
-
-                            <div v-if="!item.solved">
-                              <v-btn color="#E53935" width="300px">
-                                <span class="btn-font-style">
-                                  未解决
-                                </span>
-                              </v-btn>
-                            </div>
-
-                            <div v-else>
-                              <v-btn color="#66BB6A" width="300px" >
-                                <span class="btn-font-style">
-                                  已解决
-                                </span>
-                              </v-btn>
-
-                              <!--管理员回复图标-->
-                              <!--学生评论图标-->
-                              <div class="admin-student-icon">
-                                <admin-answer :current-question="item"></admin-answer>
-                                <student-comment :current-question="item"></student-comment>
-                              </div>
-
-                            </div>
-
-
-
-                            <!--富文本编辑器-->
-                            <div style="margin-top: 25px">
-                              <my-quill-editor
-                                      :question-id="Number(item.id)"
-                                      v-on:getAnswerByChild="getAnswerByChild">
-                              </my-quill-editor>
-                            </div>
-
-
-
-                          </v-card>
-                        </v-tab-item>
-                      </v-tabs-items>
-                    </v-expansion-panel-content>
-                  </div>
-                </v-expansion-panel>
-              </v-expansion-panels>
-            </div>
-
-
-
-            <!--这里是两办管理员-->
-            <div v-else-if="permission==='true'" style="margin-top: 15px">
-              <v-expansion-panels>
-                <v-expansion-panel
+            <div id="question-block">
+              <v-card>
+                <!--这里显示问题-->
+                <div v-if="permission==='false'" class="question-field">
+                  <!--扩展面板-->
+                  <v-expansion-panels>
+                    <v-expansion-panel
                         v-for="(item, i) in currentQuestions"
                         :key="i"
                         style="margin-top: 15px"
-                >
-                  <div>
-                    <v-expansion-panel-header>
-                      <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                      
-                       <div>
-                        <v-card>
-                          <v-card-title>描述</v-card-title>
-                          <v-card-text>
-                            <div>
-                              {{item.description}}
-                            </div>
-                            <!--问题图片-->
-                            <div>
-                              <image-grid :question-id="item.id"></image-grid>
-                            </div>
+                    >
+                      <div>
+                        <v-expansion-panel-header>
+                          <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
 
-                          </v-card-text>
-                        </v-card>
-                      </div>
 
-                      
-                      <v-divider></v-divider>
-                      <v-tabs center-active grow v-model="controlTab">
-                        <v-tab
+
+                          <!--问题描述-->
+                          <div>
+                            <v-card>
+                              <v-card-title>描述</v-card-title>
+                              <v-card-text>
+                                <div>
+                                  {{item.description}}
+                                </div>
+                                <!--问题图片-->
+                                <div>
+                                  <image-grid :question-id="item.id"></image-grid>
+                                </div>
+
+                              </v-card-text>
+                            </v-card>
+                          </div>
+
+
+                          <v-divider></v-divider>
+                          <v-tabs center-active grow v-model="controlTab">
+                            <v-tab
                                 v-for="item in controlTabItems"
                                 :key="item.tab"
-                        >{{ item.title }}</v-tab
-                        >
-                      </v-tabs>
-                      <v-tabs-items v-model="controlTab">
-                        <v-tab-item key="updateTag">
-                          <v-card flat>
-                            <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
+                            >{{ item.title }}</v-tab>
+                          </v-tabs>
+                          <v-tabs-items v-model="controlTab">
+                            <v-tab-item key="updateTag">
+                              <v-card flat>
+                                <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
 
-                            <v-divider style="margin-top: 15px"></v-divider>
-                            <v-list two-line>
-                              <v-list-item
+                                <v-divider style="margin-top: 15px"></v-divider>
+
+                                <v-list two-line>
+                                  <v-list-item
                                       v-for="tag in item.tags"
                                       :key="tag.id"
-                              >
-                                <v-list-item-content>
-                                  <v-list-item-title
-                                          v-text="tag.name"
-                                  ></v-list-item-title>
-                                </v-list-item-content>
-
-                                <v-list-item-action>
-                                  <v-btn
-                                          icon
-                                          @click="deleteTag(item.id, tag.id)"
                                   >
-                                    <v-icon color="grey lighten-1"
-                                    >mdi-delete</v-icon
-                                    >
+                                    <v-list-item-content>
+                                      <v-list-item-title
+                                          v-text="tag.name"
+                                      ></v-list-item-title>
+
+                                    </v-list-item-content>
+                                  </v-list-item>
+                                </v-list>
+                                <v-divider></v-divider>
+
+
+                                <div style="margin-top: 15px;height: auto; justify-content: center; text-align: center">
+                                  <v-btn width="300px" color="#E53935" >
+                              <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
+                                退回
+                              </span>
                                   </v-btn>
-                                </v-list-item-action>
-                              </v-list-item>
-                            </v-list>
-                            <v-divider></v-divider>
-
-                            <!--流转原因封装成组件-->
-                            <div>
-                              <tag-search-column :current-question="item"></tag-search-column>
-                            </div>
-
-                          </v-card>
-                        </v-tab-item>
+                                </div>
+                              </v-card>
+                            </v-tab-item>
 
 
-                        <v-tab-item key="addComment">
-                          <v-card flat>
-                            <div v-if="!item.solved" class="status-answer-box">
-                              <v-btn color="#E53935" width="300px">
+                            <!--这里要加上其他管理员的评论-->
+                            <v-tab-item key="addComment">
+                              <v-card flat >
+
+                                <div v-if="!item.solved">
+                                  <v-btn color="#E53935" width="300px">
                                 <span class="btn-font-style">
                                   未解决
                                 </span>
-                              </v-btn>
+                                  </v-btn>
+                                </div>
 
-                              <!--管理员回复图标-->
-                              <!--学生评论图标-->
-                              <div class="admin-student-icon">
-                                <admin-answer :current-question="item"></admin-answer>
-                                <student-comment :current-question="item"></student-comment>
-                              </div>
-
-
-
-                            </div>
-
-                            <div v-else>
-                              <v-btn color="#66BB6A" width="300px" >
+                                <div v-else>
+                                  <v-btn color="#66BB6A" width="300px" >
                                 <span class="btn-font-style">
                                   已解决
                                 </span>
-                              </v-btn>
+                                  </v-btn>
 
-                              <!--管理员回复图标-->
-                              <!--学生评论图标-->
+                                  <!--管理员回复图标-->
+                                  <!--学生评论图标-->
+                                  <div class="admin-student-icon">
+                                    <admin-answer :current-question="item"></admin-answer>
+                                    <student-comment :current-question="item"></student-comment>
+                                  </div>
 
-                              <div class="admin-student-icon">
-                                <admin-answer :current-question="item"></admin-answer>
-                                <student-comment :current-question="item"></student-comment>
-                              </div>
+                                </div>
 
 
-                            </div>
 
-                          </v-card>
+                                <!--富文本编辑器-->
+                                <div style="margin-top: 25px">
+                                  <my-quill-editor
+                                      :question-id="Number(item.id)"
+                                      v-on:getAnswerByChild="getAnswerByChild">
+                                  </my-quill-editor>
+                                </div>
 
-                        </v-tab-item>
-                      </v-tabs-items>
 
-                    </v-expansion-panel-content>
-                  </div>
-                </v-expansion-panel>
-              </v-expansion-panels>
+
+                              </v-card>
+                            </v-tab-item>
+                          </v-tabs-items>
+                        </v-expansion-panel-content>
+                      </div>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
+                </div>
+
+
+
+                <!--这里是两办管理员-->
+                <div v-else-if="permission==='true'" style="margin-top: 15px">
+                  <v-expansion-panels>
+                    <v-expansion-panel
+                        v-for="(item, i) in currentQuestions"
+                        :key="i"
+                        style="margin-top: 15px"
+                    >
+                      <div>
+                        <v-expansion-panel-header>
+                          <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+
+                          <div>
+                            <v-card>
+                              <v-card-title>描述</v-card-title>
+                              <v-card-text>
+                                <div>
+                                  {{item.description}}
+                                </div>
+                                <!--问题图片-->
+                                <div>
+                                  <image-grid :question-id="item.id"></image-grid>
+                                </div>
+
+                              </v-card-text>
+                            </v-card>
+                          </div>
+
+
+                          <v-divider></v-divider>
+                          <v-tabs center-active grow v-model="controlTab">
+                            <v-tab
+                                v-for="item in controlTabItems"
+                                :key="item.tab"
+                            >{{ item.title }}</v-tab
+                            >
+                          </v-tabs>
+                          <v-tabs-items v-model="controlTab">
+                            <v-tab-item key="updateTag">
+                              <v-card flat>
+                                <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
+
+                                <v-divider style="margin-top: 15px"></v-divider>
+                                <v-list two-line>
+                                  <v-list-item
+                                      v-for="tag in item.tags"
+                                      :key="tag.id"
+                                  >
+                                    <v-list-item-content>
+                                      <v-list-item-title
+                                          v-text="tag.name"
+                                      ></v-list-item-title>
+                                    </v-list-item-content>
+
+                                    <v-list-item-action>
+                                      <v-btn
+                                          icon
+                                          @click="deleteTag(item.id, tag.id)"
+                                      >
+                                        <v-icon color="grey lighten-1"
+                                        >mdi-delete</v-icon
+                                        >
+                                      </v-btn>
+                                    </v-list-item-action>
+                                  </v-list-item>
+                                </v-list>
+                                <v-divider></v-divider>
+
+                                <!--流转原因封装成组件-->
+                                <div>
+                                  <tag-search-column :current-question="item"></tag-search-column>
+                                </div>
+
+                              </v-card>
+                            </v-tab-item>
+
+
+                            <v-tab-item key="addComment">
+                              <v-card flat>
+                                <div v-if="!item.solved" class="status-answer-box">
+                                  <v-btn color="#E53935" width="300px">
+                                <span class="btn-font-style">
+                                  未解决
+                                </span>
+                                  </v-btn>
+
+                                  <!--管理员回复图标-->
+                                  <!--学生评论图标-->
+                                  <div class="admin-student-icon">
+                                    <admin-answer :current-question="item"></admin-answer>
+                                    <student-comment :current-question="item"></student-comment>
+                                  </div>
+
+
+
+                                </div>
+
+                                <div v-else>
+                                  <v-btn color="#66BB6A" width="300px" >
+                                <span class="btn-font-style">
+                                  已解决
+                                </span>
+                                  </v-btn>
+
+                                  <!--管理员回复图标-->
+                                  <!--学生评论图标-->
+
+                                  <div class="admin-student-icon">
+                                    <admin-answer :current-question="item"></admin-answer>
+                                    <student-comment :current-question="item"></student-comment>
+                                  </div>
+
+
+                                </div>
+
+                              </v-card>
+
+                            </v-tab-item>
+                          </v-tabs-items>
+
+                        </v-expansion-panel-content>
+                      </div>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
+                </div>
+              </v-card>
             </div>
 
 
@@ -734,5 +713,12 @@ p {
     display: flex;
     margin-top: 15px;
     margin-bottom: 15px;
+  }
+
+  #question-block{
+    margin-top: 25px;
+  }
+  #question-block >>> .v-sheet.v-card{
+    padding: 20px;
   }
 </style>
