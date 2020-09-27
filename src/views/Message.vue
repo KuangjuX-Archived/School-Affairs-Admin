@@ -17,8 +17,8 @@
                             <div v-if="isLB==='false'">
                                 <!--未处理-->
                                 <div v-if="!isSolvedPage">
-                                    <v-card-text  v-for="(item,index) in unsolvedQuestions" :key="index">
-                                        <div class="answer-item-box" >
+                                    <v-card-text >
+                                        <div class="answer-item-box" v-for="(item,index) in unsolvedQuestions" :key="index">
                                             <div class="question-title">{{item.name}}</div>
                                             <!--这里放置问题标签-->
                                             <div>
@@ -88,6 +88,14 @@
                                         </div>
                                         <v-divider></v-divider>
                                     </v-card-text>
+
+                                    <div class="pagination-box">
+                                      <v-pagination
+                                          v-model="page_1"
+                                          :length="unsolvedQuestionsPage"
+                                      ></v-pagination>
+                                    </div>
+
                                 </div>
 
                                 <!--已解决-->
@@ -141,6 +149,14 @@
 
                                         <v-divider></v-divider>
                                     </v-card-text>
+
+                                  <div class="pagination-box">
+                                    <v-pagination
+                                        v-model="page_2"
+                                        :length="solvedQuestionPage"
+                                    ></v-pagination>
+                                  </div>
+
                                 </div>
                             </div>
 
@@ -202,6 +218,14 @@
                                         </div>
                                         <v-divider></v-divider>
                                     </v-card-text>
+
+                                  <div class="pagination-box">
+                                    <v-pagination
+                                        v-model="page_3"
+                                        :length="unsolvedQuestionsPage"
+                                    ></v-pagination>
+                                  </div>
+
                                 </div>
 
                                 <!--已解决问题-->
@@ -250,7 +274,15 @@
 
                                         <v-divider></v-divider>
                                     </v-card-text>
+
+                                  <div class="pagination-box">
+                                    <v-pagination
+                                        v-model="page_4"
+                                        :length="solvedQuestionPage"
+                                    ></v-pagination>
+                                  </div>
                                 </div>
+
                             </div>
 
 
@@ -295,6 +327,8 @@
               isLB: getUser().isLB,
               solvedQuestions:[],
               unsolvedQuestions:[],
+              solvedQuestionPage:0,
+              unsolvedQuestionsPage:0,
               isSolvedPage: false,
               color:["#DCE775","#FFF176","#FFD54F","#FFB74D","#FF8A65",
                   "#F06292","#BA68C8","#9575CD","#7986CB","#64B5F6",
@@ -303,7 +337,82 @@
               isOverlay: false,
               currentStudentComment:[],
               tagsList:[],
+              page_1:0,
+              page_2:0,
+              page_3:0,
+              page_4:0
+
           }
+        },
+        watch: {
+          page_1: function (page){
+            const data = {
+              id: getUser().id,
+              token: getUser().token,
+              limits: 10,
+              page:page
+            }
+            getUnsolvedQuestions(data).then(res => {
+              const response = res.data
+              if(response.ErrorCode === 1){
+                alert("拉取未解决问题列表失败")
+              }else {
+                this.unsolvedQuestions = response.data.data;
+              }
+            })
+          },
+
+          page_2: function (page){
+            const data = {
+              id: getUser().id,
+              token: getUser().token,
+              limits: 10,
+              page:page
+            }
+            getSolvedQuestions(data).then(res => {
+              const response = res.data
+              if(response.ErrorCode === 1){
+                alert("拉取未解决问题列表失败")
+              }else {
+                this.solvedQuestions = response.data.data;
+              }
+            })
+          },
+
+          page_3: function (page){
+            const data = {
+              id: getUser().id,
+              token: getUser().token,
+              limits: 10,
+              page:page
+            }
+            getUnsolvedQuestions(data).then(res => {
+              const response = res.data
+              if(response.ErrorCode === 1){
+                alert("拉取未解决问题列表失败")
+              }else {
+                this.unsolvedQuestions = response.data.data;
+              }
+            })
+          },
+
+          page_4: function (page){
+            const data = {
+              id: getUser().id,
+              token: getUser().token,
+              limits: 10,
+              page:page
+            }
+            getSolvedQuestions(data).then(res => {
+              const response = res.data
+              if(response.ErrorCode === 1){
+                alert("拉取未解决问题列表失败")
+              }else {
+                this.solvedQuestions = response.data.data;
+              }
+            })
+          },
+
         },
         methods: {
             //初始化问题时添加标签
@@ -316,7 +425,8 @@
                 getTagByQuestion(data).then(res =>{
                     const response = res.data
                     if(response.ErrorCode === 1){
-                        alert("获取失败")
+                        alert("通过问题获取标签失败")
+                        //console.log(2);
                     }else {
                         if(isSolved===true){
                             this.solvedQuestions[i].tags = response.data
@@ -429,36 +539,41 @@
                         location.reload()
                     }
                 })
-            }
+            },
+
+
 
         },
 
-
-
-        created() {
+      created() {
             const data = {
                 id: getUser().id,
-                token: getUser().token
+                token: getUser().token,
+                limits: 10,
+                page:1
             }
             //获得未解决问题的列表
             getUnsolvedQuestions(data).then(res => {
                 const response = res.data
                 if(response.ErrorCode === 1){
-                    alert("拉取失败")
+                    alert("拉取未解决问题列表失败")
                 }else {
-                    this.unsolvedQuestions=response.data
+                  this.unsolvedQuestions = response.data.data;
+                  this.unsolvedQuestionsPage = response.data.total;
 
-                    //获得已解决问题的列表
+                  //获得已解决问题的列表
                     getSolvedQuestions(data).then(res => {
                         const response = res.data
                         if(response.ErrorCode === 1){
-                            alert("拉取失败")
+                            alert("拉取已解决问题列表失败")
                         }else {
-                            this.solvedQuestions=response.data
+                          this.solvedQuestions=response.data.data;
+                          this.solvedQuestionPage=response.total;
 
-                            //获取问题标签
+                          //获取问题标签
                             for(let i=0;i<this.unsolvedQuestions.length;i++){
                                 let questionId=this.unsolvedQuestions[i].id
+                                //console.log(this.unsolvedQuestions);
                                 this.initTagOnQuestion(questionId,i,false)
                             }
 
@@ -532,8 +647,7 @@
         padding: 20px;
     }
 
-    .question-desciption{
-        padding: 20px;
-        font-size: 16px;
+    .pagination-box{
+      margin: 20px;
     }
 </style>

@@ -594,12 +594,14 @@ export default {
       //通过问题获取答复
       getAnswerByQuestion(questionId,i){
         const data={
-            question_id: questionId
+            question_id: questionId,
+            user_id: 0
         }
           getAnswerByQuestion(data).then(res => {
           const response = res.data
           if (response.ErrorCode === 1) {
             alert("拉取数据失败")
+            console.log(1);
           } else {
             this.currentQuestions[i].answer = response.data
           }
@@ -616,6 +618,7 @@ export default {
           const response = res.data
           if (response.ErrorCode === 1) {
             alert("拉取数据失败")
+            console.log(2);
           } else {
             this.currentQuestions[i].commit = response.data
           }

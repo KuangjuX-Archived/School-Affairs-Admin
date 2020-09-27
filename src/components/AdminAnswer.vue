@@ -66,8 +66,9 @@
                 const data = {
                     question_id: questionId
                 }
+              //console.log(questionId);
 
-                getAnswerByQuestion(data).then(res => {
+              getAnswerByQuestion(data).then(res => {
                     const response = res.data
                     if(response.ErrorCode === 1){
                         alert("获取学生评论失败")

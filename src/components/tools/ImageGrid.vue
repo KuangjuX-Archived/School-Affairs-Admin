@@ -4,7 +4,7 @@
             <div class="row-box" v-for="n in 3" :key="n">
                 <div class="block-row" v-for="(item, index) in imageUrl.slice((n-1)*3,(n-1)*3+3)" :key="index">
                     <div class="image-frame">
-                        <v-img :src="item"  max-width="280px" height="300px"></v-img>
+                        <v-img :src="item"  max-width="260px" height="300px"></v-img>
                     </div>
                 </div>
             </div>
@@ -36,15 +36,16 @@
                 const data = {
                     question_id: questionId
                 }
-                getImageByQuestion(data).then(res => {
+              console.log(data);
+              getImageByQuestion(data).then(res => {
                     const response = res.data
                     if(response.ErrorCode === 1){
-                        alert(response.msg)
+                        alert("获取图片失败")
+                      //console.log(1);
                     }else {
                         this.imageUrl = response.data.url_list
-                        // while(this.imageUrl.length<9){
-                        //     this.imageUrl.push([])
-                        // }
+                        console.log(this.imageUrl);
+
                     }
                 })
             }
