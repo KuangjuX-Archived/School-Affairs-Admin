@@ -36,7 +36,7 @@
                 const data = {
                     question_id: questionId
                 }
-              console.log(data);
+              //console.log(data);
               getImageByQuestion(data).then(res => {
                     const response = res.data
                     if(response.ErrorCode === 1){
@@ -46,11 +46,10 @@
                         //console.log(this.imageUrl);
                         this.imageUrl=response.data.url_list.map(url => {
                           let arr = url.split("images");
-                          console.log(arr);
+                          //console.log(arr);
                           url = arr[0]+"thumb_images"+arr[1];
                           return url;
                         })
-                      console.log(this.imageUrl);
                     }
                 })
             }

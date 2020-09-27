@@ -441,66 +441,69 @@
             },
 
 
-            //退回问题到两办
-            returnBack(questionId){
-                let reason = prompt("请输入退回原因")
-                const data = {
-                    id: getUser().id,
-                    token: getUser().token,
-                    question_id: questionId
+          //退回问题到两办
+          returnBack(questionId){
+            let reason = prompt("请输入退回原因")
+            console.log(1);
+            const data = {
+              id: getUser().id,
+              token: getUser().token,
+              question_id: questionId
+            }
+            let tagList=[]
+            getTagByQuestion(data).then(res => {
+              const response = res.data
+              if(response.ErrorCode === 1){
+                alert("获取问题所属标签失败")
+              }else {
+                const tagData = response.data
+                for(let i=0;i<tagData.length;i++){
+                  tagList.push(tagData[i].id)
                 }
-                let tagList=[]
-                getTagByQuestion(data).then(res => {
-                    const response = res.data
-                    if(response.ErrorCode === 1){
-                        alert("获取问题所属标签失败")
-                    }else {
-                        const tagData = response.data
-                        for(let i=0;i<tagData.length;i++){
-                            tagList.push(tagData[i].id)
-                        }
+                //console.log(tagList);
+                tagList=JSON.stringify(tagList)
 
+                const removeData = {
+                  id: getUser().id,
+                  token: getUser().token,
+                  question_id: questionId,
+                  tagList: tagList
+                }
 
-                        tagList=JSON.stringify(tagList)
-
-                        // data.tagList=tagList
-                        const removeData = {
-                            id: getUser().id,
-                            token: getUser().token,
-                            question_id: questionId,
-                            tagList: tagList
-                        }
-
-                        //删除该所属问题下所有标签
-                        removeTagByQuestion(removeData).then(res => {
-                            const removeResponse = res.data
-                            if(removeResponse.ErrorCode === 1){
-                                alert("删除问题标签失败")
-                            }else {
-                                //这里增加"其他"标签
-                                //然后还要写退回原因
-                                const addData = {
-                                    id: getUser().id,
-                                    token: getUser().token,
-                                    question_id: questionId,
-                                    tagList: JSON.stringify([this.searchTagId("其他")]),
-                                    reason: reason
-                                }
-
-                                addQuestionTag(addData).then(res => {
-                                    const addResponse = res.data
-                                    if(addResponse.ErrorCode === 1){
-                                        alert("退回失败")
-                                    }else {
-                                        alert("退回成功")
-                                        location.reload()
-                                    }
-                                })
-                            }
-                        })
+                //删除该所属问题下所有标签
+                removeTagByQuestion(removeData).then(res => {
+                  const removeResponse = res.data
+                  if(removeResponse.ErrorCode === 1){
+                    alert("删除问题标签失败")
+                  }else {
+                    //这里增加"其他"标签
+                    //然后还要写退回原因
+                    //console.log(1);
+                    const addData = {
+                      id: getUser().id,
+                      token: getUser().token,
+                      question_id: questionId,
+                      tagList: JSON.stringify([this.searchTagId("其他")]),
+                      reason: reason
                     }
+
+                    //console.log(addData);
+
+                    addQuestionTag(addData).then(res => {
+                      const addResponse = res.data
+                      //console.log(addResponse);
+                      if(addResponse.ErrorCode === 1){
+                        alert("退回失败")
+                      }else {
+                        alert("退回成功")
+                        location.reload()
+                      }
+                    })
+                  }
                 })
-            },
+              }
+            })
+          },
 
             //打开学生评论
             openComment(questionId){
@@ -540,9 +543,22 @@
                     }
                 })
             },
+          //通过标签名找标签ID
+          searchTagId(tag_name){
+            const tagsList = this.tagsList
+            for(let i=0;i<tagsList.length;i++){
+              if(tagsList[i].name === tag_name){
+                return tagsList[i].id
+              }
+            }
+            return -1
+          },
+
         },
 
       created() {
+            //获取标签列表
+            this.tagsList = this.$store.getters.tagsList
             const data = {
                 id: getUser().id,
                 token: getUser().token,
@@ -556,7 +572,7 @@
                     alert("拉取未解决问题列表失败")
                 }else {
                   this.unsolvedQuestions = response.data.data;
-                  this.unsolvedQuestionsPage = response.data.total;
+                  this.unsolvedQuestionsPage = Math.ceil(response.data.total/10);
 
                   //获得已解决问题的列表
                     getSolvedQuestions(data).then(res => {
@@ -565,7 +581,7 @@
                             alert("拉取已解决问题列表失败")
                         }else {
                           this.solvedQuestions=response.data.data;
-                          this.solvedQuestionPage=response.total;
+                          this.solvedQuestionPage=Math.ceil(response.data.total/10);
 
                           //获取问题标签
                             for(let i=0;i<this.unsolvedQuestions.length;i++){

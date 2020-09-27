@@ -108,9 +108,9 @@
 
                                     <div style="margin-top: 15px;height: auto; justify-content: center; text-align: center">
                                       <v-btn width="300px" color="#E53935" >
-                              <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
-                                退回
-                              </span>
+                                        <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
+                                          退回
+                                        </span>
                                       </v-btn>
                                     </div>
                                   </v-card>
@@ -436,7 +436,7 @@ export default {
                 });
               });
               this.currentQuestions = response.data.data;
-              console.log(this.currentQuestions);
+              //console.log(this.currentQuestions);
 
               //获取当前问题的管理员的回复
               //获取当前问题学生的评论
@@ -477,7 +477,7 @@ export default {
                 });
               });
               this.currentQuestions = response.data.data;
-              console.log(this.currentQuestions);
+              //console.log(this.currentQuestions);
 
               //获取当前问题的管理员的回复
               //获取当前问题学生的评论
@@ -529,9 +529,9 @@ export default {
               console.log(this.currentQuestions);
               //this.childPage = response.total;
               if(this.permission === 'false'){
-                this.childPage = response.data.total;
+                this.childPage = Math.ceil(response.data.total/10);
               }else {
-                this.LBPage = response.data.total;
+                this.LBPage = Math.ceil(response.data.total/10);
               }
 
               //获取当前问题的管理员的回复
@@ -548,9 +548,6 @@ export default {
             console.log(error);
           });
       }
-
-
-
     },
 
     //删除问题标签
@@ -666,6 +663,7 @@ export default {
     //退回问题到两办
     returnBack(questionId){
       let reason = prompt("请输入退回原因")
+      console.log(1);
       const data = {
         id: getUser().id,
         token: getUser().token,
@@ -681,7 +679,6 @@ export default {
           for(let i=0;i<tagData.length;i++){
             tagList.push(tagData[i].id)
           }
-
 
           tagList=JSON.stringify(tagList)
 
@@ -701,6 +698,7 @@ export default {
             }else {
               //这里增加"其他"标签
               //然后还要写退回原因
+              //console.log(1);
               const addData = {
                 id: getUser().id,
                 token: getUser().token,
