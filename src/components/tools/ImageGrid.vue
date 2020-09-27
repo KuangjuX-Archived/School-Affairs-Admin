@@ -43,9 +43,14 @@
                         alert("获取图片失败")
                       //console.log(1);
                     }else {
-                        this.imageUrl = response.data.url_list
-                        console.log(this.imageUrl);
-
+                        //console.log(this.imageUrl);
+                        this.imageUrl=response.data.url_list.map(url => {
+                          let arr = url.split("images");
+                          console.log(arr);
+                          url = arr[0]+"thumb_images"+arr[1];
+                          return url;
+                        })
+                      console.log(this.imageUrl);
                     }
                 })
             }

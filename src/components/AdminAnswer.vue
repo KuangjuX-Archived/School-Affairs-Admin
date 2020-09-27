@@ -64,14 +64,15 @@
             //打开管理员回复
             openAnswer(questionId){
                 const data = {
-                    question_id: questionId
+                    question_id: questionId,
+                    user_id: 0
                 }
               //console.log(questionId);
 
               getAnswerByQuestion(data).then(res => {
                     const response = res.data
                     if(response.ErrorCode === 1){
-                        alert("获取学生评论失败")
+                        alert("获取答复失败")
                     }else {
                         //获取当前问题学生评论
                         this.currentAnswer = response.data
