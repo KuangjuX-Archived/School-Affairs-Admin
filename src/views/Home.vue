@@ -106,13 +106,11 @@
                                     <v-divider></v-divider>
 
 
-                                    <div style="margin-top: 15px;height: auto; justify-content: center; text-align: center">
-                                      <v-btn width="300px" color="#E53935" >
-                                        <span style="color: #ffffff; font-weight: 700; font-size: 16px" @click="returnBack(item.id)">
-                                          退回
-                                        </span>
-                                      </v-btn>
+                                    <!--退回操作-->
+                                    <div>
+                                      <return-back-text-editor :questionId="item.id" v-on:getReason="getReason"></return-back-text-editor>
                                     </div>
+
                                   </v-card>
                                 </v-tab-item>
 
@@ -342,6 +340,7 @@
   import StudentComment from "../components/StudentComment";
   import MyQuillEditor from "../components/tools/MyQuillEditor";
   import ImageGrid from "../components/tools/ImageGrid";
+  import returnBackTextEditor from "@/components/tools/returnBackTextEditor";
   import {
     addComment,
     addQuestionTag,
@@ -349,9 +348,10 @@
     getQuestionsByTag,
     getTagByQuestion,
     removeTagByQuestion,
-    getCommitByQuestion
+    getCommitByQuestion,
+
   } from "../api/admin";
-  import {getUser} from "../utils/cookie";
+  import {getUser, setTagList} from "../utils/cookie";
 
   const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -408,7 +408,8 @@ export default {
     StudentComment,
     AdminAnswer,
     MyQuillEditor,
-    ImageGrid
+    ImageGrid,
+    returnBackTextEditor
   },
 
   watch: {
@@ -655,15 +656,15 @@ export default {
       });
 
       this.$store.commit("setTagsList",this.tagsList)
+      setTagList(this.tagsList)
 
     },
 
 
 
     //退回问题到两办
-    returnBack(questionId){
-      let reason = prompt("请输入退回原因")
-      console.log(1);
+    returnBack(questionId,reason){
+      //console.log(1);
       const data = {
         id: getUser().id,
         token: getUser().token,
@@ -679,10 +680,8 @@ export default {
           for(let i=0;i<tagData.length;i++){
             tagList.push(tagData[i].id)
           }
-
           tagList=JSON.stringify(tagList)
 
-          // data.tagList=tagList
           const removeData = {
             id: getUser().id,
             token: getUser().token,
@@ -706,9 +705,9 @@ export default {
                 tagList: JSON.stringify([this.searchTagId("其他")]),
                 reason: reason
               }
-
               addQuestionTag(addData).then(res => {
                 const addResponse = res.data
+                //console.log(addResponse);
                 if(addResponse.ErrorCode === 1){
                   alert("退回失败")
                 }else {
@@ -775,6 +774,10 @@ export default {
           location.reload()
         }
       })
+    },
+
+    getReason: function (questionId,reason){
+      this.returnBack(questionId,reason)
     },
 
 

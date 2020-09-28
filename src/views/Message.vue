@@ -67,15 +67,13 @@
 
 
 
-                                            <!--退回操作-->
-                                            <div class="btn-block">
-                                                <v-btn width="150px" color="#E53935" >
-                                                    <span @click="returnBack(item.id)" class="btn-inline-font">
-                                                        退回
-                                                    </span>
-                                                </v-btn>
-                                            </div>
 
+                                          <!--退回操作-->
+
+
+                                              <div>
+                                                <return-back-text-editor :questionId="item.id" v-on:getReason="getReason"></return-back-text-editor>
+                                              </div>
 
                                             <!--管理员回复-->
                                             <div style="margin-top: 25px">
@@ -301,15 +299,14 @@
     import AdminAnswer from "../components/AdminAnswer";
     import MyQuillEditor from "../components/tools/MyQuillEditor";
     import ImageGrid from "../components/tools/ImageGrid";
-    import {getUser} from "../utils/cookie";
+    import returnBackTextEditor from "@/components/tools/returnBackTextEditor";
+    import {getTagList, getUser} from "../utils/cookie";
     import {
-        getSolvedQuestions,
-        getUnsolvedQuestions,
-        getTagByQuestion,
-        removeTagByQuestion,
-        addQuestionTag,
-        getCommitByQuestion,
-        addComment
+      getSolvedQuestions,
+      getUnsolvedQuestions,
+      getTagByQuestion,
+      getCommitByQuestion,
+      addComment, removeTagByQuestion, addQuestionTag
     } from "../api/admin";
 
     export default {
@@ -320,7 +317,8 @@
             StudentComment,
             AdminAnswer,
             MyQuillEditor,
-            ImageGrid
+            ImageGrid,
+            returnBackTextEditor
         },
         data(){
           return {
@@ -441,69 +439,7 @@
             },
 
 
-          //退回问题到两办
-          returnBack(questionId){
-            let reason = prompt("请输入退回原因")
-            console.log(1);
-            const data = {
-              id: getUser().id,
-              token: getUser().token,
-              question_id: questionId
-            }
-            let tagList=[]
-            getTagByQuestion(data).then(res => {
-              const response = res.data
-              if(response.ErrorCode === 1){
-                alert("获取问题所属标签失败")
-              }else {
-                const tagData = response.data
-                for(let i=0;i<tagData.length;i++){
-                  tagList.push(tagData[i].id)
-                }
-                //console.log(tagList);
-                tagList=JSON.stringify(tagList)
 
-                const removeData = {
-                  id: getUser().id,
-                  token: getUser().token,
-                  question_id: questionId,
-                  tagList: tagList
-                }
-
-                //删除该所属问题下所有标签
-                removeTagByQuestion(removeData).then(res => {
-                  const removeResponse = res.data
-                  if(removeResponse.ErrorCode === 1){
-                    alert("删除问题标签失败")
-                  }else {
-                    //这里增加"其他"标签
-                    //然后还要写退回原因
-                    //console.log(1);
-                    const addData = {
-                      id: getUser().id,
-                      token: getUser().token,
-                      question_id: questionId,
-                      tagList: JSON.stringify([this.searchTagId("其他")]),
-                      reason: reason
-                    }
-
-                    //console.log(addData);
-
-                    addQuestionTag(addData).then(res => {
-                      const addResponse = res.data
-                      //console.log(addResponse);
-                      if(addResponse.ErrorCode === 1){
-                        alert("退回失败")
-                      }else {
-                        alert("退回成功")
-                        location.reload()
-                      }
-                    })
-                  }
-                })
-              }
-            })
-          },
 
             //打开学生评论
             openComment(questionId){
@@ -539,27 +475,95 @@
                         alert("回复失败")
                     }else {
                         alert("回复成功")
-                        location.reload()
+                        //location.reload()
                     }
                 })
             },
+
+          //退回问题到两办
+          returnBack(questionId,reason){
+            //console.log(1);
+            const data = {
+              id: getUser().id,
+              token: getUser().token,
+              question_id: questionId
+            }
+            let tagList=[]
+            getTagByQuestion(data).then(res => {
+              const response = res.data
+              if(response.ErrorCode === 1){
+                alert("获取问题所属标签失败")
+              }else {
+                const tagData = response.data
+                for(let i=0;i<tagData.length;i++){
+                  tagList.push(tagData[i].id)
+                }
+                tagList=JSON.stringify(tagList)
+
+                const removeData = {
+                  id: getUser().id,
+                  token: getUser().token,
+                  question_id: questionId,
+                  tagList: tagList
+                }
+
+                //删除该所属问题下所有标签
+                removeTagByQuestion(removeData).then(res => {
+                  const removeResponse = res.data
+                  if(removeResponse.ErrorCode === 1){
+                    alert("删除问题标签失败")
+                  }else {
+                    //这里增加"其他"标签
+                    //然后还要写退回原因
+                    //console.log(1);
+                    const addData = {
+                      id: getUser().id,
+                      token: getUser().token,
+                      question_id: questionId,
+                      tagList: JSON.stringify([this.searchTagId("其他")]),
+                      reason: reason
+                    }
+                    addQuestionTag(addData).then(res => {
+                      const addResponse = res.data
+                      //console.log(addResponse);
+                      if(addResponse.ErrorCode === 1){
+                        alert("退回失败")
+                      }else {
+                        alert("退回成功")
+                        location.reload()
+                      }
+                    })
+                  }
+                })
+              }
+            })
+          },
+
+
+
+          getReason: function (questionId,reason){
+              this.returnBack(questionId,reason)
+          },
+
           //通过标签名找标签ID
           searchTagId(tag_name){
-            const tagsList = this.tagsList
+            const tagsList = JSON.parse(this.tagsList)
             for(let i=0;i<tagsList.length;i++){
               if(tagsList[i].name === tag_name){
                 return tagsList[i].id
               }
             }
             return -1
-          },
+          }
+
 
         },
 
-      created() {
+
+        created() {
             //获取标签列表
-            this.tagsList = this.$store.getters.tagsList
-            const data = {
+          this.tagsList = getTagList()
+          const data = {
                 id: getUser().id,
                 token: getUser().token,
                 limits: 10,
@@ -631,18 +635,8 @@
         text-align: center;
     }
 
-    .btn-block{
-        margin-top: 15px;
-        height: auto;
-        justify-content: center;
-        text-align: center;
-    }
 
-    .btn-inline-font{
-        color: #ffffff;
-        font-weight: 700;
-        font-size: 16px;
-    }
+
 
     .admin-student-icon{
         display: flex;

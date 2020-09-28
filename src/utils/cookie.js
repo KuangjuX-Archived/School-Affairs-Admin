@@ -24,3 +24,11 @@ export function getUser() {
         name: Cookies.get('name')
     }
 }
+
+export function setTagList(tagList){
+    Cookies.set('tagList',tagList)
+}
+
+export function getTagList(){
+    return Cookies.get('tagList')
+}
