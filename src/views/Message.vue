@@ -475,7 +475,7 @@
                         alert("回复失败")
                     }else {
                         alert("回复成功")
-                        //location.reload()
+                        location.reload()
                     }
                 })
             },
