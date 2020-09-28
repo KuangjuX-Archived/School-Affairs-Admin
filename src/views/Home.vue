@@ -643,14 +643,19 @@ export default {
       //当标签获取完成时，向home组件发出事件，传递标签树，展平
       let that = this;
       let dfs = function(obj) {
+        let parentName = obj.name
+        // eslint-disable-next-line no-unused-vars
         obj.children.forEach((item) => {
+          item.name = parentName + "/" +item.name
           dfs(item);
         });
         that.tagsList.push(obj);
       };
+
       tagsTree.forEach((item) => {
         dfs(item);
       });
+      //排序
       that.tagsList.sort((a, b) => {
         return a.id - b.id;
       });

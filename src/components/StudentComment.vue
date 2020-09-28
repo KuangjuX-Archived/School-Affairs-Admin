@@ -63,8 +63,7 @@
                     question_id: questionId,
                     user_id: 0
                 }
-
-                getCommitByQuestion(data).then(res => {
+              getCommitByQuestion(data).then(res => {
                     const response = res.data
                     if(response.ErrorCode === 1){
                         alert("获取学生评论失败")

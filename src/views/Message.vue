@@ -199,7 +199,7 @@
                                             <!--学生评论-->
                                             <div class="admin-student-icon">
                                                 <admin-answer :current-question="item"></admin-answer>
-                                                <student-comment :current-question="currentStudentComment"></student-comment>
+                                                <student-comment :current-question="item"></student-comment>
                                             </div>
 
 

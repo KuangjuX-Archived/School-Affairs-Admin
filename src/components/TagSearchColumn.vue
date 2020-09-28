@@ -41,7 +41,7 @@
 <script>
 
 
-    import {getUser} from "../utils/cookie";
+import {getTagList, getUser} from "../utils/cookie";
     import {addQuestionTag, removeTagByQuestion,} from "../api/admin";
 
     export default {
@@ -138,7 +138,7 @@
         },
 
         created() {
-           this.tagsList = this.$store.getters.tagsList
+           this.tagsList = JSON.parse(getTagList())
         }
     }
 </script>
@@ -151,5 +151,11 @@
     .select-control >>> .v-menu__content{
         top: 70px !important;
         left: 12px !important;
+    }
+
+    .btn-font-style{
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
     }
 </style>
