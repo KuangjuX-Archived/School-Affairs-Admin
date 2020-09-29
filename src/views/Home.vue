@@ -527,7 +527,7 @@ export default {
                 });
               });
               this.currentQuestions = response.data.data;
-              console.log(this.currentQuestions);
+              //console.log(this.currentQuestions);
               //this.childPage = response.total;
               if(this.permission === 'false'){
                 this.childPage = Math.ceil(response.data.total/10);
