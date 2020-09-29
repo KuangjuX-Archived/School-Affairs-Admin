@@ -22,6 +22,7 @@
                                       :auth="1"
                                       :score="answer.score"
                                       :commit="answer.commit"
+                                      :datetime = "answer.updated_at"
                         ></comment-area>
 
                         <div style="position: relative;left: 90%">
@@ -78,6 +79,7 @@
                         this.currentAnswer = response.data
                         //打开遮罩
                         this.isOverlay =true
+                        console.log(this.currentAnswer);
                     }
                 })
             },

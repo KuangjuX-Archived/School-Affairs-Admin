@@ -41,20 +41,19 @@
                   <!--这里显示问题-->
                   <div v-if="permission==='false'" class="question-field">
                     <!--扩展面板-->
-                    <v-expansion-panels>
+
 
 
                       <div class="expansion-box">
-                        <v-expansion-panel
-                            v-for="(item, i) in currentQuestions"
-                            :key="i"
-                            style="margin-top: 15px"
-                        >
-                          <div>
-                            <v-expansion-panel-header>
-                              <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
-                            </v-expansion-panel-header>
-                            <v-expansion-panel-content>
+
+                          <div v-for="(item, i) in currentQuestions"
+                               :key="i"
+                               class="each-question-box">
+
+                            <div class="question-title">
+                              {{item.name}}
+                            </div>
+
 
 
 
@@ -69,6 +68,10 @@
                                     <!--问题图片-->
                                     <div>
                                       <image-grid :question-id="item.id"></image-grid>
+                                    </div>
+
+                                    <div class="datetime-style">
+                                      {{item.updated_at}}
                                     </div>
 
                                   </v-card-text>
@@ -159,9 +162,8 @@
                                   </v-card>
                                 </v-tab-item>
                               </v-tabs-items>
-                            </v-expansion-panel-content>
+                            <v-divider></v-divider>
                           </div>
-                        </v-expansion-panel>
 
                         <div class="pagination-box">
                           <v-pagination
@@ -172,28 +174,23 @@
 
                       </div>
 
-                    </v-expansion-panels>
+
                   </div>
 
 
 
                   <!--这里是两办管理员-->
                   <div v-else-if="permission==='true'" style="margin-top: 15px">
-                    <v-expansion-panels>
 
                       <div class="expansion-box">
-                        <v-expansion-panel
-                            v-for="(item, i) in currentQuestions"
-                            :key="i"
-                            style="margin-top: 15px"
-                        >
-                          <div>
-                            <v-expansion-panel-header>
-                              <p style="font-size: 26px; font-weight: 900; text-align: center">{{ item.name }}</p>
-                            </v-expansion-panel-header>
-                            <v-expansion-panel-content>
 
-                              <div>
+                          <div
+                              v-for="(item, i) in currentQuestions"
+                              :key="i"
+                              class="each-question-box"
+                          >
+                            <div class="question-title">{{item.name}}</div>
+                            <div>
                                 <v-card>
                                   <v-card-title>描述</v-card-title>
                                   <v-card-text>
@@ -203,6 +200,10 @@
                                     <!--问题图片-->
                                     <div>
                                       <image-grid :question-id="item.id"></image-grid>
+                                    </div>
+
+                                    <div class="datetime-style">
+                                      {{item.updated_at}}
                                     </div>
 
                                   </v-card-text>
@@ -303,9 +304,9 @@
                                 </v-tab-item>
                               </v-tabs-items>
 
-                            </v-expansion-panel-content>
+                            <v-divider></v-divider>
                           </div>
-                        </v-expansion-panel>
+
 
 
                         <div class="pagination-box">
@@ -318,8 +319,6 @@
                       </div>
 
 
-
-                    </v-expansion-panels>
                   </div>
                 </v-card>
               </div>
@@ -873,5 +872,25 @@ p {
 
   .expansion-box{
     width: 100%;
+  }
+
+  .question-title{
+    font-size: 26px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .each-question-box{
+    margin-top: 25px;
+    padding: 20px;
+    border: #1e88e5 1px;
+  }
+
+  .datetime-style{
+    position: relative;
+    left: 60%;
+    font-weight: 500;
+    margin-top: 10px;
   }
 </style>

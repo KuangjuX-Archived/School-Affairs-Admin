@@ -18,8 +18,9 @@
                     </v-card-text>
                 </v-card>
             </div>
-            <div v-html="commit"></div>
         </div>
+
+      <div class="datetime-style">{{datetime}}</div>
     </div>
 </template>
 
@@ -50,7 +51,8 @@
             content:null,
             auth:null,
             commit:null,
-            score:null
+            score:null,
+            datetime: null,
         }
     }
 </script>
@@ -87,5 +89,12 @@
 
     .comment >>> .v-card{
         padding: 20px;
+    }
+
+    .datetime-style{
+      position: relative;
+      left: 60%;
+      font-weight: 500;
+      margin-top: 10px;
     }
 </style>
