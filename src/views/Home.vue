@@ -83,6 +83,7 @@
                                     :key="item.tab"
                                 >{{ item.title }}</v-tab>
                               </v-tabs>
+
                               <v-tabs-items v-model="controlTab">
                                 <v-tab-item key="updateTag">
                                   <v-card flat>
@@ -118,21 +119,21 @@
                                 <!--这里要加上其他管理员的评论-->
                                 <v-tab-item key="addComment">
                                   <v-card flat >
-
                                     <div v-if="!item.solved">
                                       <v-btn color="#E53935" width="300px">
-                                <span class="btn-font-style">
-                                  未解决
-                                </span>
+                                        <span class="btn-font-style">
+                                          未解决
+                                        </span>
                                       </v-btn>
                                     </div>
 
                                     <div v-else>
                                       <v-btn color="#66BB6A" width="300px" >
-                                <span class="btn-font-style">
-                                  已解决
-                                </span>
+                                        <span class="btn-font-style">
+                                          已解决
+                                        </span>
                                       </v-btn>
+                                    </div>
 
                                       <!--管理员回复图标-->
                                       <!--学生评论图标-->
@@ -141,7 +142,7 @@
                                         <student-comment :current-question="item"></student-comment>
                                       </div>
 
-                                    </div>
+
 
 
 
@@ -210,6 +211,7 @@
 
 
                               <v-divider></v-divider>
+
                               <v-tabs center-active grow v-model="controlTab">
                                 <v-tab
                                     v-for="item in controlTabItems"
@@ -223,6 +225,7 @@
                                     <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
 
                                     <v-divider style="margin-top: 15px"></v-divider>
+
                                     <v-list two-line>
                                       <v-list-item
                                           v-for="tag in item.tags"

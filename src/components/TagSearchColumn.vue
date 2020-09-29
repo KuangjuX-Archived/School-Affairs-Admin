@@ -77,6 +77,7 @@ import {getTagList, getUser} from "../utils/cookie";
                     }
                 });
                 this.currentQuestionData = question
+                console.log(this.currentQuestionData);
             },
 
 
