@@ -39,7 +39,7 @@
                                                <div>
                                                     <v-card min-height="300px">
                                                         <v-card-title>
-                                                            <div class="question-title">
+                                                            <div class="question-title-fake">
                                                                 描述
                                                             </div>
                                                         </v-card-title>
@@ -119,7 +119,7 @@
                                                <div>
                                                     <v-card min-height="300px">
                                                         <v-card-title>
-                                                            <div class="question-title">
+                                                            <div class="question-title-fake">
                                                                 描述
                                                             </div>
                                                         </v-card-title>
@@ -177,7 +177,7 @@
                                                <div>
                                                     <v-card min-height="300px">
                                                         <v-card-title>
-                                                            <div class="question-title">
+                                                            <div class="question-title-fake">
                                                                 描述
                                                             </div>
                                                         </v-card-title>
@@ -243,7 +243,7 @@
                                                <div>
                                                     <v-card min-height="300px">
                                                         <v-card-title>
-                                                            <div class="question-title">
+                                                            <div class="question-title-fake">
                                                                 描述
                                                             </div>
                                                         </v-card-title>
@@ -629,11 +629,12 @@
         border: #1E88E5 solid 2px;
     }
 
-    .question-title{
+    .question-title-fake{
         font-size: 24px;
         position: relative;
         right: 0;
         width: 100%;
+        padding: 20px;
     }
 
 
@@ -653,6 +654,8 @@
         width: 100%;
         text-align: center;
         padding: 20px;
+        font-size: 26px;
+        font-weight: 900;
     }
 
     .pagination-box{
