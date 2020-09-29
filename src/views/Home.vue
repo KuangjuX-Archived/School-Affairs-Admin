@@ -265,9 +265,9 @@
                                   <v-card flat>
                                     <div v-if="!item.solved" class="status-answer-box">
                                       <v-btn color="#E53935" width="300px">
-                                <span class="btn-font-style">
-                                  未解决
-                                </span>
+                                        <span class="btn-font-style">
+                                          未解决
+                                        </span>
                                       </v-btn>
 
                                       <!--管理员回复图标-->
@@ -283,9 +283,9 @@
 
                                     <div v-else>
                                       <v-btn color="#66BB6A" width="300px" >
-                                <span class="btn-font-style">
-                                  已解决
-                                </span>
+                                        <span class="btn-font-style">
+                                          已解决
+                                        </span>
                                       </v-btn>
 
                                       <!--管理员回复图标-->

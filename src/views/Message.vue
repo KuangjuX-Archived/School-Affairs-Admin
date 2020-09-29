@@ -631,8 +631,9 @@
 
     .question-title{
         font-size: 24px;
-        font-weight: 900;
-        text-align: center;
+        position: relative;
+        right: 0;
+        width: 100%;
     }
 
 
