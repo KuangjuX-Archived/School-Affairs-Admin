@@ -51,7 +51,7 @@
         getTags(data).then(res => {
             if(res.data.ErrorCode ===1){
                 deleteToken();
-                this.$router.push('/admin/login');
+                this.$router.push('/login');
             }else if(res.data.ErrorCode === 0){
                 this.items = res.data.data
                 this.$emit('onTagsLoaded', this.items);

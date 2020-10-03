@@ -2,6 +2,9 @@
 node_modules
 /dist
 /school-affairs
+/school-affairs.zip
+/admin
+/admin.zip
 
 
 # local env files

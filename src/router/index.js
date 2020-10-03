@@ -40,18 +40,18 @@ const routes = [
 
 
   {
-    path: '/admin/login',
+    path: '/login',
     component: Login,
     name: 'Login'
   },
   {
-    path: '/admin/home',
+    path: '/home',
     component: () => import("../views/Home"),
     name: 'Home'
   },
 
   {
-    path: '/admin/message',
+    path: '/message',
     component: () => import("../views/Message"),
     name: 'Message'
   }
@@ -60,21 +60,21 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  mode: "history"
+  // mode: "history"
 })
 router.beforeEach((to, from, next) => {
   //说明:
   //如果路由为/login，则跳转到login
   //如果路由为任意路由，则判断登录情况，如果存在token，跳转到home，否则跳转到login
-  if (to.path === '/admin/login') next();
+  if (to.path === '/login') next();
   if (!getUser().token) {
-    next({ path: '/admin/login' })
+    next({ path: '/login' })
   } else {
-    if(to.path ==="/admin/home"|| to.path === "/admin/message"){
+    if(to.path ==="/home"|| to.path === "/message"){
       next()
     }else {
       next({
-        path: '/admin/home'
+        path: '/home'
       })
     }
   }
