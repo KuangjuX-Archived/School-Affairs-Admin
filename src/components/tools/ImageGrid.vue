@@ -4,7 +4,7 @@
             <div class="row-box" v-for="n in 3" :key="n">
                 <div class="block-row" v-for="(item, index) in imageUrl.slice((n-1)*3,(n-1)*3+3)" :key="index">
                     <div class="image-frame">
-                        <v-img :src="item"  max-width="260px" height="300px"></v-img>
+                        <v-img :src="item"  width="260px" height="300px"></v-img>
                     </div>
                 </div>
             </div>

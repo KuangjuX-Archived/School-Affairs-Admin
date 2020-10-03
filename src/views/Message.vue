@@ -637,9 +637,6 @@
         padding: 20px;
     }
 
-
-
-
     .admin-student-icon{
         display: flex;
         margin-bottom: 20px;

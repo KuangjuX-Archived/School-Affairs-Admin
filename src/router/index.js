@@ -6,22 +6,56 @@ import { getUser } from "../utils/cookie";
 Vue.use(VueRouter)
 
 const routes = [
+  // {
+  //   path: '/',
+  //   redirect: {name: 'Login'}
+  // },
+  // {
+  //   path: "/admin",
+  //   redirect: {name: 'Home'},
+  //   children:[
+  //     {
+  //       path: 'login',
+  //       component: Login,
+  //       name: 'Login'
+  //     },
+  //     {
+  //       path: 'home',
+  //       component: () => import("../views/Home"),
+  //       name: 'Home'
+  //     },
+  //
+  //     {
+  //       path: 'message',
+  //       component: () => import("../views/Message"),
+  //       name: 'Message'
+  //     }
+  //   ]
+  // }
+
   {
-    path: '/login',
+    path: '/',
+    redirect: {name: 'Login'}
+  },
+
+
+  {
+    path: '/admin/login',
     component: Login,
     name: 'Login'
   },
   {
-    path: '/home',
+    path: '/admin/home',
     component: () => import("../views/Home"),
     name: 'Home'
   },
 
   {
-    path: '/message',
+    path: '/admin/message',
     component: () => import("../views/Message"),
     name: 'Message'
   }
+
 ]
 
 const router = new VueRouter({
@@ -32,15 +66,15 @@ router.beforeEach((to, from, next) => {
   //说明:
   //如果路由为/login，则跳转到login
   //如果路由为任意路由，则判断登录情况，如果存在token，跳转到home，否则跳转到login
-  if (to.path === '/login') next();
+  if (to.path === '/admin/login') next();
   if (!getUser().token) {
-    next({ path: '/login' })
+    next({ path: '/admin/login' })
   } else {
-    if(to.path ==="/home"|| to.path === "/message"){
+    if(to.path ==="/admin/home"|| to.path === "/admin/message"){
       next()
     }else {
       next({
-        path: '/home'
+        path: '/admin/home'
       })
     }
   }
