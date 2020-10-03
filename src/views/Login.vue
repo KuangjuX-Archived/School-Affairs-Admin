@@ -6,7 +6,12 @@
             <v-col cols="6">
                 <v-card>
                     <v-card-title>
-                        <div class="card-title-element">登录</div>
+                        <div class="login-title-box">
+                          <div class="twt-logo">
+                            <img src="../../public/icons/twtlogo.png">
+                          </div>
+                          <div class="card-title-element">登录</div>
+                        </div>
                     </v-card-title>
                     <v-card-text>
                         <div style="margin: 10%">
@@ -90,8 +95,26 @@ a:hover {
 
 .card-title-element {
     align-items: center;
-    margin-left: 45%;
+    /*margin-left: 45%;*/
     font-weight: 900;
-    font-size: 25px;
+    font-size: 28px;
+    flex: 2;
+    margin-top: 8px;
+    width: 100%;
+    margin-left: 20%;
+}
+
+
+.twt-logo img{
+  height: 48px;
+}
+
+.twt-logo{
+  flex: 1;
+}
+
+.login-title-box{
+  display: flex;
+  width: 100%;
 }
 </style>

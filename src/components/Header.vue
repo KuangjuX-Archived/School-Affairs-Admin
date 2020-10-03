@@ -3,6 +3,9 @@
     <v-app-bar dense fixed>
         <div class="admin-header">
             <div class="admin-title">
+              <div class="twt-logo">
+                <img src="../../public/icons/twtlogo.png">
+              </div>
               <span class="title-text">天津大学校务系统管理后台</span>
             </div>
             <div class="admin-home" @click="transferURL('/home')">
@@ -59,21 +62,23 @@ export default {
     width: 100%;
     /*text-align: center;*/
     flex: 18;
+    display: flex;
 }
 
 .admin-logout {
     flex: 1;
     text-align: center;
-    margin-top: 8px
+    margin-top: 14px;
 }
 
 .admin-home{
     flex: 1;
+    margin-top: 8px;
 }
 
 .admin-message{
     flex: 1;
-
+    margin-top: 8px;
 }
 
 .admin-home:hover{
@@ -98,6 +103,11 @@ export default {
 }
 
 .title-text{
-  margin-left: 45%;
+  margin-left: 30%;
+  margin-top: 8px;
+}
+
+.twt-logo img{
+  height: 48px;
 }
 </style>
