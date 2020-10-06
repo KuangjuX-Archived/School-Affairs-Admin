@@ -56,7 +56,6 @@ export default {
         name: "",
         password: "",
       },
-      cover: require("../assets/cover.jpg"),
     };
   },
   methods: {
