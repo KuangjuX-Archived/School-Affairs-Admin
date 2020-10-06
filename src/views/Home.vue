@@ -14,14 +14,10 @@
             <profile-card></profile-card>
 
             <!--这里显示管理员说明文档-->
-
-
             <div v-if="ifUsageShowed">
-              <v-card style="margin-top: 10px;height: 600px;">
+              <v-card style="margin-top: 10px; height: 600px">
                 <v-card-title>
-                  <div class="content-title">
-                    说明
-                  </div>
+                  <div class="content-title">说明</div>
                 </v-card-title>
 
                 <v-card-text class="content-text">
@@ -29,303 +25,278 @@
                     本平台分为两办管理员和子管理员。两办管理员可以管理学生提出问题的“其他”标签和子管理员退回的标签。
                     同时可以在问题下添加标签。子管理员可以管理自己标签下的问题并进行回复，如果觉得不属于本标签的问题，可以退回问题。
                   </p>
-
                 </v-card-text>
               </v-card>
             </div>
-
 
             <div v-else>
               <div id="question-block">
                 <v-card>
                   <!--这里显示问题-->
-                  <div v-if="permission==='false'" class="question-field">
+                  <div v-if="permission === 'false'" class="question-field">
                     <!--扩展面板-->
 
-
-
-                      <div class="expansion-box">
-
-                          <div v-for="(item, i) in currentQuestions"
-                               :key="i"
-                               class="each-question-box">
-
-                            <div class="question-title">
-                              {{item.name}}
-                            </div>
-
-
-
-
-                              <!--问题描述-->
-                              <div>
-                                <v-card>
-                                  <v-card-title>描述</v-card-title>
-                                  <v-card-text>
-                                    <div>
-                                      {{item.description}}
-                                    </div>
-                                    <!--问题图片-->
-                                    <div>
-                                      <image-grid :question-id="item.id"></image-grid>
-                                    </div>
-
-                                    <div class="datetime-style">
-                                      {{item.updated_at}}
-                                    </div>
-
-                                  </v-card-text>
-                                </v-card>
-                              </div>
-
-
-                              <v-divider></v-divider>
-                              <v-tabs center-active grow v-model="controlTab">
-                                <v-tab
-                                    v-for="item in controlTabItems"
-                                    :key="item.tab"
-                                >{{ item.title }}</v-tab>
-                              </v-tabs>
-
-                              <v-tabs-items v-model="controlTab">
-                                <v-tab-item key="updateTag">
-                                  <v-card flat>
-                                    <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
-
-                                    <v-divider style="margin-top: 15px"></v-divider>
-
-                                    <v-list two-line>
-                                      <v-list-item
-                                          v-for="tag in item.tags"
-                                          :key="tag.id"
-                                      >
-                                        <v-list-item-content>
-                                          <v-list-item-title
-                                              v-text="tag.name"
-                                          ></v-list-item-title>
-
-                                        </v-list-item-content>
-                                      </v-list-item>
-                                    </v-list>
-                                    <v-divider></v-divider>
-
-
-                                    <!--退回操作-->
-                                    <div>
-                                      <return-back-text-editor :questionId="item.id" v-on:getReason="getReason"></return-back-text-editor>
-                                    </div>
-
-                                  </v-card>
-                                </v-tab-item>
-
-
-                                <!--这里要加上其他管理员的评论-->
-                                <v-tab-item key="addComment">
-                                  <v-card flat >
-                                    <div v-if="!item.solved">
-                                      <v-btn color="#E53935" width="300px">
-                                        <span class="btn-font-style">
-                                          未解决
-                                        </span>
-                                      </v-btn>
-                                    </div>
-
-                                    <div v-else>
-                                      <v-btn color="#66BB6A" width="300px" >
-                                        <span class="btn-font-style">
-                                          已解决
-                                        </span>
-                                      </v-btn>
-                                    </div>
-
-                                      <!--管理员回复图标-->
-                                      <!--学生评论图标-->
-                                      <div class="admin-student-icon">
-                                        <admin-answer :current-question="item"></admin-answer>
-                                        <student-comment :current-question="item"></student-comment>
-                                      </div>
-
-
-
-
-
-                                    <!--富文本编辑器-->
-                                    <div style="margin-top: 25px">
-                                      <my-quill-editor
-                                          :question-id="Number(item.id)"
-                                          v-on:getAnswerByChild="getAnswerByChild">
-                                      </my-quill-editor>
-                                    </div>
-
-
-
-                                  </v-card>
-                                </v-tab-item>
-                              </v-tabs-items>
-                            <v-divider></v-divider>
-                          </div>
-
-                        <div class="pagination-box">
-                          <v-pagination
-                              v-model="page_1"
-                              :length="childPage"
-                          ></v-pagination>
+                    <div class="expansion-box">
+                      <div
+                        v-for="(item, i) in currentQuestions"
+                        :key="i"
+                        class="each-question-box"
+                      >
+                        <div class="question-title">
+                          {{ item.name }}
                         </div>
 
+                        <!--问题描述-->
+                        <div>
+                          <v-card>
+                            <v-card-title>描述</v-card-title>
+                            <v-card-text>
+                              <div>
+                                {{ item.description }}
+                              </div>
+                              <!--问题图片-->
+                              <div>
+                                <image-grid :question-id="item.id"></image-grid>
+                              </div>
+
+                              <div class="datetime-style">
+                                {{ item.updated_at }}
+                              </div>
+                            </v-card-text>
+                          </v-card>
+                        </div>
+
+                        <v-divider></v-divider>
+                        <v-tabs center-active grow v-model="controlTab">
+                          <v-tab
+                            v-for="item in controlTabItems"
+                            :key="item.tab"
+                            >{{ item.title }}</v-tab
+                          >
+                        </v-tabs>
+
+                        <v-tabs-items v-model="controlTab">
+                          <v-tab-item key="updateTag">
+                            <v-card flat>
+                              <v-chip style="margin-top: 15px"
+                                >流转原因: {{ item.admin_commit }}</v-chip
+                              >
+
+                              <v-divider style="margin-top: 15px"></v-divider>
+
+                              <v-list two-line>
+                                <v-list-item
+                                  v-for="tag in item.tags"
+                                  :key="tag.id"
+                                >
+                                  <v-list-item-content>
+                                    <v-list-item-title
+                                      v-text="tag.name"
+                                    ></v-list-item-title>
+                                  </v-list-item-content>
+                                </v-list-item>
+                              </v-list>
+                              <v-divider></v-divider>
+
+                              <!--退回操作-->
+                              <div>
+                                <return-back-text-editor
+                                  :questionId="item.id"
+                                  v-on:getReason="getReason"
+                                ></return-back-text-editor>
+                              </div>
+                            </v-card>
+                          </v-tab-item>
+
+                          <!--这里要加上其他管理员的评论-->
+                          <v-tab-item key="addComment">
+                            <v-card flat>
+                              <div v-if="!item.solved">
+                                <v-btn color="#E53935" width="300px">
+                                  <span class="btn-font-style"> 未解决 </span>
+                                </v-btn>
+                              </div>
+
+                              <div v-else>
+                                <v-btn color="#66BB6A" width="300px">
+                                  <span class="btn-font-style"> 已解决 </span>
+                                </v-btn>
+                              </div>
+
+                              <!--管理员回复图标-->
+                              <!--学生评论图标-->
+                              <div class="admin-student-icon">
+                                <admin-answer
+                                  :current-question="item"
+                                ></admin-answer>
+                                <student-comment
+                                  :current-question="item"
+                                ></student-comment>
+                              </div>
+
+                              <!--富文本编辑器-->
+                              <div style="margin-top: 25px">
+                                <my-quill-editor
+                                  :question-id="Number(item.id)"
+                                  v-on:getAnswerByChild="getAnswerByChild"
+                                >
+                                </my-quill-editor>
+                              </div>
+                            </v-card>
+                          </v-tab-item>
+                        </v-tabs-items>
+                        <v-divider></v-divider>
                       </div>
 
-
+                      <div class="pagination-box">
+                        <v-pagination
+                          v-model="page_1"
+                          :length="childPage"
+                        ></v-pagination>
+                      </div>
+                    </div>
                   </div>
 
-
-
                   <!--这里是两办管理员-->
-                  <div v-else-if="permission==='true'" style="margin-top: 15px">
-
-                      <div class="expansion-box">
-
-                          <div
-                              v-for="(item, i) in currentQuestions"
-                              :key="i"
-                              class="each-question-box"
-                          >
-                            <div class="question-title">{{item.name}}</div>
-                            <div>
-                                <v-card>
-                                  <v-card-title>描述</v-card-title>
-                                  <v-card-text>
-                                    <div>
-                                      {{item.description}}
-                                    </div>
-                                    <!--问题图片-->
-                                    <div>
-                                      <image-grid :question-id="item.id"></image-grid>
-                                    </div>
-
-                                    <div class="datetime-style">
-                                      {{item.updated_at}}
-                                    </div>
-
-                                  </v-card-text>
-                                </v-card>
+                  <div
+                    v-else-if="permission === 'true'"
+                    style="margin-top: 15px"
+                  >
+                    <div class="expansion-box">
+                      <div
+                        v-for="(item, i) in currentQuestions"
+                        :key="i"
+                        class="each-question-box"
+                      >
+                        <div class="question-title">{{ item.name }}</div>
+                        <div>
+                          <v-card>
+                            <v-card-title>描述</v-card-title>
+                            <v-card-text>
+                              <div>
+                                {{ item.description }}
+                              </div>
+                              <!--问题图片-->
+                              <div>
+                                <image-grid :question-id="item.id"></image-grid>
                               </div>
 
-
-                              <v-divider></v-divider>
-
-                              <v-tabs center-active grow v-model="controlTab">
-                                <v-tab
-                                    v-for="item in controlTabItems"
-                                    :key="item.tab"
-                                >{{ item.title }}</v-tab
-                                >
-                              </v-tabs>
-                              <v-tabs-items v-model="controlTab">
-                                <v-tab-item key="updateTag">
-                                  <v-card flat>
-                                    <v-chip style="margin-top: 15px">流转原因: {{ item.admin_commit }}</v-chip>
-
-                                    <v-divider style="margin-top: 15px"></v-divider>
-
-                                    <v-list two-line>
-                                      <v-list-item
-                                          v-for="tag in item.tags"
-                                          :key="tag.id"
-                                      >
-                                        <v-list-item-content>
-                                          <v-list-item-title
-                                              v-text="tag.name"
-                                          ></v-list-item-title>
-                                        </v-list-item-content>
-
-                                        <v-list-item-action>
-                                          <v-btn
-                                              icon
-                                              @click="deleteTag(item.id, tag.id)"
-                                          >
-                                            <v-icon color="grey lighten-1"
-                                            >mdi-delete</v-icon
-                                            >
-                                          </v-btn>
-                                        </v-list-item-action>
-                                      </v-list-item>
-                                    </v-list>
-                                    <v-divider></v-divider>
-
-                                    <!--流转原因封装成组件-->
-                                    <div>
-                                      <tag-search-column :current-question="item"></tag-search-column>
-                                    </div>
-
-                                  </v-card>
-                                </v-tab-item>
-
-
-                                <v-tab-item key="addComment">
-                                  <v-card flat>
-                                    <div v-if="!item.solved" class="status-answer-box">
-                                      <v-btn color="#E53935" width="300px">
-                                        <span class="btn-font-style">
-                                          未解决
-                                        </span>
-                                      </v-btn>
-
-                                      <!--管理员回复图标-->
-                                      <!--学生评论图标-->
-                                      <div class="admin-student-icon">
-                                        <admin-answer :current-question="item"></admin-answer>
-                                        <student-comment :current-question="item"></student-comment>
-                                      </div>
-
-
-
-                                    </div>
-
-                                    <div v-else>
-                                      <v-btn color="#66BB6A" width="300px" >
-                                        <span class="btn-font-style">
-                                          已解决
-                                        </span>
-                                      </v-btn>
-
-                                      <!--管理员回复图标-->
-                                      <!--学生评论图标-->
-
-                                      <div class="admin-student-icon">
-                                        <admin-answer :current-question="item"></admin-answer>
-                                        <student-comment :current-question="item"></student-comment>
-                                      </div>
-
-
-                                    </div>
-
-                                  </v-card>
-
-                                </v-tab-item>
-                              </v-tabs-items>
-
-                            <v-divider></v-divider>
-                          </div>
-
-
-
-                        <div class="pagination-box">
-                          <v-pagination
-                              v-model="page_2"
-                              :length="LBPage"
-                          ></v-pagination>
+                              <div class="datetime-style">
+                                {{ item.updated_at }}
+                              </div>
+                            </v-card-text>
+                          </v-card>
                         </div>
 
+                        <v-divider></v-divider>
+
+                        <v-tabs center-active grow v-model="controlTab">
+                          <v-tab
+                            v-for="item in controlTabItems"
+                            :key="item.tab"
+                            >{{ item.title }}</v-tab
+                          >
+                        </v-tabs>
+                        <v-tabs-items v-model="controlTab">
+                          <v-tab-item key="updateTag">
+                            <v-card flat>
+                              <v-chip style="margin-top: 15px"
+                                >流转原因: {{ item.admin_commit }}</v-chip
+                              >
+
+                              <v-divider style="margin-top: 15px"></v-divider>
+
+                              <v-list two-line>
+                                <v-list-item
+                                  v-for="tag in item.tags"
+                                  :key="tag.id"
+                                >
+                                  <v-list-item-content>
+                                    <v-list-item-title
+                                      v-text="tag.name"
+                                    ></v-list-item-title>
+                                  </v-list-item-content>
+
+                                  <v-list-item-action>
+                                    <v-btn
+                                      icon
+                                      @click="deleteTag(item.id, tag.id)"
+                                    >
+                                      <v-icon color="grey lighten-1"
+                                        >mdi-delete</v-icon
+                                      >
+                                    </v-btn>
+                                  </v-list-item-action>
+                                </v-list-item>
+                              </v-list>
+                              <v-divider></v-divider>
+
+                              <!--流转原因封装成组件-->
+                              <div>
+                                <tag-search-column
+                                  :current-question="item"
+                                ></tag-search-column>
+                              </div>
+                            </v-card>
+                          </v-tab-item>
+
+                          <v-tab-item key="addComment">
+                            <v-card flat>
+                              <div
+                                v-if="!item.solved"
+                                class="status-answer-box"
+                              >
+                                <v-btn color="#E53935" width="300px">
+                                  <span class="btn-font-style"> 未解决 </span>
+                                </v-btn>
+
+                                <!--管理员回复图标-->
+                                <!--学生评论图标-->
+                                <div class="admin-student-icon">
+                                  <admin-answer
+                                    :current-question="item"
+                                  ></admin-answer>
+                                  <student-comment
+                                    :current-question="item"
+                                  ></student-comment>
+                                </div>
+                              </div>
+
+                              <div v-else>
+                                <v-btn color="#66BB6A" width="300px">
+                                  <span class="btn-font-style"> 已解决 </span>
+                                </v-btn>
+
+                                <!--管理员回复图标-->
+                                <!--学生评论图标-->
+
+                                <div class="admin-student-icon">
+                                  <admin-answer
+                                    :current-question="item"
+                                  ></admin-answer>
+                                  <student-comment
+                                    :current-question="item"
+                                  ></student-comment>
+                                </div>
+                              </div>
+                            </v-card>
+                          </v-tab-item>
+                        </v-tabs-items>
+
+                        <v-divider></v-divider>
                       </div>
 
-
+                      <div class="pagination-box">
+                        <v-pagination
+                          v-model="page_2"
+                          :length="LBPage"
+                        ></v-pagination>
+                      </div>
+                    </div>
                   </div>
                 </v-card>
               </div>
             </div>
-
-
-
           </v-col>
         </v-row>
       </v-container>
@@ -334,28 +305,27 @@
 </template>
 
 <script>
-  import MyHeader from "../components/Header";
-  import MySidebar from "../components/Sidebar";
-  import ProfileCard from "../components/ProfileCard";
-  import TagSearchColumn from "../components/TagSearchColumn";
-  import AdminAnswer from "../components/AdminAnswer";
-  import StudentComment from "../components/StudentComment";
-  import MyQuillEditor from "../components/tools/MyQuillEditor";
-  import ImageGrid from "../components/tools/ImageGrid";
-  import returnBackTextEditor from "@/components/tools/returnBackTextEditor";
-  import {
-    addComment,
-    addQuestionTag,
-    getAnswerByQuestion,
-    getQuestionsByTag,
-    getTagByQuestion,
-    removeTagByQuestion,
-    getCommitByQuestion,
+import MyHeader from "../components/Header";
+import MySidebar from "../components/Sidebar";
+import ProfileCard from "../components/ProfileCard";
+import TagSearchColumn from "../components/TagSearchColumn";
+import AdminAnswer from "../components/AdminAnswer";
+import StudentComment from "../components/StudentComment";
+import MyQuillEditor from "../components/tools/MyQuillEditor";
+import ImageGrid from "../components/tools/ImageGrid";
+import returnBackTextEditor from "@/components/tools/returnBackTextEditor";
+import {
+  addComment,
+  addQuestionTag,
+  getAnswerByQuestion,
+  getQuestionsByTag,
+  getTagByQuestion,
+  removeTagByQuestion,
+  getCommitByQuestion,
+} from "../api/admin";
+import { getUser, setTagList } from "../utils/cookie";
 
-  } from "../api/admin";
-  import {getUser, setTagList} from "../utils/cookie";
-
-  const toolbarOptions = [
+const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
 
   [{ header: 1 }, { header: 2 }], // custom button values
@@ -369,10 +339,10 @@
 ];
 export default {
   name: "Home",
-  data: function() {
+  data: function () {
     return {
       isShowComment: false,
-      permission:getUser().isLB,
+      permission: getUser().isLB,
       tagsList: [],
       currentTagId: 0,
       ifUsageShowed: true,
@@ -394,11 +364,11 @@ export default {
       ],
 
       //分页
-      page_1:1,
-      page_2:1,
+      page_1: 1,
+      page_2: 1,
 
-      childPage:0,
-      LBPage:0
+      childPage: 0,
+      LBPage: 0,
     };
   },
 
@@ -411,95 +381,95 @@ export default {
     AdminAnswer,
     MyQuillEditor,
     ImageGrid,
-    returnBackTextEditor
+    returnBackTextEditor,
   },
 
   watch: {
-    page_1: function (page){
+    page_1: function (page) {
       const data = {
         id: getUser().id,
         token: getUser().token,
         tag_id: this.currentTagId,
         limits: 10,
-        page: page
+        page: page,
       };
 
       //获取当前问题列表
       getQuestionsByTag(data)
-          .then((res) => {
-            //console.log(res);
-            const response = res.data
-            if (response.ErrorCode === 1) {
-              alert("拉取问题失败:" + res.data.msg);
-            } else if (response.ErrorCode === 0) {
-              //对tags排序
-              response.data.data.forEach((quesItem) => {
-                quesItem.tags.sort((a, b) => {
-                  return a.id - b.id;
-                });
+        .then((res) => {
+          //console.log(res);
+          const response = res.data;
+          if (response.ErrorCode === 1) {
+            alert("拉取问题失败:" + res.data.msg);
+          } else if (response.ErrorCode === 0) {
+            //对tags排序
+            response.data.data.forEach((quesItem) => {
+              quesItem.tags.sort((a, b) => {
+                return a.id - b.id;
               });
-              this.currentQuestions = response.data.data;
-              //console.log(this.currentQuestions);
+            });
+            this.currentQuestions = response.data.data;
+            //console.log(this.currentQuestions);
 
-              //获取当前问题的管理员的回复
-              //获取当前问题学生的评论
+            //获取当前问题的管理员的回复
+            //获取当前问题学生的评论
 
-              for(let i=0;i<this.currentQuestions.length;i++){
-                const id= this.currentQuestions[i].id
-                this.getAnswerByQuestion(id,i)
-                this.getCommentByQuestion(id,i)
-              }
+            for (let i = 0; i < this.currentQuestions.length; i++) {
+              const id = this.currentQuestions[i].id;
+              this.getAnswerByQuestion(id, i);
+              this.getCommentByQuestion(id, i);
             }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
-    page_2: function (page){
+    page_2: function (page) {
       const data = {
         id: getUser().id,
         token: getUser().token,
         tag_id: this.currentTagId,
         limits: 10,
-        page: page
+        page: page,
       };
 
       //获取当前问题列表
       getQuestionsByTag(data)
-          .then((res) => {
-            //console.log(res);
-            const response = res.data
-            if (response.ErrorCode === 1) {
-              alert("拉取问题失败:" + res.data.msg);
-            } else if (response.ErrorCode === 0) {
-              //对tags排序
-              response.data.data.forEach((quesItem) => {
-                quesItem.tags.sort((a, b) => {
-                  return a.id - b.id;
-                });
+        .then((res) => {
+          //console.log(res);
+          const response = res.data;
+          if (response.ErrorCode === 1) {
+            alert("拉取问题失败:" + res.data.msg);
+          } else if (response.ErrorCode === 0) {
+            //对tags排序
+            response.data.data.forEach((quesItem) => {
+              quesItem.tags.sort((a, b) => {
+                return a.id - b.id;
               });
-              this.currentQuestions = response.data.data;
-              //console.log(this.currentQuestions);
+            });
+            this.currentQuestions = response.data.data;
+            //console.log(this.currentQuestions);
 
-              //获取当前问题的管理员的回复
-              //获取当前问题学生的评论
+            //获取当前问题的管理员的回复
+            //获取当前问题学生的评论
 
-              for(let i=0;i<this.currentQuestions.length;i++){
-                const id= this.currentQuestions[i].id
-                this.getAnswerByQuestion(id,i)
-                this.getCommentByQuestion(id,i)
-              }
+            for (let i = 0; i < this.currentQuestions.length; i++) {
+              const id = this.currentQuestions[i].id;
+              this.getAnswerByQuestion(id, i);
+              this.getCommentByQuestion(id, i);
             }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    }
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 
   methods: {
-    onChangeTag: function(tagId) {
+    onChangeTag: function (tagId) {
       if (tagId.length === 0 || tagId[0] === 0) {
         this.ifUsageShowed = true;
       } else {
@@ -511,14 +481,14 @@ export default {
           token: getUser().token,
           tag_id: tagId[0],
           limits: 10,
-          page: 1
+          page: 1,
         };
 
         //获取当前问题列表
         getQuestionsByTag(data)
           .then((res) => {
             //console.log(res);
-            const response = res.data
+            const response = res.data;
             if (response.ErrorCode === 1) {
               alert("拉取问题失败:" + res.data.msg);
             } else if (response.ErrorCode === 0) {
@@ -531,19 +501,19 @@ export default {
               this.currentQuestions = response.data.data;
               //console.log(this.currentQuestions);
               //this.childPage = response.total;
-              if(this.permission === 'false'){
-                this.childPage = Math.ceil(response.data.total/10);
-              }else {
-                this.LBPage = Math.ceil(response.data.total/10);
+              if (this.permission === "false") {
+                this.childPage = Math.ceil(response.data.total / 10);
+              } else {
+                this.LBPage = Math.ceil(response.data.total / 10);
               }
 
               //获取当前问题的管理员的回复
               //获取当前问题学生的评论
 
-              for(let i=0;i<this.currentQuestions.length;i++){
-                const id= this.currentQuestions[i].id
-                this.getAnswerByQuestion(id,i)
-                this.getCommentByQuestion(id,i)
+              for (let i = 0; i < this.currentQuestions.length; i++) {
+                const id = this.currentQuestions[i].id;
+                this.getAnswerByQuestion(id, i);
+                this.getCommentByQuestion(id, i);
               }
             }
           })
@@ -555,70 +525,65 @@ export default {
 
     //删除问题标签
     deleteTag(questionId, tagId) {
-
       const data = {
-        id : Number(getUser().id),
-        token : getUser().token,
+        id: Number(getUser().id),
+        token: getUser().token,
         question_id: questionId,
-        tagList: JSON.stringify([tagId])
-      }
+        tagList: JSON.stringify([tagId]),
+      };
 
-      removeTagByQuestion(data).then(res => {
-        const response = res.data
-        if(response.ErrorCode === 1){
-          alert("删除失败"+response.msg)
+      removeTagByQuestion(data).then((res) => {
+        const response = res.data;
+        if (response.ErrorCode === 1) {
+          alert("删除失败" + response.msg);
           console.log(data);
-        }else {
-          alert("删除成功")
+        } else {
+          alert("删除成功");
         }
-      })
+      });
     },
-
 
     onAddTag(questionId, select, reason) {
       if (typeof select === "undefined") {
-        alert("未选择所要添加的标签")
-      } else if(reason === "undefined"){
-        alert("未填写流转原因")
-      }else {
-        const data={
+        alert("未选择所要添加的标签");
+      } else if (reason === "undefined") {
+        alert("未填写流转原因");
+      } else {
+        const data = {
           id: getUser().id,
           token: getUser().token,
           question_id: questionId,
-          tagList: JSON.stringify([select[3]]),//这里或许要转换一下格式,
-          reason: reason
-        }
+          tagList: JSON.stringify([select[3]]), //这里或许要转换一下格式,
+          reason: reason,
+        };
 
         //增加标签
-        addQuestionTag(data).then(res => {
-          const response = res.data
-          if(response.ErrorCode === 1){
-            alert("添加标签失败")
-          }else {
-            const otherTag = this.searchTagId("其他")
+        addQuestionTag(data).then((res) => {
+          const response = res.data;
+          if (response.ErrorCode === 1) {
+            alert("添加标签失败");
+          } else {
+            const otherTag = this.searchTagId("其他");
             const removeData = {
               id: getUser().id,
               token: getUser().token,
               question_id: questionId,
-              tagList: JSON.stringify([otherTag])
-            }
+              tagList: JSON.stringify([otherTag]),
+            };
             //删除“其他”标签
-            removeTagByQuestion(removeData).then(res => {
-              let removeResponse = res.data
-              if(removeResponse.ErrorCode === 1){
-                alert("删除'其他标签'失败")
-              }else {
-                  alert("流转成功")
-                  location.reload()
+            removeTagByQuestion(removeData).then((res) => {
+              let removeResponse = res.data;
+              if (removeResponse.ErrorCode === 1) {
+                alert("删除'其他标签'失败");
+              } else {
+                alert("流转成功");
+                location.reload();
               }
-            })
+            });
           }
-        })
-
-
+        });
       }
     },
-
 
     showSelectTags(question) {
       question.tagsListForShow = [];
@@ -626,7 +591,7 @@ export default {
         return a.id - b.id;
       });
       let idx = 0;
-      this.tagsList.forEach(function(item) {
+      this.tagsList.forEach(function (item) {
         if (idx < question.tags.length) {
           if (question.tags[idx].id !== item.id) {
             question.tagsListForShow.push("id:" + item.id + "-" + item.name);
@@ -640,15 +605,14 @@ export default {
       return question;
     },
 
-
     onTagsInit(tagsTree) {
       //当标签获取完成时，向home组件发出事件，传递标签树，展平
       let that = this;
-      let dfs = function(obj) {
-        let parentName = obj.name
+      let dfs = function (obj) {
+        let parentName = obj.name;
         // eslint-disable-next-line no-unused-vars
         obj.children.forEach((item) => {
-          item.name = parentName + "/" +item.name
+          item.name = parentName + "/" + item.name;
           dfs(item);
         });
         that.tagsList.push(obj);
@@ -662,46 +626,43 @@ export default {
         return a.id - b.id;
       });
 
-      this.$store.commit("setTagsList",this.tagsList)
-      setTagList(this.tagsList)
-
+      this.$store.commit("setTagsList", this.tagsList);
+      setTagList(this.tagsList);
     },
 
-
-
     //退回问题到两办
-    returnBack(questionId,reason){
+    returnBack(questionId, reason) {
       //console.log(1);
       const data = {
         id: getUser().id,
         token: getUser().token,
-        question_id: questionId
-      }
-      let tagList=[]
-      getTagByQuestion(data).then(res => {
-        const response = res.data
-        if(response.ErrorCode === 1){
-          alert("获取问题所属标签失败")
-        }else {
-          const tagData = response.data
-          for(let i=0;i<tagData.length;i++){
-            tagList.push(tagData[i].id)
+        question_id: questionId,
+      };
+      let tagList = [];
+      getTagByQuestion(data).then((res) => {
+        const response = res.data;
+        if (response.ErrorCode === 1) {
+          alert("获取问题所属标签失败");
+        } else {
+          const tagData = response.data;
+          for (let i = 0; i < tagData.length; i++) {
+            tagList.push(tagData[i].id);
           }
-          tagList=JSON.stringify(tagList)
+          tagList = JSON.stringify(tagList);
 
           const removeData = {
             id: getUser().id,
             token: getUser().token,
             question_id: questionId,
-            tagList: tagList
-          }
+            tagList: tagList,
+          };
 
           //删除该所属问题下所有标签
-          removeTagByQuestion(removeData).then(res => {
-            const removeResponse = res.data
-            if(removeResponse.ErrorCode === 1){
-              alert("删除问题标签失败")
-            }else {
+          removeTagByQuestion(removeData).then((res) => {
+            const removeResponse = res.data;
+            if (removeResponse.ErrorCode === 1) {
+              alert("删除问题标签失败");
+            } else {
               //这里增加"其他"标签
               //然后还要写退回原因
               //console.log(1);
@@ -710,99 +671,94 @@ export default {
                 token: getUser().token,
                 question_id: questionId,
                 tagList: JSON.stringify([this.searchTagId("其他")]),
-                reason: reason
-              }
-              addQuestionTag(addData).then(res => {
-                const addResponse = res.data
+                reason: reason,
+              };
+              addQuestionTag(addData).then((res) => {
+                const addResponse = res.data;
                 //console.log(addResponse);
-                if(addResponse.ErrorCode === 1){
-                  alert("退回失败")
-                }else {
-                  alert("退回成功")
-                  location.reload()
+                if (addResponse.ErrorCode === 1) {
+                  alert("退回失败");
+                } else {
+                  alert("退回成功");
+                  location.reload();
                 }
-              })
+              });
             }
-          })
+          });
         }
-      })
+      });
     },
 
-      //通过问题获取答复
-      getAnswerByQuestion(questionId,i){
-        const data={
-            question_id: questionId,
-            user_id: 0
+    //通过问题获取答复
+    getAnswerByQuestion(questionId, i) {
+      const data = {
+        question_id: questionId,
+        user_id: 0,
+      };
+      getAnswerByQuestion(data).then((res) => {
+        const response = res.data;
+        if (response.ErrorCode === 1) {
+          alert("拉取数据失败");
+          console.log(1);
+        } else {
+          this.currentQuestions[i].answer = response.data;
         }
-          getAnswerByQuestion(data).then(res => {
-          const response = res.data
-          if (response.ErrorCode === 1) {
-            alert("拉取数据失败")
-            console.log(1);
-          } else {
-            this.currentQuestions[i].answer = response.data
-          }
-        });
-      },
+      });
+    },
 
     //通过问题获取评论
-      getCommentByQuestion(questionId,i){
-        const data={
-          question_id: questionId,
-          user_id: 0
+    getCommentByQuestion(questionId, i) {
+      const data = {
+        question_id: questionId,
+        user_id: 0,
+      };
+      getCommitByQuestion(data).then((res) => {
+        const response = res.data;
+        if (response.ErrorCode === 1) {
+          alert("拉取数据失败");
+          console.log(2);
+        } else {
+          this.currentQuestions[i].commit = response.data;
         }
-        getCommitByQuestion(data).then(res => {
-          const response = res.data
-          if (response.ErrorCode === 1) {
-            alert("拉取数据失败")
-            console.log(2);
-          } else {
-            this.currentQuestions[i].commit = response.data
-          }
-        });
-      },
-
+      });
+    },
 
     //子传父，获取管理员回复的内容
-    getAnswerByChild(comment,questionId){
+    getAnswerByChild(comment, questionId) {
       const data = {
-        id : getUser().id,
-        token : getUser().token,
+        id: getUser().id,
+        token: getUser().token,
         question_id: questionId,
-        answer_contain: comment
-      }
+        answer_contain: comment,
+      };
 
-      addComment(data).then(res => {
-        const response = res.data
-        if(response.ErrorCode === 1){
-          alert("回复失败")
-        }else {
-          alert("回复成功")
-          location.reload()
+      addComment(data).then((res) => {
+        const response = res.data;
+        if (response.ErrorCode === 1) {
+          alert("回复失败");
+        } else {
+          alert("回复成功");
+          location.reload();
         }
-      })
+      });
     },
 
-    getReason: function (questionId,reason){
-      this.returnBack(questionId,reason)
+    getReason: function (questionId, reason) {
+      this.returnBack(questionId, reason);
     },
-
 
     //通过标签名找标签ID
-    searchTagId(tag_name){
-      const tagsList = this.tagsList
-      for(let i=0;i<tagsList.length;i++){
-        if(tagsList[i].name === tag_name){
-          return tagsList[i].id
+    searchTagId(tag_name) {
+      const tagsList = this.tagsList;
+      for (let i = 0; i < tagsList.length; i++) {
+        if (tagsList[i].name === tag_name) {
+          return tagsList[i].id;
         }
       }
-      return -1
-    }
+      return -1;
+    },
   },
-  created() {
-
-  },
-
+  created() {},
 };
 </script>
 
@@ -839,58 +795,57 @@ p {
   left: 12px !important;
 }
 
-
-.btn-font-style{
+.btn-font-style {
   color: #ffffff;
   font-size: 16px;
   font-weight: 700;
 }
 
-.status-answer-box{
+.status-answer-box {
   margin-top: 15px;
   margin-bottom: 15px;
   width: 100%;
 }
 
-  .admin-student-icon{
-    width: 100%;
-    display: flex;
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
+.admin-student-icon {
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 
-  #question-block{
-    margin-top: 25px;
-  }
-  #question-block >>> .v-sheet.v-card{
-    padding: 20px;
-  }
+#question-block {
+  margin-top: 25px;
+}
+#question-block >>> .v-sheet.v-card {
+  padding: 20px;
+}
 
-  .pagination-box{
-    margin: 20px;
-  }
+.pagination-box {
+  margin: 20px;
+}
 
-  .expansion-box{
-    width: 100%;
-  }
+.expansion-box {
+  width: 100%;
+}
 
-  .question-title{
-    font-size: 26px;
-    font-weight: 900;
-    text-align: center;
-    margin-bottom: 10px;
-  }
+.question-title {
+  font-size: 26px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
-  .each-question-box{
-    margin-top: 25px;
-    padding: 20px;
-    border: #1e88e5 1px;
-  }
+.each-question-box {
+  margin-top: 25px;
+  padding: 20px;
+  border: #1e88e5 1px;
+}
 
-  .datetime-style{
-    position: relative;
-    left: 60%;
-    font-weight: 500;
-    margin-top: 10px;
-  }
+.datetime-style {
+  position: relative;
+  left: 60%;
+  font-weight: 500;
+  margin-top: 10px;
+}
 </style>

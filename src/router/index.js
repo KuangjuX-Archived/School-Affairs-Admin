@@ -35,10 +35,8 @@ const routes = [
 
   {
     path: '/',
-    redirect: {name: 'Login'}
+    redirect: { name: 'Login' }
   },
-
-
   {
     path: '/login',
     component: Login,
@@ -55,9 +53,7 @@ const routes = [
     component: () => import("../views/Message"),
     name: 'Message'
   }
-
 ]
-
 const router = new VueRouter({
   routes,
   // mode: "history"
@@ -70,9 +66,9 @@ router.beforeEach((to, from, next) => {
   if (!getUser().token) {
     next({ path: '/login' })
   } else {
-    if(to.path ==="/home"|| to.path === "/message"){
+    if (to.path === "/home" || to.path === "/message") {
       next()
-    }else {
+    } else {
       next({
         path: '/home'
       })
