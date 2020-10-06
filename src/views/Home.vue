@@ -15,7 +15,7 @@
 
               <!--这里显示管理员说明文档-->
               <div v-if="ifUsageShowed">
-                <v-card style="margin-top: 10px; height: 600px">
+                <div class="card">
                   <v-card-title>
                     <div class="content-title">说明</div>
                   </v-card-title>
@@ -26,7 +26,7 @@
                       同时可以在问题下添加标签。子管理员可以管理自己标签下的问题并进行回复，如果觉得不属于本标签的问题，可以退回问题。
                     </p>
                   </v-card-text>
-                </v-card>
+                </div>
               </div>
 
               <div v-else>
@@ -768,6 +768,12 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  border-radius: 10px;
+  border: 1px solid #dddddd;
+  box-shadow: 7px 7px 10px rgba(200, 200, 200, 0.2);
+  margin: 14px 0;
+}
 .main-container{
   max-width: 1280px;
   margin: 0 auto;

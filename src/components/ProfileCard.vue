@@ -1,61 +1,59 @@
 <template>
-  <div>
-    <v-card>
-      <v-card-text>
-        <div class="profile-title">
-          <div class="profile-info">
-            <div class="profile-info-line">
-              <div v-if="permission === '子管理员'">
-                <p class="say-hello">您好!{{ name }}</p>
-              </div>
-
-              <div v-else>
-                <p class="say-hello">您好，两办管理员</p>
-              </div>
+  <div class="card">
+    <v-card-text>
+      <div class="profile-title">
+        <div class="profile-info">
+          <div class="profile-info-line">
+            <div v-if="permission === '子管理员'">
+              <p class="say-hello">您好!{{ name }}</p>
             </div>
 
-            <div class="profile-headline">
-              <span class="nickname-style"></span>
-            </div>
-
-            <div class="profile-info-line">
-              <span>您的登录身份为：{{ permission }}</span>
-            </div>
-
-            <div class="profile-info-line">
-              <v-text-field
-                v-model="phoneNumber"
-                class="profile-input"
-                label="修改电话号码"
-              ></v-text-field>
-              <v-btn
-                outlined
-                color="#1E88E5"
-                width="125px"
-                @click="changePhoneNumber"
-                >保存修改</v-btn
-              >
-            </div>
-
-            <div class="profile-info-line">
-              <v-text-field
-                type="password"
-                v-model="password"
-                class="profile-input"
-                label="修改密码"
-              ></v-text-field>
-              <v-btn
-                outlined
-                color="#1E88E5"
-                width="125px"
-                @click="changePassword"
-                >保存修改</v-btn
-              >
+            <div v-else>
+              <p class="say-hello">您好，两办管理员</p>
             </div>
           </div>
+
+          <div class="profile-headline">
+            <span class="nickname-style"></span>
+          </div>
+
+          <div class="profile-info-line">
+            <span>您的登录身份为：{{ permission }}</span>
+          </div>
+
+          <div class="profile-info-line">
+            <v-text-field
+              v-model="phoneNumber"
+              class="profile-input"
+              label="修改电话号码"
+            ></v-text-field>
+            <v-btn
+              outlined
+              color="#1E88E5"
+              width="125px"
+              @click="changePhoneNumber"
+              >保存修改</v-btn
+            >
+          </div>
+
+          <div class="profile-info-line">
+            <v-text-field
+              type="password"
+              v-model="password"
+              class="profile-input"
+              label="修改密码"
+            ></v-text-field>
+            <v-btn
+              outlined
+              color="#1E88E5"
+              width="125px"
+              @click="changePassword"
+              >保存修改</v-btn
+            >
+          </div>
         </div>
-      </v-card-text>
-    </v-card>
+      </div>
+    </v-card-text>
   </div>
 </template>
 
@@ -113,6 +111,12 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  border-radius: 10px;
+  border: 1px solid #dddddd;
+  box-shadow: 7px 7px 10px rgba(200, 200, 200, 0.2);
+  margin: 14px 0;
+}
 .profile-title {
   display: flex;
 }
