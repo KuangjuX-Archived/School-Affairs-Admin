@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
   //如果路由为/login，则跳转到login
   //如果路由为任意路由，则判断登录情况，如果存在token，跳转到home，否则跳转到login
   if (to.path === '/login') next();
-  if (!getUser().token) {
+  if (getUser().token) {
     next({ path: '/login' })
   } else {
     if (to.path === "/home" || to.path === "/message") {
