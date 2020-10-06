@@ -120,7 +120,7 @@ a:hover {
   max-width: 40%;
   min-width: 400px;
   margin: 0 auto;
-  border: 2px solid #d9d9d9;
+  border: 1px solid #d9d9d9;
   border-radius: 10px;
   box-shadow: 7px 7px 10px rgba(200, 200, 200, 0.2);
 }

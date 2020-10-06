@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <my-header></my-header>
     <div class="main-container">
       <my-sidebar
@@ -21,10 +21,8 @@
                   </v-card-title>
 
                   <v-card-text class="content-text">
-                    <p>
-                      本平台分为两办管理员和子管理员。两办管理员可以管理学生提出问题的“其他”标签和子管理员退回的标签。
-                      同时可以在问题下添加标签。子管理员可以管理自己标签下的问题并进行回复，如果觉得不属于本标签的问题，可以退回问题。
-                    </p>
+                    本平台分为两办管理员和子管理员。两办管理员可以管理学生提出问题的“其他”标签和子管理员退回的标签。
+                    同时可以在问题下添加标签。子管理员可以管理自己标签下的问题并进行回复，如果觉得不属于本标签的问题，可以退回问题。
                   </v-card-text>
                 </div>
               </div>
@@ -774,7 +772,7 @@ export default {
   box-shadow: 7px 7px 10px rgba(200, 200, 200, 0.2);
   margin: 14px 0;
 }
-.main-container{
+.main-container {
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
@@ -787,15 +785,15 @@ export default {
 
 .content-title {
   width: 100%;
-  color: #1e88e5;
+  color: #000000;
   font-size: 24px;
-  font-weight: 900;
   text-align: center;
 }
 
 .content-text {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
+  line-height: 30px;
+  text-indent: 32px;
 }
 
 p {
