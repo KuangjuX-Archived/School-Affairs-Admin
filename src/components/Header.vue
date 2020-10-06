@@ -4,20 +4,22 @@
  * @Author: LARE
  * @Date: 2020-10-06 21:16:52
  * @LastEditors: LARE
- * @LastEditTime: 2020-10-06 23:26:40
+ * @LastEditTime: 2020-10-06 23:51:09
 -->
 <template>
   <div>
     <div class="admin-header">
-      <div class="admin-title">
-        <span class="title-text">天津大学校务管理平台</span>
-      </div>
-      <div class="header-btns">
-        <div class="admin-home link" @click="transferURL('/home')">首页</div>
-        <div class="admin-message link" @click="transferURL('/message')">
-          消息
+      <div class="header-content">
+        <div class="admin-title">
+          <span class="title-text">天津大学校务管理平台</span>
         </div>
-        <div class="admin-logout link" @click="logout()">登出</div>
+        <div class="header-btns">
+          <div class="admin-home link" @click="transferURL('/home')">首页</div>
+          <div class="admin-message link" @click="transferURL('/message')">
+            消息
+          </div>
+          <div class="admin-logout link" @click="logout()">登出</div>
+        </div>
       </div>
     </div>
   </div>
@@ -55,7 +57,7 @@ export default {
   font-weight: 900;
   color: #1e88e5;
   width: 100%;
-  /*text-align: center;*/
+  text-align: center;
   flex: 18;
   display: flex;
 }
@@ -66,7 +68,13 @@ export default {
   font-size: 14px;
   line-height: 48px;
 }
-
+.header-content {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
 .admin-home {
   cursor: pointer;
   font-size: 14px;
@@ -91,7 +99,7 @@ export default {
 }
 .header-btns {
   position: absolute;
-  right: 10px;
+  right: 0;
   display: flex;
 }
 .twt-logo img {

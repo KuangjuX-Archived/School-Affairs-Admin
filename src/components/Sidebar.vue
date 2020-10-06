@@ -72,13 +72,10 @@ export default {
 
 <style>
 #sidebar {
-  position: fixed;
   left: 0%;
   top: 48px;
-  width: 20%;
   height: 100%;
   overflow-y: auto;
-  border-right: 1px solid #ddd;
 }
 
 #sidebar-inner {
