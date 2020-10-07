@@ -58,6 +58,9 @@ export default {
 </script>
 
 <style scoped>
+img {
+  width: 100%;
+}
 p {
   line-height: 25px;
 }
@@ -74,7 +77,7 @@ p {
 }
 
 .content-style img {
-  max-width: 300px;
+  width: 100%;
 }
 
 .admin-answer-box {

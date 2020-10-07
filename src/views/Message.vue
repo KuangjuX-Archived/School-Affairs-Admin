@@ -602,7 +602,6 @@ export default {
 }
 .question-description {
   border-radius: 10px;
-  border: 1px solid #dddddd;
 }
 #message-box {
   max-width: 1280px;
@@ -624,6 +623,7 @@ export default {
   width: 100%;
   outline: none;
   margin: 10px 0;
+  border: 1px solid transparent;
 }
 
 .answer-item-box:hover {
@@ -663,7 +663,7 @@ export default {
 .pagination-box {
   margin: 20px;
 }
-.theme--light.v-pagination .v-pagination__item--active {
+.theme--light.v-pagination .v-pagination__item {
   color: #1e88e5 !important;
 }
 </style>
