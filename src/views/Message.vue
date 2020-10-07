@@ -2,89 +2,86 @@
   <div>
     <my-header></my-header>
     <div id="message-box">
+      <v-card-title style="background-color: #f5f5f5">
+        <v-btn-toggle>
+          <v-btn class="tab-btn" @click="isSolvedPage = false">待处理</v-btn>
+          <v-btn class="tab-btn" @click="isSolvedPage = true">已回复</v-btn>
+        </v-btn-toggle>
+      </v-card-title>
       <div class="card">
-        <v-card-title style="background-color: #f5f5f5">
-          <v-btn-toggle>
-            <v-btn class="tab-btn" @click="isSolvedPage = false">待处理</v-btn>
-            <v-btn class="tab-btn" @click="isSolvedPage = true">已回复</v-btn>
-          </v-btn-toggle>
-        </v-card-title>
-
         <!--子管理员-->
         <div v-if="isLB === 'false'">
           <!--未处理-->
-          <div v-if="!isSolvedPage">
-            <v-card-text>
-              <div
-                class="answer-item-box"
-                v-for="(item, index) in unsolvedQuestions"
-                :key="index"
-              >
-                <div class="question-title">{{ item.name }}</div>
-                <!--这里放置问题标签-->
-                <div>
-                  <v-chip-group>
-                    <v-chip
-                      v-bind:color="color[tagIndex % 15]"
-                      v-for="(tag, tagIndex) in item.tags"
-                      :key="tagIndex"
-                    >
-                      {{ tag.name }}
-                    </v-chip>
-                  </v-chip-group>
-                </div>
-
-                <!--流转原因-->
-                <div>
-                  <v-chip style="margin-top: 15px"
-                    >流转原因: {{ item.admin_commit }}</v-chip
+          <div v-if="!isSolvedPage" class="water-fall">
+            <div
+              class="answer-item-box"
+              v-for="(item, index) in unsolvedQuestions"
+              :key="index"
+            >
+              <div class="question-title">{{ item.name }}</div>
+              <!--这里放置问题标签-->
+              <div>
+                <v-chip-group>
+                  <v-chip
+                    v-bind:color="color[tagIndex % 15]"
+                    v-for="(tag, tagIndex) in item.tags"
+                    :key="tagIndex"
                   >
-                </div>
+                    {{ tag.name }}
+                  </v-chip>
+                </v-chip-group>
+              </div>
 
-                <!--问题描述-->
-                <div class="question-description-block">
-                  <div class="card">
-                    <v-card-title>
-                      <div class="question-title-fake">描述</div>
-                    </v-card-title>
-                    <v-card-text>
-                      <div class="question-description">
-                        {{ item.description }}
-                      </div>
-                      <!--问题图片-->
-                      <div>
-                        <image-grid :question-id="item.id"></image-grid>
-                      </div>
-                    </v-card-text>
-                  </div>
-                </div>
+              <!--流转原因-->
+              <div>
+                <v-chip style="margin-top: 15px"
+                  >流转原因: {{ item.admin_commit }}</v-chip
+                >
+              </div>
 
-                <!--学生评论-->
-                <div class="admin-student-icon">
-                  <admin-answer :current-question="item"></admin-answer>
-                  <student-comment :current-question="item"></student-comment>
-                </div>
-
-                <!--退回操作-->
-
-                <div>
-                  <return-back-text-editor
-                    :questionId="item.id"
-                    v-on:getReason="getReason"
-                  ></return-back-text-editor>
-                </div>
-
-                <!--管理员回复-->
-                <div style="margin-top: 25px">
-                  <my-quill-editor
-                    :question-id="Number(item.id)"
-                    v-on:getAnswerByChild="getAnswerByChild"
-                  >
-                  </my-quill-editor>
+              <!--问题描述-->
+              <div class="question-description-block">
+                <div class="question-description">
+                  <v-card-title>
+                    <div class="question-title-fake">描述</div>
+                  </v-card-title>
+                  <v-card-text>
+                    <div class="question-description">
+                      {{ item.description }}
+                    </div>
+                    <!--问题图片-->
+                    <div>
+                      <image-grid :question-id="item.id"></image-grid>
+                    </div>
+                  </v-card-text>
                 </div>
               </div>
-              <v-divider></v-divider>
-            </v-card-text>
+
+              <!--学生评论-->
+              <div class="admin-student-icon">
+                <admin-answer :current-question="item"></admin-answer>
+                <student-comment :current-question="item"></student-comment>
+              </div>
+
+              <!--退回操作-->
+
+              <div>
+                <return-back-text-editor
+                  :questionId="item.id"
+                  v-on:getReason="getReason"
+                ></return-back-text-editor>
+              </div>
+
+              <!--管理员回复-->
+              <div style="margin-top: 25px">
+                <my-quill-editor
+                  :question-id="Number(item.id)"
+                  v-on:getAnswerByChild="getAnswerByChild"
+                >
+                </my-quill-editor>
+              </div>
+            </div>
+            <v-divider></v-divider>
 
             <div class="pagination-box">
               <v-pagination
@@ -97,7 +94,7 @@
           <!--已解决-->
           <div v-else>
             <v-card-text v-for="(item, index) in solvedQuestions" :key="index">
-              <div class="answer-item-box">
+              <div class="answer-item-box card">
                 <div class="question-title">{{ item.name }}</div>
                 <!--这里放置问题标签-->
                 <div>
@@ -120,7 +117,7 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div class="card">
+                  <div class="question-description">
                     <v-card-title>
                       <div class="question-title-fake">描述</div>
                     </v-card-title>
@@ -179,7 +176,7 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div class="card">
+                  <div class="question-description">
                     <v-card-title>
                       <div class="question-title-fake">描述</div>
                     </v-card-title>
@@ -240,7 +237,7 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div class="card">
+                  <div class="question-description">
                     <v-card-title>
                       <div class="question-title-fake">描述</div>
                     </v-card-title>
@@ -603,24 +600,30 @@ export default {
   margin: 14px 0;
   overflow: hidden;
 }
+.question-description {
+  border-radius: 10px;
+  border: 1px solid #dddddd;
+}
 #message-box {
   max-width: 1280px;
   margin: 0 auto;
   margin-top: 50px;
 }
+
 #message-box >>> .v-card__text,
 .v-card__title {
   padding: 0;
 }
+
 .tab-btn {
   border: 0 !important;
 }
+
 .answer-item-box {
   padding: 10px;
   width: 100%;
   outline: none;
-  margin-bottom: 15px;
-  border: 1px solid #a9a9a9;
+  margin: 10px 0;
 }
 
 .answer-item-box:hover {
@@ -632,7 +635,7 @@ export default {
   position: relative;
   right: 0;
   width: 100%;
-  padding: 14px 0;
+  padding: 14px;
 }
 
 .admin-student-icon {
@@ -643,6 +646,7 @@ export default {
 .question-description-block {
   margin-top: 15px;
   margin-bottom: 15px;
+  padding: 14px;
 }
 
 .question-title {
@@ -652,7 +656,10 @@ export default {
   font-size: 26px;
   font-weight: 900;
 }
-
+.water-fall {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
 .pagination-box {
   margin: 20px;
 }
