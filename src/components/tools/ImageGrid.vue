@@ -1,15 +1,21 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: LARE
+ * @Date: 2020-10-06 21:16:52
+ * @LastEditors: LARE
+ * @LastEditTime: 2020-10-07 18:38:25
+-->
 <template>
   <div class="image-box">
-    <div class="row-box" v-for="n in 3" :key="n">
-      <div
-        class="block-row"
-        v-for="(item, index) in imageUrl.slice((n - 1) * 3, (n - 1) * 3 + 3)"
-        :key="index"
+    <div class="block-row" v-for="(item, index) in imageUrl" :key="index">
+      <el-image
+        style="height: 100%; width: 100%"
+        :src="item"
+        :preview-src-list="[item]"
+        fit="cover"
       >
-        <div class="image-frame">
-          <v-img :src="item" width="100px" height="100px"></v-img>
-        </div>
-      </div>
+      </el-image>
     </div>
   </div>
 </template>
@@ -61,22 +67,11 @@ export default {
 <style scoped>
 .image-box {
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
 }
 
-.row-box {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-}
-
-.block-row {
-  flex: 1;
-  margin: 10px;
-}
-
-.image-frame {
-  margin: 10px;
+.el-image img {
+  object-fit: cover;
 }
 </style>
