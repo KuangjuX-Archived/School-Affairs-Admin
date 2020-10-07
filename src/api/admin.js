@@ -1,4 +1,4 @@
-import {request} from "../network/request";
+import { request } from "../network/request";
 
 export function login(data) {
 
@@ -93,7 +93,7 @@ export function addQuestionTag(data) {
 
 export function addComment(data) {
     return request({
-        url : "/admin/answer/add",
+        url: "/admin/answer/add",
         method: "POST",
         data
     })

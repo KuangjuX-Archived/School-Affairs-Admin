@@ -1,5 +1,12 @@
 <template>
   <div class="login-page">
+    
+    <div class="login-img">
+      <div class="cover">
+        <p class="bigger">天津大学校务管理平台</p>
+        <p class="smaller">Welcome</p>
+      </div>
+    </div>
     <div class="login-box">
       <div class="login-name">
         <img src="../assets/logo.svg" alt="logo" />
@@ -35,12 +42,6 @@
             </div>
           </v-form>
         </div>
-      </div>
-    </div>
-    <div class="login-img">
-      <div class="cover">
-        <p class="bigger">天津大学校务管理平台</p>
-        <p class="smaller">Welcome</p>
       </div>
     </div>
   </div>
@@ -106,7 +107,7 @@ a:hover {
   height: 100vh;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 60% 40%;
 }
 .login-box {
   height: 100vh;

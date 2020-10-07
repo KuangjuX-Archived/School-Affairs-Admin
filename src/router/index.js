@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Author: LARE
+ * @Date: 2020-10-06 21:16:53
+ * @LastEditors: LARE
+ * @LastEditTime: 2020-10-07 11:34:39
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "../views/Login"

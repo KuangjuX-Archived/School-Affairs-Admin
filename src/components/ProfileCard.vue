@@ -25,7 +25,7 @@
             <v-text-field
               v-model="phoneNumber"
               class="profile-input"
-              label="修改电话号码"
+              label="电话号码"
             ></v-text-field>
             <v-btn
               outlined
@@ -41,7 +41,7 @@
               type="password"
               v-model="password"
               class="profile-input"
-              label="修改密码"
+              label="密码"
             ></v-text-field>
             <v-btn
               outlined

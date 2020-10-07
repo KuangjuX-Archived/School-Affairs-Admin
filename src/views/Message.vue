@@ -43,21 +43,19 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div>
-                    <v-card min-height="300px">
-                      <v-card-title>
-                        <div class="question-title-fake">描述</div>
-                      </v-card-title>
-                      <v-card-text>
-                        <div class="question-description">
-                          {{ item.description }}
-                        </div>
-                        <!--问题图片-->
-                        <div>
-                          <image-grid :question-id="item.id"></image-grid>
-                        </div>
-                      </v-card-text>
-                    </v-card>
+                  <div class="card">
+                    <v-card-title>
+                      <div class="question-title-fake">描述</div>
+                    </v-card-title>
+                    <v-card-text>
+                      <div class="question-description">
+                        {{ item.description }}
+                      </div>
+                      <!--问题图片-->
+                      <div>
+                        <image-grid :question-id="item.id"></image-grid>
+                      </div>
+                    </v-card-text>
                   </div>
                 </div>
 
@@ -122,21 +120,19 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div>
-                    <v-card min-height="300px">
-                      <v-card-title>
-                        <div class="question-title-fake">描述</div>
-                      </v-card-title>
-                      <v-card-text>
-                        <div class="question-description">
-                          {{ item.description }}
-                        </div>
-                        <!--问题图片-->
-                        <div>
-                          <image-grid :question-id="item.id"></image-grid>
-                        </div>
-                      </v-card-text>
-                    </v-card>
+                  <div class="card">
+                    <v-card-title>
+                      <div class="question-title-fake">描述</div>
+                    </v-card-title>
+                    <v-card-text>
+                      <div class="question-description">
+                        {{ item.description }}
+                      </div>
+                      <!--问题图片-->
+                      <div>
+                        <image-grid :question-id="item.id"></image-grid>
+                      </div>
+                    </v-card-text>
                   </div>
                 </div>
 
@@ -183,21 +179,19 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div>
-                    <v-card min-height="300px">
-                      <v-card-title>
-                        <div class="question-title-fake">描述</div>
-                      </v-card-title>
-                      <v-card-text>
-                        <div class="question-description">
-                          {{ item.description }}
-                        </div>
-                        <!--问题图片-->
-                        <div>
-                          <image-grid :question-id="item.id"></image-grid>
-                        </div>
-                      </v-card-text>
-                    </v-card>
+                  <div class="card">
+                    <v-card-title>
+                      <div class="question-title-fake">描述</div>
+                    </v-card-title>
+                    <v-card-text>
+                      <div class="question-description">
+                        {{ item.description }}
+                      </div>
+                      <!--问题图片-->
+                      <div>
+                        <image-grid :question-id="item.id"></image-grid>
+                      </div>
+                    </v-card-text>
                   </div>
                 </div>
 
@@ -246,21 +240,19 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div>
-                    <v-card min-height="300px">
-                      <v-card-title>
-                        <div class="question-title-fake">描述</div>
-                      </v-card-title>
-                      <v-card-text>
-                        <div class="question-description">
-                          {{ item.description }}
-                        </div>
-                        <!--问题图片-->
-                        <div>
-                          <image-grid :question-id="item.id"></image-grid>
-                        </div>
-                      </v-card-text>
-                    </v-card>
+                  <div class="card">
+                    <v-card-title>
+                      <div class="question-title-fake">描述</div>
+                    </v-card-title>
+                    <v-card-text>
+                      <div class="question-description">
+                        {{ item.description }}
+                      </div>
+                      <!--问题图片-->
+                      <div>
+                        <image-grid :question-id="item.id"></image-grid>
+                      </div>
+                    </v-card-text>
                   </div>
                 </div>
 
@@ -270,7 +262,6 @@
                   <student-comment :current-question="item"></student-comment>
                 </div>
               </div>
-
             </v-card-text>
 
             <div class="pagination-box">
@@ -623,17 +614,17 @@ export default {
 }
 .tab-btn {
   border: 0 !important;
-
 }
 .answer-item-box {
   padding: 10px;
   width: 100%;
   outline: none;
   margin-bottom: 15px;
+  border: 1px solid #a9a9a9;
 }
 
 .answer-item-box:hover {
-  border: #1e88e5 solid 2px;
+  border: 1px solid #1e88e5;
 }
 
 .question-title-fake {
@@ -641,7 +632,7 @@ export default {
   position: relative;
   right: 0;
   width: 100%;
-  padding: 20px;
+  padding: 14px 0;
 }
 
 .admin-student-icon {
@@ -657,12 +648,15 @@ export default {
 .question-title {
   width: 100%;
   text-align: center;
-  padding: 20px;
+  padding: 0 0 14px 0;
   font-size: 26px;
   font-weight: 900;
 }
 
 .pagination-box {
   margin: 20px;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #1e88e5 !important;
 }
 </style>
