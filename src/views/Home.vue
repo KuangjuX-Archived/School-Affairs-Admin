@@ -56,34 +56,34 @@
 
                 <v-tabs-items v-model="controlTab">
                   <v-tab-item key="updateTag">
-                    <v-card flat>
-                      <v-chip>流转原因: {{ item.admin_commit }}</v-chip>
-                      <div
-                        v-for="tag in item.tags"
-                        :key="tag.id"
-                        class="item-tags"
-                      >
-                        <div v-text="tag.name"></div>
-                      </div>
+                    <v-chip style="margin: 7px 0"
+                      >流转原因: {{ item.admin_commit }}</v-chip
+                    >
+                    <div
+                      v-for="tag in item.tags"
+                      :key="tag.id"
+                      class="item-tags"
+                    >
+                      <div v-text="tag.name"></div>
+                    </div>
 
-                      <!--退回操作-->
-                      <div>
-                        <return-back-text-editor
-                          :questionId="item.id"
-                          v-on:getReason="getReason"
-                        ></return-back-text-editor>
-                      </div>
-                    </v-card>
+                    <!--退回操作-->
+                    <div>
+                      <return-back-text-editor
+                        :questionId="item.id"
+                        v-on:getReason="getReason"
+                      ></return-back-text-editor>
+                    </div>
                   </v-tab-item>
 
                   <!--这里要加上其他管理员的评论-->
                   <v-tab-item key="addComment">
                     <v-card flat>
-                      <div v-if="!item.solved">
+                      <div v-if="!item.solved" style="margin: 7px 0">
                         <span class="btn-font-style green"> 未解决 </span>
                       </div>
 
-                      <div v-else>
+                      <div v-else style="margin: 7px 0">
                         <span class="btn-font-style red"> 已解决 </span>
                       </div>
 
@@ -147,41 +147,37 @@
                   </v-tabs>
                   <v-tabs-items v-model="controlTab">
                     <v-tab-item key="updateTag">
-                      <v-card flat>
-                        <v-chip style="margin-top: 15px"
-                          >流转原因: {{ item.admin_commit }}</v-chip
-                        >
+                      <v-chip style="margin-top: 15px"
+                        >流转原因: {{ item.admin_commit }}</v-chip
+                      >
 
-                        <v-list two-line>
-                          <v-list-item v-for="tag in item.tags" :key="tag.id">
-                            <v-list-item-content>
-                              <v-list-item-title
-                                v-text="tag.name"
-                              ></v-list-item-title>
-                            </v-list-item-content>
+                      <v-list two-line>
+                        <v-list-item v-for="tag in item.tags" :key="tag.id">
+                          <v-list-item-content>
+                            <v-list-item-title
+                              v-text="tag.name"
+                            ></v-list-item-title>
+                          </v-list-item-content>
 
-                            <v-list-item-action>
-                              <v-btn icon @click="deleteTag(item.id, tag.id)">
-                                <v-icon color="grey lighten-1"
-                                  >mdi-delete</v-icon
-                                >
-                              </v-btn>
-                            </v-list-item-action>
-                          </v-list-item>
-                        </v-list>
+                          <v-list-item-action>
+                            <v-btn icon @click="deleteTag(item.id, tag.id)">
+                              <v-icon color="grey lighten-1">mdi-delete</v-icon>
+                            </v-btn>
+                          </v-list-item-action>
+                        </v-list-item>
+                      </v-list>
 
-                        <!--流转原因封装成组件-->
-                        <div>
-                          <tag-search-column
-                            :current-question="item"
-                          ></tag-search-column>
-                        </div>
-                      </v-card>
+                      <!--流转原因封装成组件-->
+                      <div>
+                        <tag-search-column
+                          :current-question="item"
+                        ></tag-search-column>
+                      </div>
                     </v-tab-item>
 
                     <v-tab-item key="addComment">
                       <v-card flat>
-                        <div v-if="!item.solved" class="status-answer-box">
+                        <div v-if="!item.solved" style="margin: 7px 0">
                           <span class="btn-font-style green"> 未解决 </span>
 
                           <!--管理员回复图标-->
@@ -795,11 +791,6 @@ p {
 .red {
   background: #e53935;
 }
-.status-answer-box {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  width: 100%;
-}
 
 .admin-student-icon {
   width: 100%;
@@ -810,9 +801,6 @@ p {
 
 #question-block {
   margin-top: 0;
-}
-#question-block >>> .v-sheet.v-card {
-  padding: 20px;
 }
 
 .pagination-box {
@@ -828,8 +816,7 @@ p {
   font-weight: bold;
   text-align: center;
   margin-bottom: 10px;
-    padding: 0 14px 14px 14px;
-
+  padding: 0 14px 14px 14px;
 }
 
 .each-question-box {
@@ -867,7 +854,7 @@ p {
     padding: 0 12px;
   }
   .each-question-box {
-    margin: 0;
+    margin: 14px 0;
     padding: 14px;
   }
   .each-question-description {
@@ -875,7 +862,9 @@ p {
     font-size: 16px;
   }
   .each-question-content {
-    padding: 14px 0;
+    font-size: 16px;
+    line-height: 28px;
+    padding: 0;
   }
   .datetime-style {
     left: 0;
