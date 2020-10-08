@@ -27,9 +27,7 @@
     <div class="btn-box-style">
       <v-btn
         center-active
-        large
         @click="postParent"
-        width="300px"
         color="#66BB6A"
       >
         <span class="btn-font-style"> 提交 </span>
@@ -184,7 +182,8 @@ export default {
   color: #ffffff;
   font-size: 16px;
   font-weight: 700;
-  max-width: 150px;
+  min-width: 150px;
+  max-width: 200px;
 }
 
 .my-quill-editor >>> .ql-container {

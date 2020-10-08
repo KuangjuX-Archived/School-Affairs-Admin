@@ -1,9 +1,17 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: LARE
+ * @Date: 2020-10-06 21:16:52
+ * @LastEditors: LARE
+ * @LastEditTime: 2020-10-08 23:54:19
+-->
 <template>
   <div class="return-back-filed">
     <v-textarea filled v-model="reason" :value="reason"></v-textarea>
 
     <div class="btn-block">
-      <v-btn width="150px" color="#E53935" @click="sendReason">
+      <v-btn color="#E53935" @click="sendReason">
         <span class="btn-inline-font"> 退回 </span>
       </v-btn>
     </div>
@@ -35,8 +43,10 @@ export default {
 <style scoped>
 .btn-inline-font {
   color: #ffffff;
-  font-weight: 700;
   font-size: 16px;
+  font-weight: 700;
+  min-width: 150px;
+  max-width: 200px;
 }
 
 .btn-block {
