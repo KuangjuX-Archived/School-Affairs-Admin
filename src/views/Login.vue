@@ -8,7 +8,7 @@
     </div>
     <div class="login-box">
       <div class="login-name">
-        <img src="../assets/logo.svg" alt="logo" />
+        <img class="logo-color" src="../assets/logo.svg" alt="logo" />
       </div>
       <div class="login-card">
         <div class="login-card-title">管理员登录</div>
@@ -194,6 +194,9 @@ a:hover {
 .smaller {
   font-size: 2rem;
 }
+.logo-color{
+  color: #dddddd;
+}
 
 @media screen and (max-width: 426px) {
   .login-page {
@@ -207,9 +210,9 @@ a:hover {
     display: none;
   }
   .bigger {
-    font-size: 1rem;
+    font-size: 1.2rem;
     letter-spacing: 0;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
   }
   .cover {
     justify-content: flex-end;
@@ -224,7 +227,7 @@ a:hover {
     background: #ffffff;
     min-width: 330px;
   }
-  .login-card-title{
+  .login-card-title {
     font-size: 22px;
   }
 }
