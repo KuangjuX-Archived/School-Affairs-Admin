@@ -2,6 +2,18 @@
   <div>
     <my-header></my-header>
     <div id="message-box">
+      <el-input
+        style="padding: 8px 28px 6px 28px"
+        placeholder="搜索问题"
+        v-model="searchInput"
+        class="input-with-select"
+      >
+        <el-button
+          slot="append"
+          icon="el-icon-search"
+          @click="filterT"
+        ></el-button>
+      </el-input>
       <v-card-title class="message-toggle card">
         <v-btn-toggle>
           <v-btn
@@ -14,18 +26,6 @@
             >已回复</v-btn
           >
         </v-btn-toggle>
-        <el-input
-          style="margin: 8px 4px 6px 4px"
-          placeholder="搜索问题"
-          v-model="searchInput"
-          class="input-with-select"
-        >
-          <el-button
-            slot="append"
-            icon="el-icon-search"
-            @click="filterT"
-          ></el-button>
-        </el-input>
       </v-card-title>
       <!--子管理员-->
       <div v-if="isLB === 'false'">
@@ -40,17 +40,15 @@
               <div class="answer-item-box card">
                 <div class="question-title">{{ item.name }}</div>
                 <!--这里放置问题标签-->
-                <div>
-                  <v-chip-group>
-                    <v-chip
-                      v-bind:color="color[tagIndex % 15]"
-                      v-for="(tag, tagIndex) in item.tags"
-                      :key="tagIndex"
-                    >
-                      {{ tag.name }}
-                    </v-chip>
-                  </v-chip-group>
-                </div>
+                <v-chip-group>
+                  <v-chip
+                    v-bind:color="color[tagIndex % 15]"
+                    v-for="(tag, tagIndex) in item.tags"
+                    :key="tagIndex"
+                  >
+                    {{ tag.name }}
+                  </v-chip>
+                </v-chip-group>
 
                 <!--流转原因-->
                 <div>
@@ -110,63 +108,63 @@
         </div>
 
         <!--已解决-->
-        <div v-else>
-          <v-card-text v-for="(item, index) in solvedQuestions" :key="index">
-            <div class="water-fall-item">
-              <div class="answer-item-box card">
-                <div class="question-title">{{ item.name }}</div>
-                <!--这里放置问题标签-->
-                <div>
-                  <v-chip-group
-                    v-for="(tag, tagIndex) in item.tags"
-                    :key="tagIndex"
-                  >
-                    <v-chip v-bind:color="color[tagIndex % 15]">{{
-                      tag.name
-                    }}</v-chip>
-                  </v-chip-group>
-                </div>
+        <div v-else class="water-fall">
+          <div
+            v-for="(item, index) in solvedQuestions"
+            :key="index"
+            class="water-fall-item"
+          >
+            <div class="answer-item-box card">
+              <div class="question-title">{{ item.name }}</div>
+              <!--这里放置问题标签-->
+              <v-chip-group
+                v-for="(tag, tagIndex) in item.tags"
+                :key="tagIndex"
+              >
+                <v-chip v-bind:color="color[tagIndex % 15]">{{
+                  tag.name
+                }}</v-chip>
+              </v-chip-group>
 
-                <!--流转原因-->
-                <div>
-                  <v-chip style="margin-top: 15px"
-                    >流转原因: {{ item.admin_commit }}</v-chip
-                  >
-                </div>
+              <!--流转原因-->
+              <div>
+                <v-chip style="margin-top: 15px"
+                  >流转原因: {{ item.admin_commit }}</v-chip
+                >
+              </div>
 
-                <!--问题描述-->
-                <div class="question-description-block">
-                  <div class="question-description">
-                    <v-card-title>
-                      <div class="question-title-fake">描述</div>
-                    </v-card-title>
-                    <v-card-text>
-                      <div class="question-description">
-                        {{ item.description }}
-                      </div>
-                      <!--问题图片-->
-                      <div>
-                        <image-grid :question-id="item.id"></image-grid>
-                      </div>
-                    </v-card-text>
-                  </div>
-                </div>
-
-                <!--评论图标-->
-                <div class="admin-student-icon">
-                  <admin-answer :current-question="item"></admin-answer>
-                  <student-comment :current-question="item"></student-comment>
+              <!--问题描述-->
+              <div class="question-description-block">
+                <div class="question-description">
+                  <v-card-title>
+                    <div class="question-title-fake">描述</div>
+                  </v-card-title>
+                  <v-card-text>
+                    <div class="question-description">
+                      {{ item.description }}
+                    </div>
+                    <!--问题图片-->
+                    <div>
+                      <image-grid :question-id="item.id"></image-grid>
+                    </div>
+                  </v-card-text>
                 </div>
               </div>
-            </div>
-          </v-card-text>
 
-          <div class="pagination-box">
-            <v-pagination
-              v-model="page_2"
-              :length="solvedQuestionPage"
-            ></v-pagination>
+              <!--评论图标-->
+              <div class="admin-student-icon">
+                <admin-answer :current-question="item"></admin-answer>
+                <student-comment :current-question="item"></student-comment>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div class="pagination-box">
+          <v-pagination
+            v-model="page_2"
+            :length="solvedQuestionPage"
+          ></v-pagination>
         </div>
       </div>
 
@@ -179,16 +177,14 @@
               <div class="answer-item-box">
                 <div class="question-title">{{ item.name }}</div>
                 <!--这里放置问题标签-->
-                <div>
-                  <v-chip-group
-                    v-for="(tag, tagIndex) in item.tags"
-                    :key="tagIndex"
-                  >
-                    <v-chip v-bind:color="color[tagIndex % 15]">{{
-                      tag.name
-                    }}</v-chip>
-                  </v-chip-group>
-                </div>
+                <v-chip-group
+                  v-for="(tag, tagIndex) in item.tags"
+                  :key="tagIndex"
+                >
+                  <v-chip v-bind:color="color[tagIndex % 15]">{{
+                    tag.name
+                  }}</v-chip>
+                </v-chip-group>
 
                 <!--问题描述-->
                 <div class="question-description-block">
@@ -241,16 +237,14 @@
               <div class="answer-item-box">
                 <div class="question-title">{{ item.name }}</div>
                 <!--这里放置问题标签-->
-                <div>
-                  <v-chip-group
-                    v-for="(tag, tagIndex) in item.tags"
-                    :key="tagIndex"
-                  >
-                    <v-chip v-bind:color="color[tagIndex % 15]">{{
-                      tag.name
-                    }}</v-chip>
-                  </v-chip-group>
-                </div>
+                <v-chip-group
+                  v-for="(tag, tagIndex) in item.tags"
+                  :key="tagIndex"
+                >
+                  <v-chip v-bind:color="color[tagIndex % 15]">{{
+                    tag.name
+                  }}</v-chip>
+                </v-chip-group>
 
                 <!--问题描述-->
                 <div class="question-description-block">
@@ -703,9 +697,9 @@ export default {
 .question-title {
   width: 100%;
   text-align: center;
-  padding: 0 0 14px 0;
+  padding: 0 14px 14px 14px;
   font-size: 26px;
-  font-weight: 900;
+  font-weight: bold;
 }
 .water-fall {
   column-count: 2;

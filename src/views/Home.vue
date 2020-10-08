@@ -825,9 +825,11 @@ p {
 
 .question-title {
   font-size: 26px;
-  font-weight: 900;
+  font-weight: bold;
   text-align: center;
   margin-bottom: 10px;
+    padding: 0 14px 14px 14px;
+
 }
 
 .each-question-box {
