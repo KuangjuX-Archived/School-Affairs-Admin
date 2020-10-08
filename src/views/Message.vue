@@ -656,7 +656,7 @@ export default {
   border-radius: 10px;
   overflow: hidden;
   width: fit-content;
-  margin: 28px;
+  margin: 14px 28px;
 }
 
 .tab-btn {
@@ -714,5 +714,14 @@ export default {
 }
 .theme--light.v-pagination .v-pagination__item {
   color: #1e88e5 !important;
+}
+
+@media screen and (max-width:426px){
+    #message-box{
+        margin-top: 30px;
+    }
+    .water-fall{
+          column-count: 1;
+    }
 }
 </style>
