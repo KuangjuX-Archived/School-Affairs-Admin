@@ -28,7 +28,7 @@
       <v-btn
         center-active
         @click="postParent"
-        color="#66BB6A"
+        color="#1E88E5"
       >
         <span class="btn-font-style"> 提交 </span>
       </v-btn>

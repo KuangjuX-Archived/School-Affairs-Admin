@@ -57,7 +57,7 @@
             )
           "
         >
-          <span class="btn-font-style" color="#66BB6A"> 提交 </span>
+          <span class="btn-font-style" color="#1E88E5"> 提交 </span>
         </v-btn>
       </div>
     </v-card>

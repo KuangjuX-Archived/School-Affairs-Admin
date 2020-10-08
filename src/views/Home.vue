@@ -80,15 +80,11 @@
                   <v-tab-item key="addComment">
                     <v-card flat>
                       <div v-if="!item.solved">
-                        <v-btn color="#E53935" width="300px">
-                          <span class="btn-font-style"> 未解决 </span>
-                        </v-btn>
+                        <span class="btn-font-style green"> 未解决 </span>
                       </div>
 
                       <div v-else>
-                        <v-btn color="#66BB6A" width="300px">
-                          <span class="btn-font-style"> 已解决 </span>
-                        </v-btn>
+                        <span class="btn-font-style red"> 已解决 </span>
                       </div>
 
                       <!--管理员回复图标-->
@@ -186,9 +182,7 @@
                     <v-tab-item key="addComment">
                       <v-card flat>
                         <div v-if="!item.solved" class="status-answer-box">
-                          <v-btn color="#E53935" width="300px">
-                            <span class="btn-font-style"> 未解决 </span>
-                          </v-btn>
+                          <span class="btn-font-style green"> 未解决 </span>
 
                           <!--管理员回复图标-->
                           <!--学生评论图标-->
@@ -203,9 +197,7 @@
                         </div>
 
                         <div v-else>
-                          <v-btn color="#66BB6A" width="300px">
-                            <span class="btn-font-style"> 已解决 </span>
-                          </v-btn>
+                          <span class="btn-font-style red"> 已解决 </span>
 
                           <!--管理员回复图标-->
                           <!--学生评论图标-->
@@ -794,9 +786,15 @@ p {
 .btn-font-style {
   color: #ffffff;
   font-size: 16px;
-  font-weight: 700;
+  padding: 7px;
+  border-radius: 10px;
 }
-
+.green {
+  background: #66bb6a;
+}
+.red {
+  background: #e53935;
+}
 .status-answer-box {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -848,6 +846,8 @@ p {
 
 .each-question-content {
   position: relative;
+  font-size: 16px;
+  line-height: 30px;
   padding: 14px 0;
 }
 .item-tags {
