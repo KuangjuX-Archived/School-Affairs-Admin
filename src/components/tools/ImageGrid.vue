@@ -4,13 +4,13 @@
  * @Author: LARE
  * @Date: 2020-10-06 21:16:52
  * @LastEditors: LARE
- * @LastEditTime: 2020-10-07 18:38:25
+ * @LastEditTime: 2020-10-08 23:46:21
 -->
 <template>
   <div class="image-box">
-    <div class="block-row" v-for="(item, index) in imageUrl" :key="index">
+    <div class="image-content" v-for="(item, index) in imageUrl" :key="index">
       <el-image
-        style="height: 100%; width: 100%"
+        class="full-img"
         :src="item"
         :preview-src-list="[item]"
         fit="cover"
@@ -69,9 +69,17 @@ export default {
   width: 100%;
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
+  margin: 7px 0;
+  border: 1px solid #cccccc;
 }
-
-.el-image img {
-  object-fit: cover;
+.image-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.full-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 </style>

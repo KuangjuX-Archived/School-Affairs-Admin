@@ -115,7 +115,6 @@ export default {
 .profile-info {
   display: flex;
   flex-direction: column;
-  margin-left: 22px;
 }
 
 .profile-headline {

@@ -54,9 +54,7 @@
                         <v-card-text class="each-question-content">
                           {{ item.description }}
                           <!--问题图片-->
-                          <div>
-                            <image-grid :question-id="item.id"></image-grid>
-                          </div>
+                          <image-grid :question-id="item.id"></image-grid>
                         </v-card-text>
 
                         <v-tabs center-active grow v-model="controlTab">
@@ -167,9 +165,7 @@
                               {{ item.description }}
                             </div>
                             <!--问题图片-->
-                            <div>
-                              <image-grid :question-id="item.id"></image-grid>
-                            </div>
+                            <image-grid :question-id="item.id"></image-grid>
                           </v-card-text>
                         </div>
 
@@ -452,7 +448,7 @@ export default {
       let target_year = updated_at.substr(0, 4);
       let target_month = updated_at.substr(5, 2);
       let target_day = updated_at.substr(8, 2);
-      let target_hour = updated_at.substr(11, 2);
+      let target_hour = (updated_at.substr(11, 2) - 0 + 8) % 24; //后端bug相差8小时
       let target_minute = updated_at.substr(14, 2);
       let out_year = "",
         out_month = "",
