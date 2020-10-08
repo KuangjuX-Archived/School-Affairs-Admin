@@ -4,7 +4,7 @@
  * @Author: LARE
  * @Date: 2020-10-06 21:16:52
  * @LastEditors: LARE
- * @LastEditTime: 2020-10-06 23:51:09
+ * @LastEditTime: 2020-10-08 21:54:56
 -->
 <template>
   <div>
@@ -111,5 +111,13 @@ export default {
 }
 .link:hover {
   color: #1e88e5;
+}
+@media screen and (max-width: 426px) {
+  .title-text {
+    letter-spacing: 0;
+    text-align: left;
+    font-size: 18px;
+    left: 20px;
+  }
 }
 </style>
