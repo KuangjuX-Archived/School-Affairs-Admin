@@ -4,7 +4,7 @@
  * @Author: LARE
  * @Date: 2020-10-06 21:16:52
  * @LastEditors: LARE
- * @LastEditTime: 2020-10-08 21:54:56
+ * @LastEditTime: 2020-10-08 22:00:17
 -->
 <template>
   <div>
@@ -117,7 +117,10 @@ export default {
     letter-spacing: 0;
     text-align: left;
     font-size: 18px;
-    left: 20px;
+    padding: 0 14px;
+  }
+  .header-btns{
+    padding-right: 4px;
   }
 }
 </style>

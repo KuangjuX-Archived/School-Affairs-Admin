@@ -30,7 +30,10 @@
               <div v-else>
                 <div id="question-block">
                   <!--这里显示问题-->
-                  <div v-if="permission === 'false'" class="question-field card">
+                  <div
+                    v-if="permission === 'false'"
+                    class="question-field card"
+                  >
                     <!--扩展面板-->
 
                     <div class="expansion-box">
@@ -45,20 +48,20 @@
 
                         <!--问题描述-->
                         <div>
-                            <v-card-title>描述</v-card-title>
-                            <v-card-text>
-                              <div>
-                                {{ item.description }}
-                              </div>
-                              <!--问题图片-->
-                              <div>
-                                <image-grid :question-id="item.id"></image-grid>
-                              </div>
+                          <v-card-title>描述</v-card-title>
+                          <v-card-text>
+                            <div>
+                              {{ item.description }}
+                            </div>
+                            <!--问题图片-->
+                            <div>
+                              <image-grid :question-id="item.id"></image-grid>
+                            </div>
 
-                              <div class="datetime-style">
-                                {{ item.updated_at }}
-                              </div>
-                            </v-card-text>
+                            <div class="datetime-style">
+                              {{ item.updated_at }}
+                            </div>
+                          </v-card-text>
                         </div>
 
                         <v-divider></v-divider>
@@ -165,20 +168,20 @@
                       >
                         <div class="question-title">{{ item.name }}</div>
                         <div>
-                            <v-card-title>描述</v-card-title>
-                            <v-card-text>
-                              <div>
-                                {{ item.description }}
-                              </div>
-                              <!--问题图片-->
-                              <div>
-                                <image-grid :question-id="item.id"></image-grid>
-                              </div>
+                          <v-card-title>描述</v-card-title>
+                          <v-card-text>
+                            <div>
+                              {{ item.description }}
+                            </div>
+                            <!--问题图片-->
+                            <div>
+                              <image-grid :question-id="item.id"></image-grid>
+                            </div>
 
-                              <div class="datetime-style">
-                                {{ item.updated_at }}
-                              </div>
-                            </v-card-text>
+                            <div class="datetime-style">
+                              {{ item.updated_at }}
+                            </div>
+                          </v-card-text>
                         </div>
 
                         <v-divider></v-divider>
@@ -852,5 +855,19 @@ p {
   left: 60%;
   font-weight: 500;
   margin-top: 10px;
+}
+
+@media screen and (max-width: 426px) {
+  .content {
+    margin: 0;
+  }
+  .main-container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .container {
+    padding: 0 12px;
+  }
+
 }
 </style>

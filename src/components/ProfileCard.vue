@@ -3,24 +3,15 @@
     <v-card-text>
       <div class="profile-title">
         <div class="profile-info">
-          <div class="profile-info-line">
-            <div v-if="permission === '子管理员'">
-              <p class="say-hello">您好!{{ name }}</p>
-            </div>
-
-            <div v-else>
-              <p class="say-hello">您好，两办管理员</p>
-            </div>
+          <div v-if="permission === '子管理员'">
+            <p class="say-hello">
+              您好!{{ name }} <span class="perm">({{ permission }})</span>
+            </p>
           </div>
 
-          <div class="profile-headline">
-            <span class="nickname-style"></span>
+          <div v-else>
+            <p class="say-hello">您好，两办管理员</p>
           </div>
-
-          <div class="profile-info-line">
-            <span>您的登录身份为：{{ permission }}</span>
-          </div>
-
           <div class="profile-info-line">
             <v-text-field
               v-model="phoneNumber"
@@ -135,6 +126,7 @@ export default {
 
 .profile-info-line {
   margin-top: 20px;
+  font-size: 18px;
   display: flex;
 }
 .profile-input {
@@ -163,6 +155,22 @@ export default {
   bottom: 10px;
 }
 .say-hello {
-  font-size: 18px;
+  font-size: 22px;
+}
+
+.perm {
+  font-size: 16px;
+}
+@media screen and (max-width: 426px) {
+  .profile-info {
+    margin: 0;
+  }
+  .profile-info-line {
+    margin-top: 14px;
+    font-size: 16px;
+  }
+  .say-hello {
+    font-size: 18px;
+  }
 }
 </style>
