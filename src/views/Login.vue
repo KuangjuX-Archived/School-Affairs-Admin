@@ -1,6 +1,5 @@
 <template>
   <div class="login-page">
-    
     <div class="login-img">
       <div class="cover">
         <p class="bigger">天津大学校务管理平台</p>
@@ -61,26 +60,28 @@ export default {
   },
   methods: {
     login() {
-      login(this.form).then((res) => {
-        if (res.data.ErrorCode === 1) {
-          //TODO: 弹窗 - error
-          alert("密码或账号错误");
-        } else {
-          let info = res.data.data;
-          setUserInfo(
-            info.token,
-            info.id,
-            info.PhoneNumber,
-            info.is_lb,
-            this.form.name
-          );
-          this.$router.push({
-            name: "Home",
-          });
-        }
-      }).catch(()=>{
-        this.$message.error('登陆失败，密码或账号错误');
-      })
+      login(this.form)
+        .then((res) => {
+          if (res.data.ErrorCode === 1) {
+            //TODO: 弹窗 - error
+            alert("密码或账号错误");
+          } else {
+            let info = res.data.data;
+            setUserInfo(
+              info.token,
+              info.id,
+              info.PhoneNumber,
+              info.is_lb,
+              this.form.name
+            );
+            this.$router.push({
+              name: "Home",
+            });
+          }
+        })
+        .catch(() => {
+          this.$message.error("登陆失败，密码或账号错误");
+        });
     },
   },
   computed: {
@@ -111,6 +112,7 @@ a:hover {
   display: grid;
   grid-template-columns: 60% 40%;
 }
+
 .login-box {
   height: 100vh;
   display: flex;
@@ -191,5 +193,39 @@ a:hover {
 }
 .smaller {
   font-size: 2rem;
+}
+
+@media screen and (max-width: 426px) {
+  .login-page {
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+  }
+  .smaller {
+    display: none;
+  }
+  .bigger {
+    font-size: 1rem;
+    letter-spacing: 0;
+    margin-bottom: 50px;
+  }
+  .cover {
+    justify-content: flex-end;
+  }
+  .login-box {
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    background-color: transparent;
+  }
+  .login-card {
+    background: #ffffff;
+    min-width: 330px;
+  }
+  .login-card-title{
+    font-size: 22px;
+  }
 }
 </style>
