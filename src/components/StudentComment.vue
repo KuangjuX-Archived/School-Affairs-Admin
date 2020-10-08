@@ -114,7 +114,6 @@
                 </span>
               </div>
             </div>
-            <v-divider></v-divider>
           </v-card-text>
         </v-card>
       </v-overlay>

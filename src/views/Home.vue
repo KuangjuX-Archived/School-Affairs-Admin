@@ -19,7 +19,6 @@
                   <v-card-title>
                     <div class="content-title">说明</div>
                   </v-card-title>
-
                   <v-card-text class="content-text">
                     本平台分为两办管理员和子管理员。两办管理员可以管理学生提出问题的“其他”标签和子管理员退回的标签。
                     同时可以在问题下添加标签。子管理员可以管理自己标签下的问题并进行回复，如果觉得不属于本标签的问题，可以退回问题。
@@ -46,25 +45,20 @@
                           {{ item.name }}
                         </div>
 
-                        <!--问题描述-->
-                        <div>
-                          <v-card-title>描述</v-card-title>
-                          <v-card-text>
-                            <div>
-                              {{ item.description }}
-                            </div>
-                            <!--问题图片-->
-                            <div>
-                              <image-grid :question-id="item.id"></image-grid>
-                            </div>
-
-                            <div class="datetime-style">
-                              {{ item.updated_at }}
-                            </div>
-                          </v-card-text>
+                        <div class="datetime-style">
+                          {{ formatTime(item.updated_at) }}
                         </div>
 
-                        <v-divider></v-divider>
+                        <!--问题描述-->
+                        <div class="each-question-description">描述</div>
+                        <v-card-text class="each-question-content">
+                          {{ item.description }}
+                          <!--问题图片-->
+                          <div>
+                            <image-grid :question-id="item.id"></image-grid>
+                          </div>
+                        </v-card-text>
+
                         <v-tabs center-active grow v-model="controlTab">
                           <v-tab
                             v-for="item in controlTabItems"
@@ -80,8 +74,6 @@
                                 >流转原因: {{ item.admin_commit }}</v-chip
                               >
 
-                              <v-divider style="margin-top: 15px"></v-divider>
-
                               <v-list two-line>
                                 <v-list-item
                                   v-for="tag in item.tags"
@@ -94,7 +86,6 @@
                                   </v-list-item-content>
                                 </v-list-item>
                               </v-list>
-                              <v-divider></v-divider>
 
                               <!--退回操作-->
                               <div>
@@ -143,7 +134,6 @@
                             </v-card>
                           </v-tab-item>
                         </v-tabs-items>
-                        <v-divider></v-divider>
                       </div>
 
                       <div class="pagination-box">
@@ -167,7 +157,10 @@
                         class="each-question-box"
                       >
                         <div class="question-title">{{ item.name }}</div>
-                        <div>
+                        <div class="datetime-style">
+                          {{ formatTime(item.updated_at) }}
+                        </div>
+                        <div class="question-content">
                           <v-card-title>描述</v-card-title>
                           <v-card-text>
                             <div>
@@ -177,14 +170,8 @@
                             <div>
                               <image-grid :question-id="item.id"></image-grid>
                             </div>
-
-                            <div class="datetime-style">
-                              {{ item.updated_at }}
-                            </div>
                           </v-card-text>
                         </div>
-
-                        <v-divider></v-divider>
 
                         <v-tabs center-active grow v-model="controlTab">
                           <v-tab
@@ -199,8 +186,6 @@
                               <v-chip style="margin-top: 15px"
                                 >流转原因: {{ item.admin_commit }}</v-chip
                               >
-
-                              <v-divider style="margin-top: 15px"></v-divider>
 
                               <v-list two-line>
                                 <v-list-item
@@ -225,7 +210,6 @@
                                   </v-list-item-action>
                                 </v-list-item>
                               </v-list>
-                              <v-divider></v-divider>
 
                               <!--流转原因封装成组件-->
                               <div>
@@ -278,8 +262,6 @@
                             </v-card>
                           </v-tab-item>
                         </v-tabs-items>
-
-                        <v-divider></v-divider>
                       </div>
 
                       <div class="pagination-box">
@@ -465,6 +447,56 @@ export default {
   },
 
   methods: {
+    formatTime: function (updated_at) {
+      let now = new Date();
+      let target_year = updated_at.substr(0, 4);
+      let target_month = updated_at.substr(5, 2);
+      let target_day = updated_at.substr(8, 2);
+      let target_hour = updated_at.substr(11, 2);
+      let target_minute = updated_at.substr(14, 2);
+      let out_year = "",
+        out_month = "",
+        out_day = "",
+        out_hour = target_hour,
+        out_minute = target_minute;
+      switch (now.getFullYear() - target_year) {
+        case 0:
+          out_year = "";
+          break;
+        case 1:
+          out_year = "去年";
+          break;
+        case 2:
+          out_year = "前年";
+          break;
+        default:
+          out_year = target_year + "年";
+          break;
+      }
+      if (now.getMonth() + 1 - target_month == 0) {
+        if (now.getDate() - target_day < 3) {
+          switch (now.getDate() - target_day) {
+            case 0:
+              out_day = "今天";
+              break;
+            case 1:
+              out_day = "昨天";
+              break;
+            case 2:
+              out_day = "前天";
+              break;
+          }
+        } else {
+          out_month = target_month - 0 + "月";
+          out_day = target_day - 0 + "日";
+        }
+      } else {
+        out_month = target_month - 0 + "月";
+        out_day = target_day - 0 + "日";
+      }
+
+      return out_year + out_month + out_day + " " + out_hour + ":" + out_minute;
+    },
     onChangeTag: function (tagId) {
       if (tagId.length === 0 || tagId[0] === 0) {
         this.ifUsageShowed = true;
@@ -793,7 +825,9 @@ p {
   line-height: 180%;
   text-indent: 20px;
 }
-
+.question-content {
+  position: relative;
+}
 .question-field {
   margin-top: 25px;
 }
@@ -845,16 +879,23 @@ p {
 }
 
 .each-question-box {
-  margin-top: 25px;
   padding: 20px;
   border: #1e88e5 1px;
 }
 
+.each-question-description {
+  font-size: 18px;
+}
+
 .datetime-style {
+  text-align: center;
+  color: #999999;
   position: relative;
-  left: 60%;
-  font-weight: 500;
-  margin-top: 10px;
+}
+
+.each-question-content {
+  position: relative;
+  padding: 14px 0;
 }
 
 @media screen and (max-width: 426px) {
@@ -868,6 +909,20 @@ p {
   .container {
     padding: 0 12px;
   }
-
+  .each-question-box {
+    margin: 0;
+    padding: 14px;
+  }
+  .each-question-description {
+    padding: 14px 0;
+    font-size: 16px;
+  }
+  .each-question-content {
+    padding: 14px 0;
+  }
+  .datetime-style {
+    left: 0;
+    text-align: center;
+  }
 }
 </style>

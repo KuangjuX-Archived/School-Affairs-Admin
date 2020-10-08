@@ -94,7 +94,6 @@ p {
 
 .datetime-style {
   position: relative;
-  left: 60%;
   font-weight: 500;
   margin-top: 10px;
 }

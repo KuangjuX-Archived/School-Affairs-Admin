@@ -172,9 +172,7 @@
                                 ></student-comment>
                             </div>
                         </div>
-
-                        <v-divider></v-divider>
-                    </v-card-text>
+                   </v-card-text>
 
                     <div class="pagination-box">
                         <v-pagination
@@ -249,7 +247,6 @@
                                 ></tag-search-column>
                             </div>
                         </div>
-                        <v-divider></v-divider>
                     </v-card-text>
 
                     <div class="pagination-box">
