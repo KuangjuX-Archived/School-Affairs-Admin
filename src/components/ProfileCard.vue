@@ -5,7 +5,7 @@
         <div class="profile-info">
           <div v-if="permission === '子管理员'">
             <p class="say-hello">
-              您好!{{ name }} <span class="perm">({{ permission }})</span>
+              您好! {{ name }} <span class="perm">({{ permission }})</span>
             </p>
           </div>
 
@@ -155,6 +155,7 @@ export default {
 }
 .say-hello {
   font-size: 22px;
+  margin: 14px 0;
 }
 
 .perm {
@@ -169,6 +170,7 @@ export default {
     font-size: 16px;
   }
   .say-hello {
+    margin: 7px 0;
     font-size: 18px;
   }
 }
