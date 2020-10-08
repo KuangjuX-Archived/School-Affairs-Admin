@@ -78,7 +78,9 @@ export default {
             name: "Home",
           });
         }
-      });
+      }).catch(()=>{
+        this.$message.error('登陆失败，密码或账号错误');
+      })
     },
   },
   computed: {

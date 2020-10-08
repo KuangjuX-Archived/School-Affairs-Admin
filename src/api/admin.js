@@ -157,5 +157,12 @@ export function getImageByQuestion(data) {
     })
 }
 
+export function getAll(data) {
+    return request({
+        url: "/admin/question/all",
+        method: "GET",
+        params: data
+    })
+}
 
 
