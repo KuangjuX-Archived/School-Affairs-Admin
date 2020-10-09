@@ -148,7 +148,7 @@
                   </v-tabs>
                   <v-tabs-items v-model="controlTab">
                     <v-tab-item key="updateTag">
-                      <v-chip style="margin-top: 15px"
+                      <v-chip 
                         >流转原因: {{ item.admin_commit }}</v-chip
                       >
 

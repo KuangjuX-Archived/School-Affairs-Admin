@@ -1,6 +1,6 @@
 <template>
   <div id="answer-editor">
-    <el-upload
+    <!-- <el-upload
       id="quill-upload"
       class="avatar-uploader"
       :action="actionUrl"
@@ -11,7 +11,7 @@
       :on-error="uploadError"
       :before-upload="beforeUpload"
     >
-    </el-upload>
+    </el-upload> -->
     <el-row v-loading="quillUpdateImg">
       <quill-editor
         v-model="comment"
@@ -25,11 +25,7 @@
     </el-row>
 
     <div class="btn-box-style">
-      <v-btn
-        center-active
-        @click="postParent"
-        color="#1E88E5"
-      >
+      <v-btn center-active @click="postParent" color="#1E88E5">
         <span class="btn-font-style"> 提交 </span>
       </v-btn>
     </div>
@@ -102,16 +98,6 @@ export default {
                 }
               },
             },
-            /*imageResize: {
-                                displayStyles: {
-                                    backgroundColor: 'black',
-                                    border: 'none',
-                                    color: 'white',
-                                    width: '300px',
-                                    height: '200px'
-                                },
-
-                                modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]*/
           },
         },
       },

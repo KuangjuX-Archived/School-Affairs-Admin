@@ -51,9 +51,7 @@
 
                 <!--流转原因-->
                 <div>
-                  <v-chip style="margin-top: 15px"
-                    >流转原因: {{ item.admin_commit }}</v-chip
-                  >
+                  <v-chip>流转原因: {{ item.admin_commit }}</v-chip>
                 </div>
 
                 <!--问题描述-->
@@ -128,9 +126,7 @@
 
               <!--流转原因-->
               <div>
-                <v-chip style="margin-top: 15px"
-                  >流转原因: {{ item.admin_commit }}</v-chip
-                >
+                <v-chip>流转原因: {{ item.admin_commit }}</v-chip>
               </div>
 
               <!--问题描述-->
@@ -683,7 +679,7 @@ export default {
   position: relative;
   right: 0;
   width: 100%;
-  padding: 14px;
+  padding: 14px 0;
 }
 
 .admin-student-icon {

@@ -4,11 +4,11 @@
  * @Author: LARE
  * @Date: 2020-10-06 21:16:52
  * @LastEditors: LARE
- * @LastEditTime: 2020-10-09 00:09:44
+ * @LastEditTime: 2020-10-09 14:12:05
 -->
 <template>
   <div class="return-back-filed">
-    <v-textarea filled v-model="reason" :value="reason"></v-textarea>
+    <v-textarea class="text-area" rows="1" label="退回原因" auto-grow="true" v-model="reason" :value="reason"></v-textarea>
 
     <div class="btn-block">
       <v-btn color="#1E88E5" @click="sendReason">
@@ -41,6 +41,9 @@ export default {
 </script>
 
 <style scoped>
+.return-back-filed{
+  margin-top: 7px;
+}
 .btn-inline-font {
   color: #ffffff;
   font-size: 16px;
@@ -48,7 +51,6 @@ export default {
   min-width: 150px;
   max-width: 200px;
 }
-
 .btn-block {
   height: auto;
   display: flex;
