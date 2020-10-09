@@ -111,6 +111,7 @@
 
               <div class="pagination-box">
                 <v-pagination
+                  color="#1e88e5"
                   v-model="page_1"
                   :length="childPage"
                 ></v-pagination>
@@ -214,6 +215,7 @@
 
                 <div class="pagination-box">
                   <v-pagination
+                    color="#1e88e5"
                     v-model="page_2"
                     :length="LBPage"
                   ></v-pagination>
@@ -848,7 +850,7 @@ p {
   }
   .main-container {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   .container {
     padding: 0 12px;

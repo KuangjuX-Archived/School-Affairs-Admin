@@ -3,7 +3,6 @@
     <my-header></my-header>
     <div id="message-box">
       <el-input
-        style="padding: 8px 28px 6px 28px"
         placeholder="搜索问题"
         v-model="searchInput"
         class="input-with-select"
@@ -101,6 +100,7 @@
 
           <div class="pagination-box">
             <v-pagination
+              color="#1e88e5"
               v-model="page_1"
               :length="unsolvedQuestionsPage"
             ></v-pagination>
@@ -160,6 +160,7 @@
           </div>
           <div class="pagination-box">
             <v-pagination
+              color="#1e88e5"
               v-model="page_2"
               :length="solvedQuestionPage"
             ></v-pagination>
@@ -223,6 +224,7 @@
 
           <div class="pagination-box">
             <v-pagination
+              color="#1e88e5"
               v-model="page_3"
               :length="unsolvedQuestionsPage"
             ></v-pagination>
@@ -273,6 +275,7 @@
           </v-card-text>
           <div class="pagination-box">
             <v-pagination
+              color="#1e88e5"
               v-model="page_4"
               :length="solvedQuestionPage"
             ></v-pagination>
@@ -710,16 +713,22 @@ export default {
 .pagination-box {
   margin: 10px 20px;
 }
-.theme--light.v-pagination .v-pagination__item {
-  color: #1e88e5 !important;
+.input-with-select {
+  padding: 8px 28px 6px 28px;
 }
-
 @media screen and (max-width: 426px) {
   #message-box {
     margin-top: 30px;
   }
+  .message-toggle {
+    margin: 14px;
+  }
   .water-fall {
     column-count: 1;
+    padding: 14px 0;
+  }
+  .input-with-select {
+    padding: 8px 14px 8px 14px;
   }
 }
 </style>
