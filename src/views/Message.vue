@@ -56,20 +56,18 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div class="question-description">
-                    <v-card-title>
-                      <div class="question-title-fake">描述</div>
-                    </v-card-title>
-                    <v-card-text>
-                      <div class="question-description">
-                        {{ item.description }}
-                      </div>
-                      <!--问题图片-->
-                      <div>
-                        <image-grid :question-id="item.id"></image-grid>
-                      </div>
-                    </v-card-text>
-                  </div>
+                  <v-card-title>
+                    <div class="question-title-fake">描述</div>
+                  </v-card-title>
+                  <v-card-text>
+                    <div class="question-description">
+                      {{ item.description }}
+                    </div>
+                    <!--问题图片-->
+                    <div>
+                      <image-grid :question-id="item.id"></image-grid>
+                    </div>
+                  </v-card-text>
                 </div>
 
                 <!--学生评论-->
@@ -131,7 +129,6 @@
 
               <!--问题描述-->
               <div class="question-description-block">
-                <div class="question-description">
                   <v-card-title>
                     <div class="question-title-fake">描述</div>
                   </v-card-title>
@@ -144,7 +141,6 @@
                       <image-grid :question-id="item.id"></image-grid>
                     </div>
                   </v-card-text>
-                </div>
               </div>
 
               <!--评论图标-->
@@ -184,7 +180,6 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div class="question-description">
                     <v-card-title>
                       <div class="question-title-fake">描述</div>
                     </v-card-title>
@@ -197,7 +192,6 @@
                         <image-grid :question-id="item.id"></image-grid>
                       </div>
                     </v-card-text>
-                  </div>
                 </div>
 
                 <!--学生评论-->
@@ -245,7 +239,6 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                  <div class="question-description">
                     <v-card-title>
                       <div class="question-title-fake">描述</div>
                     </v-card-title>
@@ -258,7 +251,6 @@
                         <image-grid :question-id="item.id"></image-grid>
                       </div>
                     </v-card-text>
-                  </div>
                 </div>
 
                 <!--学生评论-->
@@ -635,6 +627,7 @@ export default {
 }
 .question-description {
   border-radius: 10px;
+  text-overflow: clip;
 }
 #message-box {
   max-width: 1280px;
