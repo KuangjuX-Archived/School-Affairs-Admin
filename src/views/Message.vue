@@ -158,13 +158,12 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="pagination-box">
-          <v-pagination
-            v-model="page_2"
-            :length="solvedQuestionPage"
-          ></v-pagination>
+          <div class="pagination-box">
+            <v-pagination
+              v-model="page_2"
+              :length="solvedQuestionPage"
+            ></v-pagination>
+          </div>
         </div>
       </div>
 
@@ -272,7 +271,6 @@
               </div>
             </div>
           </v-card-text>
-
           <div class="pagination-box">
             <v-pagination
               v-model="page_4"
@@ -716,12 +714,12 @@ export default {
   color: #1e88e5 !important;
 }
 
-@media screen and (max-width:426px){
-    #message-box{
-        margin-top: 30px;
-    }
-    .water-fall{
-          column-count: 1;
-    }
+@media screen and (max-width: 426px) {
+  #message-box {
+    margin-top: 30px;
+  }
+  .water-fall {
+    column-count: 1;
+  }
 }
 </style>
