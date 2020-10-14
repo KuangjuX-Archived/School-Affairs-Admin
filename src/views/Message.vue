@@ -166,8 +166,12 @@
       <div v-else>
         <!--未解决问题-->
         <div v-if="!isSolvedPage">
-          <v-card-text v-for="(item, index) in unsolvedQuestions" :key="index">
-            <div class="water-fall-item">
+          <div class="water-fall">
+            <div
+              class="water-fall-item"
+              v-for="(item, index) in unsolvedQuestions"
+              :key="index"
+            >
               <div class="answer-item-box">
                 <div class="question-title">{{ item.name }}</div>
                 <!--这里放置问题标签-->
@@ -212,7 +216,7 @@
                 </div>
               </div>
             </div>
-          </v-card-text>
+          </div>
 
           <div class="pagination-box">
             <v-pagination
@@ -225,8 +229,8 @@
 
         <!--已解决问题-->
         <div v-else>
-          <v-card-text v-for="(item, index) in solvedQuestions" :key="index">
-            <div class="water-fall-item">
+          <div class="water-fall">
+            <div class="water-fall-item" v-for="(item, index) in solvedQuestions" :key="index">
               <div class="answer-item-box">
                 <div class="question-title">{{ item.name }}</div>
                 <!--这里放置问题标签-->
@@ -262,7 +266,7 @@
                 </div>
               </div>
             </div>
-          </v-card-text>
+          </div>
           <div class="pagination-box">
             <v-pagination
               color="#1e88e5"
@@ -657,7 +661,7 @@ export default {
 
 .answer-item-box {
   margin: 0;
-  padding: 10px;
+  padding: 14px;
   outline: none;
   border: 1px solid #dddddd;
   border-radius: 10px;

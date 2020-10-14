@@ -1,5 +1,5 @@
 <template>
-  <div class="switch-category card">
+  <div class="switch-category">
     <!--   <el-dropdown-->
     <!--       trigger="click"-->
     <!--       @command="handleCommand"-->
@@ -161,12 +161,6 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border-radius: 10px;
-  border: 1px solid #dddddd;
-  box-shadow: 7px 7px 10px rgba(200, 200, 200, 0.2);
-  margin: 14px 0;
-}
 .select-control {
   margin-bottom: 15px;
 }
@@ -190,6 +184,7 @@ export default {
 
 .switch-category {
   padding: 14px;
+
 }
 
 .btn-position {

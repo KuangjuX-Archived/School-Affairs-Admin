@@ -127,7 +127,7 @@
                 <div
                   v-for="(item, i) in currentQuestions"
                   :key="i"
-                  class="each-question-box"
+                  class="each-question-box card"
                 >
                   <div class="question-title">{{ item.name }}</div>
                   <div class="datetime-style">
