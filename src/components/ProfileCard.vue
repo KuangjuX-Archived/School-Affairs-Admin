@@ -161,7 +161,7 @@ export default {
 .perm {
   font-size: 16px;
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 625px) {
   .profile-info {
     margin: 0;
   }

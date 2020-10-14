@@ -50,9 +50,10 @@
                 </v-chip-group>
 
                 <!--流转原因-->
-                <div>
-                  <v-chip>流转原因: {{ item.admin_commit }}</v-chip>
-                </div>
+                <v-chip
+                  >流转原因:
+                  {{ item.admin_commit ? item.admin_commit : "未知" }}</v-chip
+                >
 
                 <!--问题描述-->
                 <div class="question-description-block">
@@ -123,24 +124,25 @@
               </v-chip-group>
 
               <!--流转原因-->
-              <div>
-                <v-chip>流转原因: {{ item.admin_commit }}</v-chip>
-              </div>
+              <v-chip
+                >流转原因:
+                {{ item.admin_commit ? item.admin_commit : "未知" }}</v-chip
+              >
 
               <!--问题描述-->
               <div class="question-description-block">
-                  <v-card-title>
-                    <div class="question-title-fake">描述</div>
-                  </v-card-title>
-                  <v-card-text>
-                    <div class="question-description">
-                      {{ item.description }}
-                    </div>
-                    <!--问题图片-->
-                    <div>
-                      <image-grid :question-id="item.id"></image-grid>
-                    </div>
-                  </v-card-text>
+                <v-card-title>
+                  <div class="question-title-fake">描述</div>
+                </v-card-title>
+                <v-card-text>
+                  <div class="question-description">
+                    {{ item.description }}
+                  </div>
+                  <!--问题图片-->
+                  <div>
+                    <image-grid :question-id="item.id"></image-grid>
+                  </div>
+                </v-card-text>
               </div>
 
               <!--评论图标-->
@@ -180,18 +182,18 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                    <v-card-title>
-                      <div class="question-title-fake">描述</div>
-                    </v-card-title>
-                    <v-card-text>
-                      <div class="question-description">
-                        {{ item.description }}
-                      </div>
-                      <!--问题图片-->
-                      <div>
-                        <image-grid :question-id="item.id"></image-grid>
-                      </div>
-                    </v-card-text>
+                  <v-card-title>
+                    <div class="question-title-fake">描述</div>
+                  </v-card-title>
+                  <v-card-text>
+                    <div class="question-description">
+                      {{ item.description }}
+                    </div>
+                    <!--问题图片-->
+                    <div>
+                      <image-grid :question-id="item.id"></image-grid>
+                    </div>
+                  </v-card-text>
                 </div>
 
                 <!--学生评论-->
@@ -239,18 +241,18 @@
 
                 <!--问题描述-->
                 <div class="question-description-block">
-                    <v-card-title>
-                      <div class="question-title-fake">描述</div>
-                    </v-card-title>
-                    <v-card-text>
-                      <div class="question-description">
-                        {{ item.description }}
-                      </div>
-                      <!--问题图片-->
-                      <div>
-                        <image-grid :question-id="item.id"></image-grid>
-                      </div>
-                    </v-card-text>
+                  <v-card-title>
+                    <div class="question-title-fake">描述</div>
+                  </v-card-title>
+                  <v-card-text>
+                    <div class="question-description">
+                      {{ item.description }}
+                    </div>
+                    <!--问题图片-->
+                    <div>
+                      <image-grid :question-id="item.id"></image-grid>
+                    </div>
+                  </v-card-text>
                 </div>
 
                 <!--学生评论-->
@@ -705,7 +707,7 @@ export default {
 .input-with-select {
   padding: 8px 28px 6px 28px;
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 625px) {
   #message-box {
     margin-top: 30px;
   }

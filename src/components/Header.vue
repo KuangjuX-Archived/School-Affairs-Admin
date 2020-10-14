@@ -112,7 +112,7 @@ export default {
 .link:hover {
   color: #1e88e5;
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 625px) {
   .title-text {
     letter-spacing: 0;
     text-align: left;

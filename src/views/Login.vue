@@ -194,11 +194,31 @@ a:hover {
 .smaller {
   font-size: 2rem;
 }
-.logo-color{
+.logo-color {
   color: #dddddd;
 }
 
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 1200px) {
+  .bigger {
+    font-size: 2rem;
+    letter-spacing: 0;
+    margin-bottom: 20px;
+  }
+  .smaller {
+    font-size: 1.5rem;
+    letter-spacing: 10px;
+  }
+  .login-card {
+    max-width: 80%;
+    min-width: 80%;
+    margin: 0 auto;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    box-shadow: 7px 7px 10px rgba(200, 200, 200, 0.2);
+  }
+}
+
+@media screen and (max-width: 625px) {
   .login-page {
     height: 100vh;
     overflow: hidden;

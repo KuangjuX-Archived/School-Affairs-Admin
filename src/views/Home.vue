@@ -57,7 +57,10 @@
                 <v-tabs-items v-model="controlTab">
                   <v-tab-item key="updateTag">
                     <v-chip style="margin: 7px 0"
-                      >流转原因: {{ item.admin_commit }}</v-chip
+                      >流转原因:
+                      {{
+                        item.admin_commit ? item.admin_commit : "未知"
+                      }}</v-chip
                     >
                     <div
                       v-for="tag in item.tags"
@@ -130,43 +133,41 @@
                   <div class="datetime-style">
                     {{ formatTime(item.updated_at) }}
                   </div>
-                  <div class="question-content">
-                    <v-card-title>描述</v-card-title>
-                    <v-card-text>
-                      <div>
-                        {{ item.description }}
-                      </div>
-                      <!--问题图片-->
-                      <image-grid :question-id="item.id"></image-grid>
-                    </v-card-text>
-                  </div>
+
+                  <div class="each-question-description">描述</div>
+                  <v-card-text class="each-question-content">
+                    {{ item.description }}
+                    <!--问题图片-->
+                    <image-grid :question-id="item.id"></image-grid>
+                  </v-card-text>
 
                   <v-tabs center-active grow v-model="controlTab">
                     <v-tab v-for="item in controlTabItems" :key="item.tab">{{
                       item.title
                     }}</v-tab>
                   </v-tabs>
-                  <v-tabs-items v-model="controlTab">
+                  <v-tabs-items v-model="controlTab" style="margin-top:7px">
                     <v-tab-item key="updateTag">
-                      <v-chip 
-                        >流转原因: {{ item.admin_commit }}</v-chip
+                      <v-chip
+                        >流转原因：
+                        {{
+                          item.admin_commit ? item.admin_commit : "未知"
+                        }}</v-chip
                       >
 
-                      <v-list two-line>
-                        <v-list-item v-for="tag in item.tags" :key="tag.id">
-                          <v-list-item-content>
-                            <v-list-item-title
-                              v-text="tag.name"
-                            ></v-list-item-title>
-                          </v-list-item-content>
+                      <v-list-item v-for="tag in item.tags" :key="tag.id">
+                        <v-list-item-content>
+                          <v-list-item-title
+                            v-text="tag.name"
+                          ></v-list-item-title>
+                        </v-list-item-content>
 
-                          <v-list-item-action>
-                            <v-btn icon @click="deleteTag(item.id, tag.id)">
-                              <v-icon color="grey lighten-1">mdi-delete</v-icon>
-                            </v-btn>
-                          </v-list-item-action>
-                        </v-list-item>
-                      </v-list>
+                        <v-list-item-action>
+                          <v-btn icon @click="deleteTag(item.id, tag.id)">
+                            <v-icon color="grey lighten-1">mdi-delete</v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                      </v-list-item>
 
                       <!--流转原因封装成组件-->
                       <div>
@@ -844,7 +845,7 @@ p {
 .item-tags {
   padding: 14px 0;
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 625px) {
   .content {
     margin: 0;
   }

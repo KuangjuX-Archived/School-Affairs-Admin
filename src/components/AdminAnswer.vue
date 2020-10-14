@@ -115,7 +115,7 @@ div.comment-card-title {
   padding: 0 14px 14px 14px;
 }
 
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 625px) {
   .comment-card {
     width: 90vw;
   }

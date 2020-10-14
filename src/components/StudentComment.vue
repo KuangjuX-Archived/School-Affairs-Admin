@@ -110,7 +110,7 @@ div.comment-card-title {
   cursor: pointer;
   color: #1e88e5;
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 625px) {
   .comment-card {
     width: 90vw;
   }

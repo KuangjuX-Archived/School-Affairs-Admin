@@ -121,7 +121,7 @@ export default {
   height: 700px;
   overflow-y: scroll;
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 625px) {
   #sidebar-text{
     padding: 14px;
   }

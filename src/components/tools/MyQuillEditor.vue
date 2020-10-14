@@ -24,9 +24,9 @@
       </quill-editor>
     </el-row>
 
-    <div class="btn-box-style">
-      <v-btn center-active @click="postParent" color="#1E88E5">
-        <span class="btn-font-style"> 提交 </span>
+    <div class="btn-container">
+      <v-btn @click="postParent">
+        <span class="btn-font-style" color="#1E88E5"> 提交 </span>
       </v-btn>
     </div>
   </div>

@@ -1,66 +1,61 @@
 <template>
-  <div>
-    <v-card>
-      <v-container fluid>
-        <v-row align="center">
-          <v-col cols="6">
-            <!--                      <el-dropdown-->
-            <!--                          trigger="click"-->
-            <!--                          @command="handleCommand"-->
-            <!--                      >-->
-            <!--                        <span class="dropdown-link"-->
-            <!--                              @click="showSelectTags(currentQuestion)"-->
-            <!--                              id="dropdown"-->
-            <!--                        >-->
-            <!--                          选择要添加的标签 :-->
-            <!--                        </span>-->
-            <!--                        <el-dropdown-menu-->
-            <!--                            slot="dropdown"-->
-            <!--                        >-->
-            <!--                          <el-dropdown-item v-for="(item,index) in currentQuestionData.tagsListForShow" :key="index" :command="item">-->
-            <!--                            <div>{{item}}</div>-->
-            <!--                          </el-dropdown-item>-->
+  <div class="switch-category card">
+    <!--   <el-dropdown-->
+    <!--       trigger="click"-->
+    <!--       @command="handleCommand"-->
+    <!--   >-->
+    <!--     <span class="dropdown-link"-->
+    <!--           @click="showSelectTags(currentQuestion)"-->
+    <!--           id="dropdown"-->
+    <!--     >-->
+    <!--       选择要添加的标签 :-->
+    <!--     </span>-->
+    <!--     <el-dropdown-menu-->
+    <!--         slot="dropdown"-->
+    <!--     >-->
+    <!--       <el-dropdown-item v-for="(item,index) in currentQuestionData.tagsListForShow" :key="index" :command="item">-->
+    <!--         <div>{{item}}</div>-->
+    <!--       </el-dropdown-item>-->
 
-            <!--                        </el-dropdown-menu>-->
-            <!--                      </el-dropdown>-->
+    <!--     </el-dropdown-menu>-->
+    <!--   </el-dropdown>-->
 
-            <el-select
-              v-model="currentQuestionData.select"
-              placeholder="选择要添加的标签"
-              @focus="showSelectTags(currentQuestion)"
-            >
-              <el-option
-                v-for="(item, index) in currentQuestionData.tagsListForShow"
-                :key="index"
-                :value="item"
-              >
-              </el-option>
-            </el-select>
-          </v-col>
-        </v-row>
-        <v-text-field
-          label="添加原因"
-          dense
-          light
-          clearable
-          clear-icon="mdi-close-circle-outline"
-          v-model="currentQuestionData.reason"
-        ></v-text-field>
-      </v-container>
-      <div class="btn-container">
-        <v-btn
-          @click="
-            onAddTag(
-              currentQuestionData.id,
-              currentQuestionData.select,
-              currentQuestionData.reason
-            )
-          "
-        >
-          <span class="btn-font-style" color="#1E88E5"> 提交 </span>
-        </v-btn>
-      </div>
-    </v-card>
+    <el-select
+      v-model="currentQuestionData.select"
+      placeholder="选择要添加的标签"
+      @focus="showSelectTags(currentQuestion)"
+    >
+      <el-option
+        v-for="(item, index) in currentQuestionData.tagsListForShow"
+        :key="index"
+        :value="item"
+      >
+      </el-option>
+    </el-select>
+    <div class="reason-position">
+      <v-text-field
+        label="添加原因"
+        dense
+        light
+        clearable
+        clear-icon="mdi-close-circle-outline"
+        v-model="currentQuestionData.reason"
+      ></v-text-field>
+    </div>
+    <div class="btn-position">
+      <v-btn
+        @click="
+          onAddTag(
+            currentQuestionData.id,
+            currentQuestionData.select,
+            currentQuestionData.reason
+          )
+        "
+        color="#1E88E5"
+      >
+        <span class="btn-font-style"> 提交 </span>
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -166,6 +161,12 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  border-radius: 10px;
+  border: 1px solid #dddddd;
+  box-shadow: 7px 7px 10px rgba(200, 200, 200, 0.2);
+  margin: 14px 0;
+}
 .select-control {
   margin-bottom: 15px;
 }
@@ -186,6 +187,21 @@ export default {
 .dropdown-link {
   width: 100%;
 }
+
+.switch-category {
+  padding: 14px;
+}
+
+.btn-position {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.reason-position {
+  padding: 14px 0;
+}
+
 .btn-container {
   height: auto;
   justify-content: center;

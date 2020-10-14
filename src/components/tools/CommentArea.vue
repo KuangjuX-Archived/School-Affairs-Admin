@@ -143,7 +143,7 @@ p {
   color: #1e88e5;
   font-size: 18px;
 }
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 625px) {
   .admin-answer-box {
     padding: 14px;
   }
