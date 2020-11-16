@@ -11,7 +11,7 @@
     <div class="admin-header">
       <div class="header-content">
         <div class="admin-title">
-          <span class="title-text">天津大学校务管理平台</span>
+          <span class="title-text">天津大学校务平台后台管理中心</span>
         </div>
         <div class="header-btns">
           <div class="admin-home link" @click="transferURL('/home')">首页</div>
@@ -64,7 +64,6 @@ export default {
 
 .admin-logout {
   cursor: pointer;
-
   font-size: 14px;
   line-height: 48px;
 }
@@ -78,14 +77,12 @@ export default {
 .admin-home {
   cursor: pointer;
   font-size: 14px;
-
   line-height: 48px;
 }
 
 .admin-message {
   cursor: pointer;
   font-size: 14px;
-
   line-height: 48px;
 }
 
